@@ -10,7 +10,9 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function WhatsInside() {
   const [active, setActive] = useState(0);
-  const svc = SERVICES[active];
+  const svc = SERVICES[active] ?? SERVICES[0];
+
+  if (!svc) return null;
 
   return (
     <section className="bg-surface py-24 sm:py-32" id="capabilities">

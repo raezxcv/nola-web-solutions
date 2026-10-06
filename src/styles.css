@@ -44,8 +44,8 @@
   --color-slate: var(--slate);
   --color-hairline: var(--hairline);
 
-  --font-display: "Plus Jakarta Sans", "Manrope", sans-serif;
-  --font-sans: "Inter", "Manrope", sans-serif;
+  --font-display: "DM Sans", system-ui, sans-serif;
+  --font-sans: "Syne", system-ui, sans-serif;
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -304,6 +304,18 @@
 }
 @utility animate-spin-slow {
   animation: nola-spin-slow 40s linear infinite;
+}
+
+@keyframes nola-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@utility animate-marquee {
+  animation: nola-marquee linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

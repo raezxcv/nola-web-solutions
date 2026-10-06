@@ -1,5 +1,11 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+  type MotionValue,
+} from "framer-motion";
 import { Reveal } from "../site/reveal";
 
 /**
@@ -107,7 +113,7 @@ function StageRail({ progress }: { progress: ReturnType<typeof useScroll>["scrol
   );
 }
 
-function BrowserStage({ stageF }: { stageF: any }) {
+function BrowserStage({ stageF }: { stageF: MotionValue<number> }) {
   return (
     <div className="relative aspect-[4/3] w-full">
       {/* glow */}
@@ -153,7 +159,7 @@ function BrowserStage({ stageF }: { stageF: any }) {
   );
 }
 
-function StageLabel({ stageF }: { stageF: any }) {
+function StageLabel({ stageF }: { stageF: MotionValue<number> }) {
   const text = useTransform(stageF, (v: number) => {
     const i = Math.round(v);
     return STAGES[Math.min(STAGES.length - 1, Math.max(0, i))]?.label ?? "";
@@ -184,7 +190,7 @@ function Layer({
   children,
 }: {
   index: number;
-  stageF: any;
+  stageF: MotionValue<number>;
   children: React.ReactNode;
 }) {
   const opacity = useTransform(

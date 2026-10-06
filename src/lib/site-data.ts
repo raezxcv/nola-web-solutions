@@ -3,6 +3,8 @@
 // time via download_to_repo, but the CDN URLs are stable and used directly).
 
 export const ASSETS = {
+  favicon:
+    "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/66160ba8041ea7403d544ed3.png",
   logoPrimary:
     "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67ea34f01870f4c5df49c20c.png",
   logoWhite:

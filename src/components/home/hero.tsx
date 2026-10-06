@@ -2,189 +2,156 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { RevealWords } from "../site/reveal";
+import GradientWaves from "../site/gradient-waves";
+import FlexCarousel from "../site/flex-carousel";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const NODES = [
-  { label: "Website", x: 14, y: 34, delay: 1.1 },
-  { label: "Automation", x: 80, y: 20, delay: 1.35 },
-  { label: "AI", x: 86, y: 68, delay: 1.6 },
-  { label: "SEO", x: 22, y: 76, delay: 1.85 },
-];
-
 export function Hero() {
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-ink text-white">
-      {/* layered background */}
-      <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-[0.05]" />
-      <div className="pointer-events-none absolute inset-0 bg-noise opacity-[0.18] mix-blend-soft-light" />
-      <div className="pointer-events-none absolute left-1/2 top-[-12%] h-[44rem] w-[44rem] -translate-x-1/2 rounded-full bg-primary/18 blur-[150px]" />
-      <div className="pointer-events-none absolute bottom-[-10%] right-[-6%] h-[30rem] w-[30rem] rounded-full bg-cyan/10 blur-[130px]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink via-ink/80 to-transparent" />
+    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-ink text-white pt-20 pb-12 sm:pt-24 sm:pb-16">
+      {/* Optimized GradientWaves background — smooth detail, low raymarch steps for maximum FPS */}
+      <div className="pointer-events-none absolute inset-0">
+        <GradientWaves
+          horizonColor="#07111F"
+          waveColor="#1254D4"
+          crestColor="#12C8EA"
+          speed={0.25}
+          amplitude={2.0}
+          waveScale={0.58}
+          waveRatio={0.88}
+          swell={24}
+          turbulence={14}
+          tilt={1.02}
+          zoom={1.0}
+          height={4.2}
+          fogDepth={24}
+          detail="medium"
+          brightness={1.05}
+          opacity={0.65}
+          mouseInteraction={true}
+          parallaxStrength={0.3}
+          grain={false}
+        />
+      </div>
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 pt-28 pb-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl text-center">
+      {/* subtle grid overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-[0.04]" />
+
+      {/* Hero text + CTA */}
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto text-center">
+
+          {/* Eyebrow — shimmer badge */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE }}
-            className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/55 backdrop-blur-sm"
+            transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}
+            className="mb-8 inline-flex"
           >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cyan" />
+            <span
+              className="inline-flex items-center gap-3 rounded-full px-5 py-2 text-sm font-medium backdrop-blur-md"
+              style={{
+                background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(18,200,234,0.08) 100%)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                boxShadow: "0 0 24px rgba(18,200,234,0.08) inset",
+              }}
+            >
+              <span className="text-white/40 text-base leading-none" aria-hidden>✦</span>
+              <span className="text-white/65 tracking-widest uppercase text-xs font-semibold" style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "0.2em" }}>
+                NOLA WEB SOLUTIONS
+              </span>
+              <span className="text-white/40 text-base leading-none" aria-hidden>✦</span>
             </span>
-            NOLA Web Solutions
           </motion.div>
 
-          <h1 className="mt-8 text-[clamp(2.6rem,8vw,6.5rem)] font-extrabold leading-[0.95] tracking-tight">
-            <RevealWords text="Build what your" />
-            <br />
-            <RevealWords text="business" delay={0.18} />
-            <br />
-            <RevealWords text="needs" delay={0.34} />{" "}
-            <span className="text-gradient-brand">
-              <RevealWords text="next." delay={0.42} />
+          {/* Headline — DM Sans display */}
+          <h1 className="text-[clamp(3.2rem,7.5vw,7.5rem)] font-bold leading-[0.92] tracking-[-0.02em]">
+            <span className="block">
+              <RevealWords text="Attract customers." />
+            </span>
+            <span className="block">
+              <RevealWords text="Automate" delay={0.16} />{" "}
+              <span className="text-gradient-brand">
+                <RevealWords text="the rest." delay={0.26} />
+              </span>
             </span>
           </h1>
 
-          <motion.p
+          {/* Subheadline — softened to give headline primary visual focus */}
+          <motion.h2
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.7 }}
-            className="mx-auto mt-8 max-w-md text-base leading-relaxed text-white/55 sm:text-lg"
+            transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}
+            className="mx-auto mt-6 max-w-3xl text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-white/60"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Websites, automation, AI and SEO — designed to work together as one system that helps
-            your business attract customers, save time, and grow.
+            Custom websites, smart AI automation, and seamless systems working as one.
+          </motion.h2>
+
+          {/* Body Paragraph — subtle, secondary copy */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
+            className="mx-auto mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-white/45 font-normal"
+          >
+            We connect your web presence with intelligent AI assistants, CRM workflows, and automated lead capture — built to turn visitors into clients around the clock.
           </motion.p>
 
+          {/* Single User-Friendly Capsule CTA (White bg -> Outline on hover) */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="mt-10 flex items-center justify-center"
           >
             <Link
               to="/packages/website-automation-ai"
-              className="group inline-flex items-center justify-center gap-2 rounded-[10px] bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:brightness-110"
+              className="group inline-flex items-center justify-center gap-3 rounded-full border border-white bg-white px-7 py-3 text-sm font-bold text-ink shadow-lg transition-all duration-300 hover:bg-transparent hover:text-white hover:shadow-cyan/20"
             >
               Explore Packages
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              to="/packages"
-              className="group inline-flex items-center gap-1.5 text-sm font-semibold text-white/70 transition-colors hover:text-white"
-            >
-              <span className="relative">
-                See how it works
-                <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-white transition-colors duration-300 group-hover:bg-white group-hover:text-ink">
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
               </span>
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
-        </div>
-
-        {/* abstract forming network */}
-        <div className="relative mx-auto mt-14 h-[240px] w-full max-w-3xl sm:mt-20 sm:h-[300px]">
-          <NetworkVisual />
         </div>
       </div>
     </section>
   );
 }
 
-function NetworkVisual() {
+{/* Dedicated Section for FlexCarousel — 0 top/bottom padding, matching bg-background color of IntroReset section */}
+export function HeroCarouselSection() {
   return (
-    <div className="absolute inset-0" aria-hidden>
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="heroLine" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#1769FF" stopOpacity="0.7" />
-            <stop offset="1" stopColor="#12C8EA" stopOpacity="0.7" />
-          </linearGradient>
-          <radialGradient id="heroGlow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stopColor="#1769FF" stopOpacity="0.5" />
-            <stop offset="1" stopColor="#1769FF" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* center glow */}
-        <motion.circle
-          cx="50"
-          cy="50"
-          r="22"
-          fill="url(#heroGlow)"
-          initial={{ opacity: 0, scale: 0.2 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, ease: EASE, delay: 0.4 }}
-          style={{ transformOrigin: "50px 50px" }}
-        />
-
-        {/* spokes from center to nodes */}
-        {NODES.map((n, i) => (
-          <motion.line
-            key={`spoke-${i}`}
-            x1="50"
-            y1="50"
-            x2={n.x}
-            y2={n.y}
-            stroke="url(#heroLine)"
-            strokeWidth="0.25"
-            strokeDasharray="60"
-            initial={{ strokeDashoffset: 60, opacity: 0 }}
-            animate={{ strokeDashoffset: 0, opacity: 0.55 }}
-            transition={{ duration: 0.9, ease: EASE, delay: n.delay - 0.15 }}
-          />
-        ))}
-
-        {/* perimeter ring connecting nodes */}
-        <motion.path
-          d="M14,34 L80,20 L86,68 L22,76 Z"
-          fill="none"
-          stroke="url(#heroLine)"
-          strokeWidth="0.2"
-          strokeDasharray="200"
-          initial={{ strokeDashoffset: 200, opacity: 0 }}
-          animate={{ strokeDashoffset: 0, opacity: 0.3 }}
-          transition={{ duration: 1.6, ease: EASE, delay: 2 }}
-        />
-      </svg>
-
-      {/* center NOLA node */}
+    <section className="relative w-full bg-background text-foreground py-0 overflow-hidden">
       <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: EASE, delay: 0.5 }}
+        initial={{ opacity: 0, y: 50, scale: 0.96 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.9, ease: EASE }}
+        className="relative w-full py-0"
+        style={{ height: "500px" }}
       >
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm sm:h-20 sm:w-20">
-          <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-xl" />
-          <span className="relative text-base font-extrabold tracking-tight text-white sm:text-lg">
-            NOLA
-          </span>
-        </div>
+        <FlexCarousel
+          preset="ribbon"
+          intro="rise"
+          cardHeight={0.58}
+          gap={16}
+          radius={16}
+          squeeze={0.16}
+          focusOnClick={false}
+          captureWheel={false}
+          followCursor={false}
+          draggable={false}
+          speed={45}
+          captions={false}
+          autoplay
+        />
       </motion.div>
-
-      {/* surrounding nodes */}
-      {NODES.map((n) => (
-        <motion.div
-          key={n.label}
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${n.x}%`, top: `${n.y}%` }}
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: EASE, delay: n.delay }}
-        >
-          <div className="group flex items-center gap-2 rounded-xl border border-white/10 bg-ink-2/80 px-3 py-2 backdrop-blur-sm transition-colors duration-300 hover:border-cyan/40">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan shadow-[0_0_8px_var(--cyan)]" />
-            <span className="text-xs font-semibold text-white/85">{n.label}</span>
-          </div>
-        </motion.div>
-      ))}
-    </div>
+    </section>
   );
 }
+
+

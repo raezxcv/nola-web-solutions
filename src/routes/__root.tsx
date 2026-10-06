@@ -5,6 +5,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,6 +14,9 @@ import appCss from "../styles.css?url";
 import { reportVibeError } from "../lib/vibe-error-reporting";
 import { SiteHeader } from "../components/site/site-header";
 import { SiteFooter } from "../components/site/site-footer";
+import { ScrollToTop } from "../components/site/scroll-to-top";
+
+import { ASSETS } from "../lib/site-data";
 
 function NotFoundComponent() {
   return (
@@ -36,7 +40,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -56,7 +60,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           <button
             onClick={() => {
               router.invalidate();
-              reset();
+              reset?.();
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
@@ -100,28 +104,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..1000;1,9..40,400..1000&family=Syne:wght@400;500;600;700;800&display=swap",
       },
       {
         rel: "icon",
-        type: "image/svg+xml",
-        href: "/favicon.svg",
+        type: "image/png",
+        href: "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f714fcb3b10b90335d89a2.png",
       },
       {
         rel: "apple-touch-icon",
-        href: "https://vibe.filesafe.space/1791178137060804797/assets/145ad4a9-48d0-49f8-a7ae-68883300bed5.png",
+        href: "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f714fcb3b10b90335d89a2.png",
       },
       {
-        rel: "icon",
-        type: "image/png",
-        sizes: "192x192",
-        href: "https://vibe.filesafe.space/1791178137060804797/assets/145ad4a9-48d0-49f8-a7ae-68883300bed5.png",
-      },
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "512x512",
-        href: "https://vibe.filesafe.space/1791178137060804797/assets/145ad4a9-48d0-49f8-a7ae-68883300bed5.png",
+        rel: "shortcut icon",
+        href: "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f714fcb3b10b90335d89a2.png",
       },
     ],
   }),
@@ -163,6 +159,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <SiteFooter />
+        <ScrollToTop />
       </div>
     </QueryClientProvider>
   );

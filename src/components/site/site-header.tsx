@@ -10,7 +10,7 @@ export function SiteHeader() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -31,63 +31,96 @@ export function SiteHeader() {
   const onDark = isDarkRoute(location.pathname);
 
   return (
-    <header
-      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-        scrolled
-          ? onDark
-            ? "h-14 border-b border-white/[0.06] bg-ink/70 backdrop-blur-xl"
-            : "h-14 border-b border-border/60 bg-background/70 backdrop-blur-xl"
-          : "h-16 border-b border-transparent bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center" aria-label="NOLA Web Solutions home">
-          <img
-            src={onDark ? ASSETS.logoWhite : ASSETS.logoPrimary}
-            alt="NOLA Web Solutions"
-            className="h-6 w-auto sm:h-7"
-          />
-        </Link>
+    <header className="fixed top-0 z-50 w-full transition-all duration-500 bg-transparent border-b border-transparent h-20">
+      {/* Full-width centering container — relative so we can absolutely center the nav */}
+      <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 sm:px-6 lg:px-8">
 
-        {/* Desktop nav — minimal, breathing room */}
-        <nav className="hidden items-center gap-7 lg:flex">
+        {/* Left: Logo — fades out when scrolled */}
+        <div
+          className={`transition-all duration-500 ${
+            scrolled ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <Link
+            to="/"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex items-center group py-1"
+            aria-label="NOLA Web Solutions home"
+          >
+            <img
+              src={onDark ? ASSETS.logoWhite : ASSETS.logoPrimary}
+              alt="NOLA Web Solutions"
+              className="h-8 w-auto sm:h-10 transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+          </Link>
+        </div>
+
+        {/* Center: Floating Capsule Navigation Pill — always readable */}
+        <nav
+          className={`hidden lg:flex items-center gap-7 rounded-full px-7 py-2 backdrop-blur-2xl shadow-xl border absolute left-1/2 -translate-x-1/2 transition-all duration-500 ${
+            scrolled
+              ? "border-white/[0.12] bg-ink/50 shadow-ink/20"
+              : onDark
+              ? "border-white/10 bg-white/[0.06]"
+              : "border-border/40 bg-background/60"
+          } ${scrolled ? "scale-[1.04]" : "scale-100"}`}
+        >
+          <SimpleLink to="/" onDark={scrolled || onDark}>
+            Home
+          </SimpleLink>
           <NavItem
             label="Packages"
-            onDark={onDark}
+            onDark={scrolled || onDark}
             menuKey="packages"
             openMenu={openMenu}
             setOpenMenu={setOpenMenu}
             items={NAV_PACKAGES}
           />
-          <SimpleLink to="/packages" onDark={onDark}>
+          <SimpleLink to="/packages" onDark={scrolled || onDark}>
             How It Works
           </SimpleLink>
           <NavItem
             label="Capabilities"
-            onDark={onDark}
+            onDark={scrolled || onDark}
             menuKey="services"
             openMenu={openMenu}
             setOpenMenu={setOpenMenu}
             items={NAV_SERVICES}
           />
-          <SimpleLink to="/about" onDark={onDark}>
+          <SimpleLink to="/about" onDark={scrolled || onDark}>
             About
+          </SimpleLink>
+          <SimpleLink to="/contact" onDark={scrolled || onDark}>
+            Contact
           </SimpleLink>
         </nav>
 
-        <div className="hidden lg:block">
-          <Link
-            to="/contact"
-            className="group inline-flex items-center gap-2 rounded-[10px] bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:brightness-110"
+        {/* Right: Capsule CTA — fades out when scrolled, pushed to far right via ml-auto */}
+        <div className="ml-auto hidden lg:flex items-center">
+          <div
+            className={`transition-all duration-500 ${
+              scrolled ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
           >
-            Book a Consultation
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-          </Link>
+            <Link
+              to="/contact"
+              className={`group inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-semibold shadow-sm transition-all duration-300 ${
+                onDark
+                  ? "border-white bg-white text-ink hover:bg-transparent hover:text-white"
+                  : "border-primary bg-primary text-primary-foreground hover:bg-transparent hover:text-primary"
+              }`}
+            >
+              Book a Consultation
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
         </div>
 
         {/* Mobile toggle */}
         <button
-          className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground"
+          className="lg:hidden ml-auto inline-flex items-center justify-center rounded-md p-2 text-foreground"
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -116,6 +149,11 @@ function SimpleLink({
   return (
     <Link
       to={to}
+      onClick={() => {
+        if (to === "/") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }}
       activeProps={{ className: onDark ? "text-white" : "text-foreground" }}
       className={`relative text-sm font-medium transition-colors ${
         onDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground"
@@ -198,7 +236,7 @@ function MobileMenu({ onDark }: { onDark: boolean }) {
   return (
     <div
       className={`lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto border-t ${
-        onDark ? "border-white/10 bg-ink" : "border-border bg-background"
+        onDark ? "border-white/10 bg-ink/90 backdrop-blur-xl" : "border-border bg-background/95 backdrop-blur-xl"
       }`}
     >
       <nav className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
@@ -239,6 +277,19 @@ function MobileMenu({ onDark }: { onDark: boolean }) {
         ))}
         <div className="flex flex-col gap-1 py-3">
           <Link
+            to="/"
+            onClick={() => {
+              if (window.location.pathname === "/" || location.pathname === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className={`rounded-lg px-3 py-2 text-base font-semibold ${
+              onDark ? "text-white hover:bg-white/5" : "text-foreground hover:bg-accent"
+            }`}
+          >
+            Home
+          </Link>
+          <Link
             to="/packages"
             className={`rounded-lg px-3 py-2 text-base font-semibold ${
               onDark ? "text-white hover:bg-white/5" : "text-foreground hover:bg-accent"
@@ -256,7 +307,7 @@ function MobileMenu({ onDark }: { onDark: boolean }) {
           </Link>
           <Link
             to="/contact"
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-[10px] bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink transition-all duration-300 hover:bg-transparent hover:text-white border border-white"
           >
             Book a Consultation
             <ArrowRight className="h-4 w-4" />

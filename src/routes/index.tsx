@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Hero } from "../components/home/hero";
+import { Hero, HeroCarouselSection } from "../components/home/hero";
 import { IntroReset } from "../components/home/intro-reset";
 import { ScrollStory } from "../components/home/scroll-story";
 import { SystemBuilder } from "../components/home/system-builder";
@@ -48,6 +48,8 @@ function Index() {
     <>
       {/* Chapter 1 — dark immersive hero */}
       <Hero />
+      {/* Seamless full-width 3D carousel section below hero */}
+      <HeroCarouselSection />
       {/* Chapter 2 — bright editorial reset */}
       <IntroReset />
       {/* Chapter 3 — dark interactive scroll-story */}

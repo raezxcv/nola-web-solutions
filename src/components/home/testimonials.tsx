@@ -9,8 +9,10 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Testimonials() {
   const [idx, setIdx] = useState(0);
-  const t = TESTIMONIALS[idx];
+  const t = TESTIMONIALS[idx] ?? TESTIMONIALS[0];
   const total = TESTIMONIALS.length;
+
+  if (!t) return null;
 
   return (
     <section className="relative overflow-hidden bg-ink py-28 text-white sm:py-40">
