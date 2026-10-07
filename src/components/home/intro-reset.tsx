@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Reveal, RevealWords } from "../site/reveal";
+import { Counter } from "../site/counter";
 
 const STATS = [
   { value: "120+", label: "Projects Completed" },
@@ -21,9 +22,7 @@ export function IntroReset() {
           <h2 className="text-[clamp(2.2rem,5vw,3.8rem)] font-extrabold leading-[1.04] tracking-tight text-foreground">
             <RevealWords text="Your website is only" />
             <br />
-            <span className="text-gradient-soft">
-              <RevealWords text="the beginning." delay={0.2} />
-            </span>
+            <RevealWords text="the beginning." delay={0.2} wordClassName="text-gradient-soft" />
           </h2>
         </Reveal>
 
@@ -51,12 +50,12 @@ export function IntroReset() {
               transition={{ duration: 0.7, ease: EASE, delay: 0.4 + i * 0.15 }}
               className="flex flex-col items-center px-8 sm:px-12 md:px-16 text-center"
             >
-              <span
+              <Counter
+                value={stat.value}
+                duration={2.2}
                 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-gradient-brand"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                {stat.value}
-              </span>
+              />
               <span className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground sm:text-sm">
                 {stat.label}
               </span>

@@ -96,12 +96,40 @@ export function RevealWords({
 }) {
   const { ref, inView } = useInView();
   const words = text.split(" ");
+
+  // Extract any gradient text utility classes from className/wordClassName so they are applied
+  // directly on animated motion.span. This prevents WebKit/Chromium composite layer clip bugs.
+  const hasBrandGradient =
+    className.includes("text-gradient-brand") || wordClassName.includes("text-gradient-brand");
+  const hasSoftGradient =
+    className.includes("text-gradient-soft") || wordClassName.includes("text-gradient-soft");
+
+  const cleanOuterClassName = className
+    .replace("text-gradient-brand", "")
+    .replace("text-gradient-soft", "")
+    .trim();
+
+  const cleanWordClassName = wordClassName
+    .replace("text-gradient-brand", "")
+    .replace("text-gradient-soft", "")
+    .trim();
+
+  const gradientClass = hasBrandGradient
+    ? "text-gradient-brand"
+    : hasSoftGradient
+      ? "text-gradient-soft"
+      : "";
+
+  const finalWordClass = ["inline-block", cleanWordClassName, gradientClass]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <span ref={ref as never} className={className} aria-label={text}>
+    <span ref={ref as never} className={cleanOuterClassName} aria-label={text}>
       {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom">
+        <span key={i} className="inline-block overflow-hidden align-bottom pb-1.5 -mb-1.5">
           <motion.span
-            className={`inline-block ${wordClassName}`}
+            className={finalWordClass}
             initial={{ y: "110%", opacity: 0 }}
             animate={inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }}
             transition={{

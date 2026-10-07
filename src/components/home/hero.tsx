@@ -41,27 +41,34 @@ export function Hero() {
       {/* Hero text + CTA */}
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto text-center">
-
           {/* Eyebrow — shimmer badge */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.6 }}
             className="mb-8 inline-flex"
           >
             <span
               className="inline-flex items-center gap-3 rounded-full px-5 py-2 text-sm font-medium backdrop-blur-md"
               style={{
-                background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(18,200,234,0.08) 100%)",
+                background:
+                  "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(18,200,234,0.08) 100%)",
                 border: "1px solid rgba(255,255,255,0.12)",
                 boxShadow: "0 0 24px rgba(18,200,234,0.08) inset",
               }}
             >
-              <span className="text-white/40 text-base leading-none" aria-hidden>✦</span>
-              <span className="text-white/65 tracking-widest uppercase text-xs font-semibold" style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "0.2em" }}>
+              <span className="text-white/40 text-base leading-none" aria-hidden>
+                ✦
+              </span>
+              <span
+                className="text-white/65 tracking-widest uppercase text-xs font-semibold"
+                style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "0.2em" }}
+              >
                 NOLA WEB SOLUTIONS
               </span>
-              <span className="text-white/40 text-base leading-none" aria-hidden>✦</span>
+              <span className="text-white/40 text-base leading-none" aria-hidden>
+                ✦
+              </span>
             </span>
           </motion.div>
 
@@ -72,21 +79,35 @@ export function Hero() {
             </span>
             <span className="block">
               <RevealWords text="Automate" delay={0.16} />{" "}
-              <span className="text-gradient-brand">
-                <RevealWords text="the rest." delay={0.26} />
-              </span>
+              <RevealWords text="the rest." delay={0.26} wordClassName="text-gradient-brand" />
             </span>
           </h1>
 
-          {/* Subheadline — softened to give headline primary visual focus */}
+          {/* Subheadline — Key Capabilities List */}
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}
-            className="mx-auto mt-6 max-w-3xl text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-white/60"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.42 }}
+            className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-base sm:text-lg md:text-xl font-semibold tracking-wide text-white/75"
+            style={{ fontFamily: "'Syne', sans-serif" }}
           >
-            Custom websites, smart AI automation, and seamless systems working as one.
+            <span>Websites</span>
+            <span className="text-xs" aria-hidden>
+              •
+            </span>
+            <span>CRM</span>
+            <span className="text-xs" aria-hidden>
+              •
+            </span>
+            <span>Automation</span>
+            <span className="text-xs" aria-hidden>
+              •
+            </span>
+            <span>AI</span>
+            <span className="text-xs" aria-hidden>
+              •
+            </span>
+            <span>SEO</span>
           </motion.h2>
 
           {/* Body Paragraph — subtle, secondary copy */}
@@ -96,7 +117,8 @@ export function Hero() {
             transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
             className="mx-auto mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-white/45 font-normal"
           >
-            We connect your web presence with intelligent AI assistants, CRM workflows, and automated lead capture — built to turn visitors into clients around the clock.
+            We connect your web presence with intelligent AI assistants, CRM workflows, and
+            automated lead capture — built to turn visitors into clients around the clock.
           </motion.p>
 
           {/* Single User-Friendly Capsule CTA (White bg -> Outline on hover) */}
@@ -122,7 +144,9 @@ export function Hero() {
   );
 }
 
-{/* Dedicated Section for FlexCarousel — 0 top/bottom padding, matching bg-background color of IntroReset section */}
+{
+  /* Dedicated Section for FlexCarousel — 0 top/bottom padding, matching bg-background color of IntroReset section */
+}
 export function HeroCarouselSection() {
   return (
     <section className="relative w-full bg-background text-foreground py-0 overflow-hidden">
@@ -153,5 +177,3 @@ export function HeroCarouselSection() {
     </section>
   );
 }
-
-

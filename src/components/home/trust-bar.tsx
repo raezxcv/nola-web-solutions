@@ -1,4 +1,5 @@
 import { TRUST_METRICS } from "../../lib/site-data";
+import { Counter } from "../site/counter";
 
 export function TrustBar() {
   return (
@@ -9,9 +10,10 @@ export function TrustBar() {
             key={m.label}
             className="flex flex-col items-center justify-center px-4 py-7 text-center"
           >
-            <span className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
-              {m.value}
-            </span>
+            <Counter
+              value={m.value}
+              className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl"
+            />
             <span className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               {m.label}
             </span>

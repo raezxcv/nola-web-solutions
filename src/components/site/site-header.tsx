@@ -34,7 +34,6 @@ export function SiteHeader() {
     <header className="fixed top-0 z-50 w-full transition-all duration-500 bg-transparent border-b border-transparent h-20">
       {/* Full-width centering container — relative so we can absolutely center the nav */}
       <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-
         {/* Left: Logo — fades out when scrolled */}
         <div
           className={`transition-all duration-500 ${
@@ -63,8 +62,8 @@ export function SiteHeader() {
             scrolled
               ? "border-white/[0.12] bg-ink/50 shadow-ink/20"
               : onDark
-              ? "border-white/10 bg-white/[0.06]"
-              : "border-border/40 bg-background/60"
+                ? "border-white/10 bg-white/[0.06]"
+                : "border-border/40 bg-background/60"
           } ${scrolled ? "scale-[1.04]" : "scale-100"}`}
         >
           <SimpleLink to="/" onDark={scrolled || onDark}>
@@ -146,14 +145,19 @@ function SimpleLink({
   onDark: boolean;
   children: React.ReactNode;
 }) {
+  const handleClick = () => {
+    if (to === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 50);
+    }
+  };
+
   return (
     <Link
       to={to}
-      onClick={() => {
-        if (to === "/") {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-      }}
+      onClick={handleClick}
       activeProps={{ className: onDark ? "text-white" : "text-foreground" }}
       className={`relative text-sm font-medium transition-colors ${
         onDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground"
@@ -236,7 +240,9 @@ function MobileMenu({ onDark }: { onDark: boolean }) {
   return (
     <div
       className={`lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto border-t ${
-        onDark ? "border-white/10 bg-ink/90 backdrop-blur-xl" : "border-border bg-background/95 backdrop-blur-xl"
+        onDark
+          ? "border-white/10 bg-ink/90 backdrop-blur-xl"
+          : "border-border bg-background/95 backdrop-blur-xl"
       }`}
     >
       <nav className="mx-auto max-w-7xl px-4 py-4 sm:px-6">

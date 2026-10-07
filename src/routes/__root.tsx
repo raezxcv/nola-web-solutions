@@ -15,6 +15,7 @@ import { reportVibeError } from "../lib/vibe-error-reporting";
 import { SiteHeader } from "../components/site/site-header";
 import { SiteFooter } from "../components/site/site-footer";
 import { ScrollToTop } from "../components/site/scroll-to-top";
+import { SmoothScroll } from "../components/site/smooth-scroll";
 
 import { ASSETS } from "../lib/site-data";
 
@@ -83,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NOLA Web Solutions — Build the Digital System Around Your Business" },
+      { title: "NOLA Web Solutions" },
       {
         name: "description",
         content:
@@ -153,6 +154,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SmoothScroll />
       <div className="flex min-h-screen flex-col bg-background">
         <SiteHeader />
         <main className="flex-1">

@@ -314,7 +314,11 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
         const entry = entries[0];
         if (!entry) return;
         isVisible = entry.isIntersecting;
-        isVisible ? tryStart() : tryStop();
+        if (isVisible) {
+          tryStart();
+        } else {
+          tryStop();
+        }
       },
       { threshold: 0 },
     );
@@ -322,7 +326,11 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
 
     const onVisibility = () => {
       isPageVisible = !document.hidden;
-      isPageVisible ? tryStart() : tryStop();
+      if (isPageVisible) {
+        tryStart();
+      } else {
+        tryStop();
+      }
     };
     document.addEventListener("visibilitychange", onVisibility);
 
@@ -338,7 +346,9 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
       ctxMap.delete(container);
       try {
         container.removeChild(canvas);
-      } catch {}
+      } catch (_err) {
+        // canvas already removed
+      }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
   }, []);
@@ -378,17 +388,23 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
     if (u["uHorizonColor"]) {
       const hc = u["uHorizonColor"].value as Float32Array;
       const h = hexToRgb(horizonColor);
-      hc[0] = h[0]; hc[1] = h[1]; hc[2] = h[2];
+      hc[0] = h[0];
+      hc[1] = h[1];
+      hc[2] = h[2];
     }
     if (u["uWaveColor"]) {
       const wc = u["uWaveColor"].value as Float32Array;
       const w = hexToRgb(waveColor);
-      wc[0] = w[0]; wc[1] = w[1]; wc[2] = w[2];
+      wc[0] = w[0];
+      wc[1] = w[1];
+      wc[2] = w[2];
     }
     if (u["uCrestColor"]) {
       const cc = u["uCrestColor"].value as Float32Array;
       const cr = hexToRgb(crestColor);
-      cc[0] = cr[0]; cc[1] = cr[1]; cc[2] = cr[2];
+      cc[0] = cr[0];
+      cc[1] = cr[1];
+      cc[2] = cr[2];
     }
   }, [
     horizonColor,

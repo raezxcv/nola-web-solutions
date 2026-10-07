@@ -24,7 +24,7 @@ import { ContactSection } from "../components/site/contact-section";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NOLA Web Solutions — Build the Digital System Behind Your Business" },
+      { title: "NOLA Web Solutions" },
       {
         name: "description",
         content:
