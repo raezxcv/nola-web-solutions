@@ -49,7 +49,7 @@ export function Hero() {
             className="mb-8 inline-flex"
           >
             <span
-              className="inline-flex items-center gap-3 rounded-full px-5 py-2 text-sm font-medium backdrop-blur-md"
+              className="inline-flex items-center gap-2 sm:gap-3 rounded-full px-3.5 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-medium backdrop-blur-md"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(18,200,234,0.08) 100%)",
@@ -57,23 +57,23 @@ export function Hero() {
                 boxShadow: "0 0 24px rgba(18,200,234,0.08) inset",
               }}
             >
-              <span className="text-white/40 text-base leading-none" aria-hidden>
+              <span className="text-white/40 text-sm sm:text-base leading-none" aria-hidden>
                 ✦
               </span>
               <span
-                className="text-white/65 tracking-widest uppercase text-xs font-semibold"
+                className="text-white/65 tracking-widest uppercase text-[0.6rem] sm:text-xs font-semibold"
                 style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "0.2em" }}
               >
                 NOLA WEB SOLUTIONS
               </span>
-              <span className="text-white/40 text-base leading-none" aria-hidden>
+              <span className="text-white/40 text-sm sm:text-base leading-none" aria-hidden>
                 ✦
               </span>
             </span>
           </motion.div>
 
           {/* Headline — DM Sans display */}
-          <h1 className="text-[clamp(3.2rem,7.5vw,7.5rem)] font-bold leading-[0.92] tracking-[-0.02em]">
+          <h1 className="text-[clamp(2.7rem,7.5vw,7.5rem)] font-bold leading-[0.92] tracking-[-0.02em]">
             <span className="block">
               <RevealWords text="Attract customers." />
             </span>
@@ -88,7 +88,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.42 }}
-            className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-base sm:text-lg md:text-xl font-semibold tracking-wide text-white/75"
+            className="mx-auto mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3 gap-y-1 text-sm sm:text-lg md:text-xl font-semibold tracking-wide text-white/75"
             style={{ fontFamily: "'Syne', sans-serif" }}
           >
             <span>Websites</span>
@@ -115,7 +115,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
-            className="mx-auto mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-white/45 font-normal"
+            className="mx-auto mt-3 sm:mt-4 max-w-2xl text-sm sm:text-lg leading-relaxed text-white/45 font-normal"
           >
             We connect your web presence with intelligent AI assistants, CRM workflows, and
             automated lead capture — built to turn visitors into clients around the clock.

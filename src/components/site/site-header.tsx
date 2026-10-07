@@ -1,7 +1,30 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ASSETS, NAV_PACKAGES, NAV_SERVICES, NAV_SOLUTIONS } from "../../lib/site-data";
+
+function AnimatedHamburgerIcon({ isOpen }: { isOpen: boolean }) {
+  return (
+    <div className="relative flex h-5 w-5 items-center justify-center">
+      <span
+        className={`absolute h-[2px] w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${
+          isOpen ? "rotate-45 translate-y-0" : "-translate-y-1.5"
+        }`}
+      />
+      <span
+        className={`absolute h-[2px] w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${
+          isOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
+        }`}
+      />
+      <span
+        className={`absolute h-[2px] w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${
+          isOpen ? "-rotate-45 translate-y-0" : "translate-y-1.5"
+        }`}
+      />
+    </div>
+  );
+}
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -34,22 +57,23 @@ export function SiteHeader() {
     <header className="fixed top-0 z-50 w-full transition-all duration-500 bg-transparent border-b border-transparent h-20">
       {/* Full-width centering container — relative so we can absolutely center the nav */}
       <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        {/* Left: Logo — fades out when scrolled */}
+        {/* Left: Logo — stays visible when mobile menu is open */}
         <div
-          className={`transition-all duration-500 ${
-            scrolled ? "opacity-0 pointer-events-none" : "opacity-100"
+          className={`transition-all duration-500 z-50 ${
+            scrolled && !mobileOpen ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
         >
           <Link
             to="/"
             onClick={() => {
+              setMobileOpen(false);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className="flex items-center group py-1"
             aria-label="NOLA Web Solutions home"
           >
             <img
-              src={onDark ? ASSETS.logoWhite : ASSETS.logoPrimary}
+              src={mobileOpen || onDark ? ASSETS.logoWhite : ASSETS.logoPrimary}
               alt="NOLA Web Solutions"
               className="h-8 w-auto sm:h-10 transition-transform duration-300 group-hover:scale-[1.02]"
             />
@@ -117,17 +141,25 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile toggle button */}
         <button
-          className="lg:hidden ml-auto inline-flex items-center justify-center rounded-md p-2 text-foreground"
+          className={`lg:hidden ml-auto z-50 inline-flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-2xl shadow-xl border transition-all duration-300 active:scale-95 ${
+            mobileOpen || scrolled
+              ? "border-white/[0.12] bg-ink/70 shadow-ink/20 text-white hover:bg-ink/90"
+              : onDark
+                ? "border-white/10 bg-white/[0.06] text-white hover:bg-white/15"
+                : "border-border/40 bg-background/60 shadow-black/5 text-foreground hover:bg-background/90"
+          }`}
           onClick={() => setMobileOpen((v) => !v)}
-          aria-label="Toggle menu"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <AnimatedHamburgerIcon isOpen={mobileOpen} />
         </button>
       </div>
 
-      {mobileOpen && <MobileMenu onDark={onDark} />}
+      <AnimatePresence>
+        {mobileOpen && <MobileMenu onDark={onDark} onClose={() => setMobileOpen(false)} />}
+      </AnimatePresence>
     </header>
   );
 }
@@ -230,96 +262,125 @@ function NavItem({
   );
 }
 
-function MobileMenu({ onDark }: { onDark: boolean }) {
+function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void }) {
   const [section, setSection] = useState<string | null>(null);
   const sections: { key: string; label: string; items: { label: string; to: string }[] }[] = [
     { key: "packages", label: "Packages", items: NAV_PACKAGES },
     { key: "capabilities", label: "Capabilities", items: NAV_SERVICES },
     { key: "solutions", label: "Solutions", items: NAV_SOLUTIONS },
   ];
+
+  const isDarkMenu = onDark;
+
   return (
-    <div
-      className={`lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto border-t ${
-        onDark
-          ? "border-white/10 bg-ink/90 backdrop-blur-xl"
-          : "border-border bg-background/95 backdrop-blur-xl"
+    <motion.div
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed inset-0 z-40 lg:hidden flex flex-col justify-between overflow-y-auto px-6 pt-24 pb-10 w-screen h-screen ${
+        isDarkMenu
+          ? "bg-ink/98 text-white backdrop-blur-3xl"
+          : "bg-background/98 text-foreground backdrop-blur-3xl"
       }`}
     >
-      <nav className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+      <div className="mx-auto w-full max-w-lg space-y-4">
         {sections.map((s) => (
           <div
             key={s.key}
-            className={`py-2 border-b ${onDark ? "border-white/10" : "border-border"}`}
+            className={`py-3 border-b ${isDarkMenu ? "border-white/10" : "border-border"}`}
           >
             <button
-              className={`flex w-full items-center justify-between py-2 text-base font-semibold ${
-                onDark ? "text-white" : "text-foreground"
+              className={`flex w-full items-center justify-between py-1 text-lg font-semibold tracking-tight ${
+                isDarkMenu ? "text-white" : "text-foreground"
               }`}
               onClick={() => setSection(section === s.key ? null : s.key)}
             >
               {s.label}
               <ChevronDown
-                className={`h-5 w-5 transition-transform duration-300 ${section === s.key ? "rotate-180" : ""}`}
+                className={`h-5 w-5 transition-transform duration-300 ${
+                  section === s.key ? "rotate-180" : ""
+                }`}
               />
             </button>
             {section === s.key && (
-              <div className="mt-1 space-y-1 pb-2 pl-3">
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mt-2 space-y-1 pb-2 pl-3"
+              >
                 {s.items.map((item) => (
                   <Link
                     key={item.label}
                     to={item.to}
-                    className={`block rounded-lg px-3 py-2 text-sm ${
-                      onDark
-                        ? "text-white/60 hover:bg-white/5 hover:text-white"
+                    onClick={onClose}
+                    className={`block rounded-lg px-3 py-2 text-base font-medium transition-colors ${
+                      isDarkMenu
+                        ? "text-white/70 hover:bg-white/10 hover:text-white"
                         : "text-muted-foreground hover:bg-accent hover:text-foreground"
                     }`}
                   >
                     {item.label}
                   </Link>
                 ))}
-              </div>
+              </motion.div>
             )}
           </div>
         ))}
-        <div className="flex flex-col gap-1 py-3">
+
+        <div className="flex flex-col gap-2 pt-4">
           <Link
             to="/"
             onClick={() => {
-              if (window.location.pathname === "/" || location.pathname === "/") {
+              onClose();
+              if (window.location.pathname === "/") {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            className={`rounded-lg px-3 py-2 text-base font-semibold ${
-              onDark ? "text-white hover:bg-white/5" : "text-foreground hover:bg-accent"
+            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
+              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
             }`}
           >
             Home
           </Link>
           <Link
             to="/packages"
-            className={`rounded-lg px-3 py-2 text-base font-semibold ${
-              onDark ? "text-white hover:bg-white/5" : "text-foreground hover:bg-accent"
+            onClick={onClose}
+            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
+              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
             }`}
           >
             How It Works
           </Link>
           <Link
             to="/about"
-            className={`rounded-lg px-3 py-2 text-base font-semibold ${
-              onDark ? "text-white hover:bg-white/5" : "text-foreground hover:bg-accent"
+            onClick={onClose}
+            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
+              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
             }`}
           >
             About
           </Link>
-          <Link
-            to="/contact"
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink transition-all duration-300 hover:bg-transparent hover:text-white border border-white"
-          >
-            Book a Consultation
-            <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
-      </nav>
-    </div>
+      </div>
+
+      {/* Bottom Action Area */}
+      <div className="mx-auto w-full max-w-lg pt-6">
+        <Link
+          to="/contact"
+          onClick={onClose}
+          className={`flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-semibold shadow-lg transition-all duration-300 ${
+            isDarkMenu
+              ? "bg-white text-ink hover:bg-white/90"
+              : "bg-primary text-primary-foreground hover:bg-primary/90"
+          }`}
+        >
+          Book a Consultation
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+    </motion.div>
   );
 }
+
