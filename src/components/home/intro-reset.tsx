@@ -22,11 +22,11 @@ export function IntroReset() {
           <h2 className="text-[clamp(2.2rem,5vw,3.8rem)] font-extrabold leading-[1.04] tracking-tight text-foreground">
             <RevealWords text="Your website is only" />
             <br />
-            <RevealWords text="the beginning." delay={0.2} wordClassName="text-gradient-soft" />
+            <RevealWords text="the beginning." delay={0.06} wordClassName="text-gradient-soft" />
           </h2>
         </Reveal>
 
-        <Reveal delay={0.3}>
+        <Reveal delay={0.1}>
           <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             NOLA connects the website, automation, AI, SEO and systems behind your business into one
             digital experience — so the work you can't see keeps the business you can see moving.

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
  * Uses IntersectionObserver; safe during SSR (returns false initially).
  */
 export function useInView<T extends HTMLElement = HTMLDivElement>(
-  options: IntersectionObserverInit = { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+  options: IntersectionObserverInit = { threshold: 0.01, rootMargin: "0px 0px 80px 0px" },
 ) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);

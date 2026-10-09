@@ -9,7 +9,7 @@ export function SiteFooter() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <img src={ASSETS.logoWhite} alt="NOLA Web Solutions" className="h-7 w-auto" />
+            <img src={ASSETS.logoWhite} alt="NOLA Web Solutions" className="h-14 sm:h-16 md:h-20 w-auto" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/45">
               We don't just build websites. We build the digital system around your business.
             </p>

@@ -17,9 +17,7 @@ export function WhyNola() {
               <h2 className="mt-5 text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.0] tracking-tight text-foreground">
                 <RevealWords text="One partner for" />
                 <br />
-                <span className="text-gradient-soft">
-                  <RevealWords text="the whole system." delay={0.18} />
-                </span>
+                <RevealWords text="the whole system." delay={0.05} wordClassName="text-gradient-soft" />
               </h2>
               <p className="mt-6 max-w-sm text-base leading-relaxed text-muted-foreground">
                 Not a stack of disconnected vendors — a single team building the website,

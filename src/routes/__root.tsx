@@ -21,17 +21,29 @@ import { ASSETS } from "../lib/site-data";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="relative flex min-h-screen items-center justify-center bg-ink text-white px-4 py-16 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-[0.04]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-[140px]" />
+
+      <div className="relative z-10 max-w-md text-center">
+        <div className="mb-6 inline-flex">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan backdrop-blur-md">
+            ✦ Page Not Found ✦
+          </span>
+        </div>
+
+        <h1 className="text-6xl sm:text-7xl font-extrabold tracking-tight text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+          404
+        </h1>
+        <h2 className="mt-3 text-xl font-bold text-white/90">Page not found</h2>
+        <p className="mt-3 text-sm leading-relaxed text-white/60">
+          The page you're looking for doesn't exist, has been moved, or is temporarily unavailable.
         </p>
-        <div className="mt-6">
+
+        <div className="mt-8 flex items-center justify-center gap-3">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-ink hover:bg-slate-100 px-7 py-3 text-sm font-bold shadow-xl transition-all duration-300 active:scale-95"
           >
             Go home
           </Link>
@@ -49,27 +61,37 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+    <div className="relative flex min-h-screen items-center justify-center bg-ink text-white px-4 py-16 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-[0.04]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-[140px]" />
+
+      <div className="relative z-10 max-w-lg text-center">
+        <div className="mb-6 inline-flex">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan backdrop-blur-md">
+            ✦ System Notice ✦
+          </span>
+        </div>
+
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight" style={{ fontFamily: "'Syne', sans-serif" }}>
           This page didn't load
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="mt-4 text-base leading-relaxed text-white/60 max-w-md mx-auto">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => {
               router.invalidate();
               reset?.();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-ink hover:bg-slate-100 px-7 py-3 text-sm font-bold shadow-xl transition-all duration-300 active:scale-95"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.05] text-white hover:bg-white/10 px-7 py-3 text-sm font-bold transition-all duration-300 active:scale-95"
           >
             Go home
           </a>

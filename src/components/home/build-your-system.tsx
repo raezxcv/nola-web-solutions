@@ -29,9 +29,7 @@ export function BuildYourSystem() {
           <h2 className="mx-auto mt-5 max-w-2xl text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.04] tracking-tight">
             <RevealWords text="Start with the foundation." />
             <br />
-            <span className="text-gradient-soft">
-              <RevealWords text="Add what your business needs." delay={0.2} />
-            </span>
+            <RevealWords text="Add what your business needs." delay={0.05} wordClassName="text-gradient-brand" />
           </h2>
         </div>
 

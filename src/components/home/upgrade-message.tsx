@@ -24,9 +24,7 @@ export function UpgradeMessage() {
               <h2 className="mt-5 text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.04] tracking-tight text-foreground">
                 <RevealWords text="Start where you are." />
                 <br />
-                <span className="text-gradient-soft">
-                  <RevealWords text="Grow when you're ready." delay={0.18} />
-                </span>
+                <RevealWords text="Grow when you're ready." delay={0.05} wordClassName="text-gradient-soft" />
               </h2>
               <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
                 Your business doesn't have to implement everything at once. The packages are

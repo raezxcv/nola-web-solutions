@@ -13,12 +13,12 @@ export function ProblemSolution() {
       <div className="pointer-events-none absolute inset-0 bg-dots-dark opacity-[0.05]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="max-w-2xl">
+          <div className="mx-auto max-w-2xl text-center">
             <Eyebrow dark>Match your challenge</Eyebrow>
             <h2 className="mt-5 text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.04] tracking-tight">
               What's holding your business back?
             </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-white/55">
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/55">
               Every common business problem maps to a NOLA package. Find yours.
             </p>
           </div>

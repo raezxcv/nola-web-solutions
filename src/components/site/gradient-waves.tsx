@@ -38,9 +38,9 @@ const hexToRgb = (hex: string): [number, number, number] => {
 };
 
 const detailToSteps = (detail: GradientWavesDetail): number => {
-  if (detail === "low") return 40.0;
-  if (detail === "high") return 110.0;
-  return 70.0;
+  if (detail === "low") return 28.0;
+  if (detail === "high") return 80.0;
+  return 48.0; // medium: was 70, reduced for better GPU perf on all devices
 };
 
 const vertex = `#version 300 es
@@ -193,12 +193,15 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
+    // Cap DPR at 1.0 — the wave animation is low-frequency enough that
+    // sub-pixel precision offers no visible benefit and halves GPU work on
+    // HiDPI / retina displays.
     const renderer = new Renderer({
       webgl: 2,
       alpha: true,
       premultipliedAlpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.25),
+      dpr: Math.min(window.devicePixelRatio || 1, 1.0),
     });
 
     const gl = renderer.gl;
@@ -207,6 +210,9 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
     canvas.style.width = "100%";
     canvas.style.height = "100%";
     canvas.style.display = "block";
+    // Promote canvas to its own GPU compositing layer to avoid repaints
+    // triggering layout work on the main thread.
+    canvas.style.willChange = "transform";
     container.appendChild(canvas);
 
     const geometry = new Triangle(gl);

@@ -29,7 +29,10 @@ export const ASSETS = {
 } as const;
 
 export type PackageSlug =
-  "website" | "website-automation" | "website-automation-ai" | "website-automation-seo";
+  | "website"
+  | "website-automation"
+  | "website-automation-ai"
+  | "website-automation-seo";
 
 export interface PackageInfo {
   slug: PackageSlug;
@@ -323,49 +326,127 @@ export const SOLUTIONS = [
 
 export const TESTIMONIALS = [
   {
+    id: "t1",
+    headline: "NOLA Website Solutions was on top of everything",
     quote:
-      "NOLA rebuilt our website and set up the automation we'd been missing for years. Leads now come in organized and we follow up instantly. It completely changed how we work.",
-    client: "Dr. Angela R.",
-    company: "Weight-Loss Clinic",
+      "From the very beginning, NOLA Website Solutions was on top of everything—fair pricing, no surprises, and consistently high-quality work.",
+    client: "Tobin Strickland",
+    company: "Business Owner",
+    rating: 5,
   },
   {
+    id: "t2",
+    headline: "He's someone I've always trusted with my online businesses",
     quote:
-      "We went from an outdated site to a full system. The AI chatbot handles the questions that used to eat our day, and our team only steps in when it matters.",
-    client: "Marcus T.",
-    company: "Home Services",
+      "Norwin has worked with me for nearly a decade, and he's someone I've always trusted with my online businesses, even as I've done tens of millions of dollars online.",
+    client: "Eric Louviere",
+    company: "Digital Entrepreneur",
+    rating: 5,
   },
   {
+    id: "t3",
+    headline: "If you need something done right, Norwin is the guy to do it.",
     quote:
-      "The SEO and Google Business work put us in front of local customers we never reached before. The phone started ringing within weeks of launch.",
-    client: "Priya S.",
-    company: "Dental Practice",
+      "Norwin has the rare ability to organize and execute, which is why I’ve trusted him for years—from WordPress to early Go High Level automation. He consistently delivers, and I fully recommend him.",
+    client: "Jason Starbuck",
+    company: "Automation & Agency Leader",
+    rating: 5,
+  },
+  {
+    id: "t4",
+    headline: "Game-changing AI Chatbot solution",
+    quote:
+      "NOLA Web Solutions truly blew me away with their Ai Chatbot service. From the initial consultation to the final implementation, the team's dedication and expertise were evident, and the impact on my website's user experience was profound. I can't thank Norwin and the incredible team at NOLA Web Solutions enough for bringing such a game-changing solution to my business.",
+    client: "Dr. Monica Gilbert",
+    company: "Healthcare Practice Founder",
+    rating: 5,
+  },
+  {
+    id: "t5",
+    headline: "Top-notch CRM solution",
+    quote:
+      "I highly recommend NOLA Web Solution to any business seeking a top-notch CRM solution. Their dedication to client success and the quality of their services make them stand out in the industry. Thank you, NOLA Web Solution, for helping us elevate our business to new heights!",
+    client: "Simon Clayton",
+    company: "Corporate Client",
+    rating: 5,
+  },
+  {
+    id: "t6",
+    headline: "Exceeded my expectations!",
+    quote:
+      "I recently worked with NOLA WEB SOLUTIONS to create my website, and I couldn't be happier with the results! Their professionalism, attention to detail, and creativity truly exceeded my expectations. They listened carefully to my vision and brought it to life flawlessly, ensuring a user-friendly experience for my visitors. I highly recommend Norwin for anyone seeking a skilled and reliable website developer.",
+    client: "Ashley Canlas",
+    company: "Website Client",
+    rating: 5,
+  },
+  {
+    id: "t7",
+    headline: "Highly recommended for technical support",
+    quote:
+      "Norwin has supported us for years with complex custom builds for diverse clients—handling automations, funnels, courses, pages, surveys, assessments, payments, and advanced layouts with CSS. He works independently, handles technical challenges well, and adapts to varied needs from healthcare to events and fundraising. Highly recommended for businesses needing technical support.",
+    client: "Bethan Perel",
+    company: "Technical Director",
+    rating: 5,
+  },
+  {
+    id: "t8",
+    headline: "Best I've worked with online!",
+    quote:
+      "I've come across many experts online, but none have been as helpful as Norwin when it comes to automations, funnels, and solving any challenges I've faced. His response time is incredibly fast, and he completes tasks with efficiency and precision. By far, the best I've worked with online!",
+    client: "Chris Tyson",
+    company: "Funnel & Automation Specialist",
+    rating: 5,
+  },
+  {
+    id: "t9",
+    headline: "Truly one of the best",
+    quote:
+      "Norwin has managed both my ClickFunnels and GoHighLevel agency accounts, supporting countless clients and coaching programs. I even sold an agency while he was on my team. He’s smart, kind, patient, and easy to work with. After 20+ years and tens of millions in online business—with hundreds of team members—he’s truly one of the best. I fully endorse him; you’re in good hands.",
+    client: "Eric Louviere",
+    company: "Agency Founder",
+    rating: 5,
   },
 ];
 
 export const PORTFOLIO = [
   {
-    industry: "Healthcare / Weight-Loss",
-    components: ["Website", "Automation", "NOLA HealthPro CRM"],
-    image: ASSETS.healthproCrm,
-    description: "A patient-focused site with booking automation and a CRM built for clinics.",
+    industry: "Custom Web Design & UX",
+    components: ["Website", "Conversion UI", "Mobile Responsive"],
+    image:
+      "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f6182e0a6217f736d34f54.png",
+    description: "High-converting, responsive website design built for seamless user engagement.",
   },
   {
-    industry: "Real Estate",
-    components: ["Website", "Automation", "NOLA Realty CRM"],
+    industry: "AI Chatbot & Qualification",
+    components: ["AI Agent", "24/7 Booking", "Lead Capture"],
+    image:
+      "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f6182b67351309ade29d22.png",
+    description: "Intelligent AI chatbot trained to respond to customer inquiries and qualify leads 24/7.",
+  },
+  {
+    industry: "Google Business & Local SEO",
+    components: ["GMB Profile", "Local Search", "Review Engine"],
+    image:
+      "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f618266735131b64e29d1e.png",
+    description: "Local search engine optimization and profile tuning to dominate regional search results.",
+  },
+  {
+    industry: "NOLA Business CRM",
+    components: ["Lead Pipeline", "Automated SMS", "Centralized Inbox"],
+    image: ASSETS.crm,
+    description: "All-in-one CRM managing leads, customer communications, pipelines, and automated campaigns.",
+  },
+  {
+    industry: "Real Estate Platform",
+    components: ["Website", "MLS Integration", "NOLA Realty CRM"],
     image: ASSETS.realtyCrm,
-    description: "Listings, lead capture, and follow-up automation wired into a real-estate CRM.",
+    description: "Comprehensive property listing showcase with automatic lead routing for agent teams.",
   },
   {
-    industry: "Home Services",
-    components: ["Website", "AI Chatbot", "Automation"],
-    image: ASSETS.aiChatbot,
-    description: "An AI chatbot that qualifies service requests and routes them to the team.",
-  },
-  {
-    industry: "Professional Services",
-    components: ["Website", "SEO", "Google Business Profile"],
-    image: ASSETS.webDesign,
-    description: "A conversion-focused site with local SEO that drives steady inbound leads.",
+    industry: "Healthcare & Weight-Loss Clinic",
+    components: ["Website", "HIPAA Automation", "NOLA HealthPro CRM"],
+    image: ASSETS.healthproCrm,
+    description: "Patient booking, medical intake forms, and specialized clinic pipeline automation.",
   },
 ];
 

@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Hero, HeroCarouselSection } from "../components/home/hero";
 import { IntroReset } from "../components/home/intro-reset";
-import { ScrollStory } from "../components/home/scroll-story";
-import { SystemBuilder } from "../components/home/system-builder";
+import { PackagesPricing } from "../components/home/packages-pricing";
 import { PackageComparison } from "../components/home/package-comparison";
 import { ProblemSolution } from "../components/home/problem-solution";
 import { BuildYourSystem } from "../components/home/build-your-system";
@@ -17,11 +17,11 @@ import { Portfolio } from "../components/home/portfolio";
 import { Testimonials } from "../components/home/testimonials";
 import { About } from "../components/home/about";
 import { UpgradeMessage } from "../components/home/upgrade-message";
-import { PackageRecommender } from "../components/home/package-recommender";
 import { FinalCta } from "../components/home/final-cta";
+import { BirRegistration } from "../components/home/bir-registration";
 import { ContactSection } from "../components/site/contact-section";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/")(({
   head: () => ({
     meta: [
       { title: "NOLA Web Solutions" },
@@ -41,55 +41,101 @@ export const Route = createFileRoute("/")({
     ],
   }),
   component: Index,
-});
+}));
+
+/** Subtle hairline divider — light bg between two light sections */
+function Divider({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className={dark ? "bg-ink py-4" : "bg-background py-4"}>
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div
+          className={`h-px w-full bg-gradient-to-r from-transparent ${
+            dark ? "via-white/10" : "via-foreground/8"
+          } to-transparent`}
+        />
+      </div>
+    </div>
+  );
+}
 
 function Index() {
+  // Always point to top part of page on refresh / mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <>
       {/* Chapter 1 — dark immersive hero */}
       <Hero />
       {/* Seamless full-width 3D carousel section below hero */}
       <HeroCarouselSection />
-      {/* Chapter 2 — bright editorial reset */}
-      <IntroReset />
-      {/* Chapter 3 — dark interactive scroll-story */}
-      <ScrollStory />
-      {/* Chapter 4 — bright interactive system builder */}
-      <SystemBuilder />
-      {/* Comparison */}
-      <PackageComparison />
-      {/* Problem → package mapping (dark) */}
-      <ProblemSolution />
-      {/* Signature growth ladder (dark) */}
-      <BuildYourSystem />
-      {/* Typographic transition (dark) */}
-      <TypeStatement lines={["More tools isn't the answer.", "The right system is."]} accentLast />
-      {/* Full-screen package chapters (mixed light/dark) */}
-      <PackageChapters />
-      {/* Typographic transition (dark) */}
-      <TypeStatement lines={["Build once.", "Automate what repeats."]} accentLast />
-      {/* Capability rail (light) */}
-      <WhatsInside />
-      {/* CRM infrastructure (dark) */}
-      <NolaCrm />
-      {/* Why NOLA (light, editorial list) */}
-      <WhyNola />
-      {/* Process (light) */}
-      <Process />
-      {/* Portfolio (light, editorial) */}
-      <Portfolio />
-      {/* Testimonials (dark, editorial) */}
-      <Testimonials />
-      {/* About (light, magazine) */}
-      <About />
-      {/* Upgrade / scalability (light) */}
-      <UpgradeMessage />
-      {/* Package recommender (light) */}
-      <PackageRecommender />
-      {/* Final CTA (dark, full-viewport) */}
-      <FinalCta />
-      {/* Contact (light) */}
-      <ContactSection />
+      {/* Chapter 2 onwards — deferred rendering for better above-fold perf */}
+      <div className="cv-auto" style={{ containIntrinsicSize: "auto 12000px" }}>
+        {/* Chapter 2 — bright editorial reset */}
+        <IntroReset />
+        {/* Packages & Pricing Section (dark theme) */}
+        <PackagesPricing />
+        {/* Comparison */}
+        <PackageComparison />
+        {/* Problem → package mapping (dark) */}
+        <ProblemSolution />
+        {/* Divider between Match your challenge and Build your system (both dark) */}
+        <Divider dark />
+        {/* Signature growth ladder (dark) */}
+        <BuildYourSystem />
+        {/* Divider between Build your system and More tools (both dark) */}
+        <Divider dark />
+        {/* Typographic transition (dark) */}
+        <TypeStatement lines={["More tools isn't the answer.", "The right system is."]} accentLast />
+        {/* Full-screen package chapters (mixed light/dark with wireframe mockup screens) */}
+        <PackageChapters />
+
+        {/* Subtle glowing divider line above 'Build once. Automate what repeats.' */}
+        <div className="bg-ink py-6">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan/30 to-transparent" />
+          </div>
+        </div>
+
+        {/* Typographic transition (dark) */}
+        <TypeStatement lines={["Build once.", "Automate what repeats."]} accentLast />
+        {/* Capability rail with wireframe mockup screens & service icons */}
+        <WhatsInside />
+        {/* CRM infrastructure — solar system orbit diagram with inward arrows & icons */}
+        <NolaCrm />
+        {/* Why NOLA (light, editorial list) */}
+        <WhyNola />
+        {/* Divider between Why NOLA and How it works */}
+        <Divider />
+        {/* Process (light with animated progress line & glowing popout checkpoint icons) */}
+        <Process />
+        {/* Portfolio (dark mode, padded fitted cards, transparent chips) */}
+        <Portfolio />
+        {/* Divider between Our work and Proof & Reviews (both dark) */}
+        <Divider dark />
+        {/* Testimonials (dark, 9-item review carousel with vertical breathing room) */}
+        <Testimonials />
+        {/* About (light, editorial magazine two-column) */}
+        <About />
+        {/* Divider between About NOLA and Flexible by design */}
+        <Divider />
+        {/* Upgrade / scalability (light) */}
+        <UpgradeMessage />
+        {/* Final CTA (dark, full-viewport) */}
+        <FinalCta />
+        {/* BIR Registration */}
+        <BirRegistration />
+        {/* Divider between BIR Registration and Contact Us */}
+        <Divider />
+        {/* Contact (ultra-modern sleek form) */}
+        <ContactSection />
+      </div>
     </>
   );
 }

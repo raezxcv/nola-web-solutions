@@ -9,7 +9,10 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-ink text-white pt-20 pb-12 sm:pt-24 sm:pb-16">
+    <section
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-ink text-white pt-20 pb-12 sm:pt-24 sm:pb-16"
+      style={{ contain: "paint", isolation: "isolate" }}
+    >
       {/* Optimized GradientWaves background — smooth detail, low raymarch steps for maximum FPS */}
       <div className="pointer-events-none absolute inset-0">
         <GradientWaves
@@ -26,7 +29,7 @@ export function Hero() {
           zoom={1.0}
           height={4.2}
           fogDepth={24}
-          detail="medium"
+          detail="low"
           brightness={1.05}
           opacity={0.65}
           mouseInteraction={true}
@@ -45,7 +48,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.6 }}
+            transition={{ duration: 0.4, ease: EASE, delay: 0.05 }}
             className="mb-8 inline-flex"
           >
             <span
@@ -78,8 +81,8 @@ export function Hero() {
               <RevealWords text="Attract customers." />
             </span>
             <span className="block">
-              <RevealWords text="Automate" delay={0.16} />{" "}
-              <RevealWords text="the rest." delay={0.26} wordClassName="text-gradient-brand" />
+              <RevealWords text="Automate" delay={0.05} />{" "}
+              <RevealWords text="the rest." delay={0.1} wordClassName="text-gradient-brand" />
             </span>
           </h1>
 
@@ -87,7 +90,7 @@ export function Hero() {
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.42 }}
+            transition={{ duration: 0.4, ease: EASE, delay: 0.1 }}
             className="mx-auto mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3 gap-y-1 text-sm sm:text-lg md:text-xl font-semibold tracking-wide text-white/75"
             style={{ fontFamily: "'Syne', sans-serif" }}
           >
@@ -114,18 +117,18 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
+            transition={{ duration: 0.4, ease: EASE, delay: 0.15 }}
             className="mx-auto mt-3 sm:mt-4 max-w-2xl text-sm sm:text-lg leading-relaxed text-white/45 font-normal"
           >
             We connect your web presence with intelligent AI assistants, CRM workflows, and
             automated lead capture — built to turn visitors into clients around the clock.
           </motion.p>
 
-          {/* Single User-Friendly Capsule CTA (White bg -> Outline on hover) */}
+          {/* Single User-Friendly Capsule CTA */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}
+            transition={{ duration: 0.4, ease: EASE, delay: 0.2 }}
             className="mt-10 flex items-center justify-center"
           >
             <Link
@@ -144,36 +147,26 @@ export function Hero() {
   );
 }
 
-{
-  /* Dedicated Section for FlexCarousel — 0 top/bottom padding, matching bg-background color of IntroReset section */
-}
 export function HeroCarouselSection() {
   return (
     <section className="relative w-full bg-background text-foreground py-0 overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.96 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.9, ease: EASE }}
-        className="relative w-full py-0"
-        style={{ height: "500px" }}
-      >
+      <div className="relative w-full py-0" style={{ height: "460px" }}>
         <FlexCarousel
           preset="ribbon"
           intro="rise"
-          cardHeight={0.58}
+          cardHeight={0.54}
           gap={16}
           radius={16}
-          squeeze={0.16}
+          squeeze={0.12}
           focusOnClick={false}
           captureWheel={false}
           followCursor={false}
           draggable={false}
-          speed={45}
+          speed={28}
           captions={false}
           autoplay
         />
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -32,10 +32,8 @@ export function FinalCta() {
         <h2 className="mt-6 text-[clamp(2.4rem,7vw,5.5rem)] font-extrabold leading-[0.98] tracking-tight">
           <RevealWords text="What does your" />
           <br />
-          <RevealWords text="business" delay={0.16} />{" "}
-          <span className="text-gradient-brand">
-            <RevealWords text="need next?" delay={0.28} />
-          </span>
+          <RevealWords text="business" delay={0.04} />{" "}
+          <RevealWords text="need next?" delay={0.08} wordClassName="text-gradient-brand" />
         </h2>
 
         <Reveal delay={0.4}>
@@ -46,7 +44,7 @@ export function FinalCta() {
                 <button
                   key={opt.slug}
                   onClick={() => setSelected(opt.slug)}
-                  className={`rounded-[10px] border px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                  className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
                     isActive
                       ? "border-cyan/50 bg-cyan/10 text-white"
                       : "border-white/15 bg-white/[0.03] text-white/60 hover:text-white"
@@ -58,7 +56,7 @@ export function FinalCta() {
             })}
             <button
               onClick={() => setSelected(null)}
-              className={`rounded-[10px] border px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
+              className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
                 selected === null
                   ? "border-cyan/50 bg-cyan/10 text-white"
                   : "border-white/15 bg-white/[0.03] text-white/60 hover:text-white"
@@ -104,7 +102,7 @@ export function FinalCta() {
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               to={recPkg ? PACKAGE_PATHS[recPkg.slug] : "/packages"}
-              className="group inline-flex items-center justify-center gap-2 rounded-[10px] bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:brightness-110"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-white text-ink hover:bg-slate-100 px-6 py-3 text-sm font-bold shadow-md transition-all duration-300 active:scale-[0.98]"
             >
               Let's build it
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />

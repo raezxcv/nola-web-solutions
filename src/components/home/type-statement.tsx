@@ -24,15 +24,17 @@ export function TypeStatement({
             const accent = accentLast && isLast;
             return (
               <span key={i} className="block">
-                <span className={accent ? "text-gradient-brand" : ""}>
-                  <RevealWords text={line} delay={i * 0.12} />
-                </span>
+                <RevealWords
+                  text={line}
+                  delay={0.1 + i * 0.12}
+                  wordClassName={accent ? "text-gradient-brand" : ""}
+                />
               </span>
             );
           })}
         </h2>
         {sub && (
-          <Reveal delay={lines.length * 0.12 + 0.2}>
+          <Reveal delay={lines.length * 0.05 + 0.1}>
             <p className="mx-auto mt-8 max-w-md text-base leading-relaxed text-white/45">{sub}</p>
           </Reveal>
         )}

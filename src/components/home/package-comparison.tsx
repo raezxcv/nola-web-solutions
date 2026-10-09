@@ -24,6 +24,9 @@ export function PackageComparison() {
             <h2 className="mx-auto mt-5 max-w-2xl text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.06] tracking-tight text-foreground">
               What's inside each package.
             </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+              See exactly which capabilities are included at every tier — so you can choose with confidence, not guesswork.
+            </p>
           </div>
         </Reveal>
 

@@ -257,6 +257,22 @@
   display: none;
 }
 
+/* ── Performance helpers ─────────────────────────────────────────────────── */
+
+/* Skip rendering off-screen sections until they near the viewport.
+   Apply to any section that sits below the fold (not the hero / carousel). */
+@utility cv-auto {
+  content-visibility: auto;
+  /* Provide a rough height hint so the browser can keep the scrollbar
+     accurate before the element is rendered. Sections can override this. */
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Ensure WebGL canvases always get their own compositor layer. */
+canvas {
+  transform: translateZ(0);
+}
+
 @utility mask-fade-r {
   -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);

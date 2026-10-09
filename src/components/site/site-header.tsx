@@ -55,9 +55,9 @@ export function SiteHeader() {
 
   return (
     <header className="fixed top-0 z-50 w-full transition-all duration-500 bg-transparent border-b border-transparent h-20">
-      {/* Full-width centering container — relative so we can absolutely center the nav */}
+      {/* Full-width centering container */}
       <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-        {/* Left: Logo — stays visible when mobile menu is open */}
+        {/* Left: Logo */}
         <div
           className={`transition-all duration-500 z-50 ${
             scrolled && !mobileOpen ? "opacity-0 pointer-events-none" : "opacity-100"
@@ -80,14 +80,14 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        {/* Center: Floating Capsule Navigation Pill — always readable */}
+        {/* Center: Floating Capsule Navigation Pill */}
         <nav
           className={`hidden lg:flex items-center gap-7 rounded-full px-7 py-2 backdrop-blur-2xl shadow-xl border absolute left-1/2 -translate-x-1/2 transition-all duration-500 ${
             scrolled
-              ? "border-white/[0.12] bg-ink/50 shadow-ink/20"
+              ? "border-white/[0.12] bg-ink/50 shadow-ink/20 text-white"
               : onDark
-                ? "border-white/10 bg-white/[0.06]"
-                : "border-border/40 bg-background/60"
+                ? "border-white/10 bg-white/[0.06] text-white"
+                : "border-border/40 bg-background/60 text-foreground"
           } ${scrolled ? "scale-[1.04]" : "scale-100"}`}
         >
           <SimpleLink to="/" onDark={scrolled || onDark}>
@@ -120,7 +120,7 @@ export function SiteHeader() {
           </SimpleLink>
         </nav>
 
-        {/* Right: Capsule CTA — fades out when scrolled, pushed to far right via ml-auto */}
+        {/* Right: Capsule CTA — desktop */}
         <div className="ml-auto hidden lg:flex items-center">
           <div
             className={`transition-all duration-500 ${
@@ -141,7 +141,7 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Mobile toggle button */}
+        {/* Mobile hamburger toggle button — mobile only */}
         <button
           className={`lg:hidden ml-auto z-50 inline-flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-2xl shadow-xl border transition-all duration-300 active:scale-95 ${
             mobileOpen || scrolled
@@ -383,4 +383,3 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
     </motion.div>
   );
 }
-
