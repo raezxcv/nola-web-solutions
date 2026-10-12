@@ -29,7 +29,8 @@ export function PackagesPricing() {
               Choose your digital growth tier.
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-white/60 sm:text-lg">
-              From a professional website to a fully automated AI &amp; SEO system — pick the stage that fits your business today.
+              From a professional website to a fully automated AI &amp; SEO system — pick the stage
+              that fits your business today.
             </p>
           </div>
         </Reveal>
@@ -44,7 +45,7 @@ export function PackagesPricing() {
                 key={pkg.slug}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
+                viewport={{ once: false, margin: "-12%" }}
                 transition={{ duration: 0.6, ease: EASE, delay: idx * 0.1 }}
                 className={`relative flex flex-col justify-between rounded-3xl border p-7 backdrop-blur-xl transition-all duration-300 ${
                   isFeatured
@@ -66,9 +67,7 @@ export function PackagesPricing() {
                   <h3 className="mt-2 text-xl font-bold tracking-tight text-white">
                     {pkg.technicalName}
                   </h3>
-                  <p className="mt-2 text-xs text-white/55 leading-relaxed">
-                    {pkg.promise}
-                  </p>
+                  <p className="mt-2 text-xs text-white/55 leading-relaxed">{pkg.promise}</p>
 
                   <div className="mt-6 border-t border-white/10 pt-6">
                     <div className="flex items-baseline gap-1">
@@ -80,9 +79,7 @@ export function PackagesPricing() {
                         {pricing.price}
                       </span>
                     </div>
-                    <span className="text-xs text-white/45 font-medium">
-                      {pricing.period}
-                    </span>
+                    <span className="text-xs text-white/45 font-medium">{pricing.period}</span>
                   </div>
 
                   <ul className="mt-6 space-y-3 border-t border-white/10 pt-6 text-xs text-white/80">
@@ -96,13 +93,15 @@ export function PackagesPricing() {
                 </div>
 
                 <div className="mt-8 border-t border-white/10 pt-6">
-                  {/* Gradient Blue Action Button */}
+                  {/* Action Button matching hero style */}
                   <Link
                     to={PACKAGE_PATHS[pkg.slug]}
-                    className="group flex w-full items-center justify-center gap-2 rounded-full bg-white text-ink hover:bg-slate-100 py-3 px-4 text-xs font-bold shadow-md transition-all duration-300 active:scale-[0.98]"
+                    className="group flex w-full items-center justify-center gap-2.5 rounded-full border border-white bg-white text-ink py-2.5 px-4 text-xs font-bold shadow-md transition-all duration-300 hover:bg-transparent hover:text-white active:scale-[0.98]"
                   >
                     <span>{pkg.cta}</span>
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-white transition-colors duration-300 group-hover:bg-white group-hover:text-ink">
+                      <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                    </span>
                   </Link>
                 </div>
               </motion.div>

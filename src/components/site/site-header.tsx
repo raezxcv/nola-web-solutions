@@ -2,7 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ASSETS, NAV_PACKAGES, NAV_SERVICES, NAV_SOLUTIONS } from "../../lib/site-data";
+import { ASSETS, NAV_PACKAGES, NAV_SOLUTIONS } from "../../lib/site-data";
 
 function AnimatedHamburgerIcon({ isOpen }: { isOpen: boolean }) {
   return (
@@ -82,7 +82,7 @@ export function SiteHeader() {
 
         {/* Center: Floating Capsule Navigation Pill */}
         <nav
-          className={`hidden lg:flex items-center gap-7 rounded-full px-7 py-2 backdrop-blur-2xl shadow-xl border absolute left-1/2 -translate-x-1/2 transition-all duration-500 ${
+          className={`hidden lg:flex items-center gap-5.5 xl:gap-6 rounded-full px-6 py-2 backdrop-blur-2xl shadow-xl border absolute left-1/2 -translate-x-1/2 transition-all duration-500 ${
             scrolled
               ? "border-white/[0.12] bg-ink/50 shadow-ink/20 text-white"
               : onDark
@@ -93,6 +93,9 @@ export function SiteHeader() {
           <SimpleLink to="/" onDark={scrolled || onDark}>
             Home
           </SimpleLink>
+          <SimpleLink to="/our-works" onDark={scrolled || onDark}>
+            Our Works
+          </SimpleLink>
           <NavItem
             label="Packages"
             onDark={scrolled || onDark}
@@ -100,17 +103,6 @@ export function SiteHeader() {
             openMenu={openMenu}
             setOpenMenu={setOpenMenu}
             items={NAV_PACKAGES}
-          />
-          <SimpleLink to="/packages" onDark={scrolled || onDark}>
-            How It Works
-          </SimpleLink>
-          <NavItem
-            label="Capabilities"
-            onDark={scrolled || onDark}
-            menuKey="services"
-            openMenu={openMenu}
-            setOpenMenu={setOpenMenu}
-            items={NAV_SERVICES}
           />
           <SimpleLink to="/about" onDark={scrolled || onDark}>
             About
@@ -164,8 +156,9 @@ export function SiteHeader() {
   );
 }
 
-function isDarkRoute(pathname: string) {
-  return pathname === "/" || pathname === "/solutions";
+function isDarkRoute(_pathname: string) {
+  // Always true so floating capsule navbar uses sleek glassmorphism across all pages like in home
+  return true;
 }
 
 function SimpleLink({
@@ -266,7 +259,6 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
   const [section, setSection] = useState<string | null>(null);
   const sections: { key: string; label: string; items: { label: string; to: string }[] }[] = [
     { key: "packages", label: "Packages", items: NAV_PACKAGES },
-    { key: "capabilities", label: "Capabilities", items: NAV_SERVICES },
     { key: "solutions", label: "Solutions", items: NAV_SOLUTIONS },
   ];
 
@@ -345,13 +337,13 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
             Home
           </Link>
           <Link
-            to="/packages"
+            to="/our-works"
             onClick={onClose}
             className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
               isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
             }`}
           >
-            How It Works
+            Our Works
           </Link>
           <Link
             to="/about"
@@ -361,6 +353,15 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
             }`}
           >
             About
+          </Link>
+          <Link
+            to="/contact"
+            onClick={onClose}
+            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
+              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
+            }`}
+          >
+            Contact
           </Link>
         </div>
       </div>

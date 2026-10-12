@@ -1,211 +1,242 @@
 import { Link } from "@tanstack/react-router";
-import { Check, ArrowRight, Users, Target, Wrench, PackageCheck, Sparkles } from "lucide-react";
+import { Check, ArrowRight, ShieldCheck } from "lucide-react";
 import { PACKAGES, PACKAGE_PATHS, type PackageSlug } from "../../lib/site-data";
-import { Section } from "../site/ui";
-import { PageHero, CTAButtons } from "../site/page-hero";
+import { PageHero } from "../site/page-hero";
 
 export function PackageDetail({ slug }: { slug: PackageSlug }) {
   const pkg = PACKAGES.find((p) => p.slug === slug)!;
   const others = PACKAGES.filter((p) => p.slug !== slug);
 
   return (
-    <>
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Dark Top Banner */}
       <PageHero
         eyebrow={pkg.marketingLabel}
         title={<>{pkg.headline}</>}
         subtitle={pkg.description}
         breadcrumbs={[
           { label: "Home", to: "/" },
-          { label: "Packages", to: "/packages/website" },
+          { label: "Packages", to: "/packages" },
           { label: pkg.technicalName },
         ]}
-      >
-        <CTAButtons
-          primaryLabel="Book a Free Consultation"
-          secondaryTo="/packages/website-automation-ai"
-          secondaryLabel="Compare all packages"
-        />
-      </PageHero>
+      />
 
-      {/* Who it's for / problem it solves */}
-      <Section className="py-16 sm:py-20">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-7">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Users className="h-5.5 w-5.5" />
-            </div>
-            <h2 className="mt-4 text-xl font-bold text-foreground">Who it's for</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{pkg.bestFor}</p>
-          </div>
-          <div className="rounded-2xl border border-border bg-card p-7">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Target className="h-5.5 w-5.5" />
-            </div>
-            <h2 className="mt-4 text-xl font-bold text-foreground">What problem it solves</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {pkg.promise}. {pkg.description}
-            </p>
-          </div>
-        </div>
-      </Section>
+      {/* Under Banner: Clean White & Neutral Layout with Home Accent Colors */}
+      <div className="bg-white text-slate-900">
+        {/* Package Architectural Specification */}
+        <section className="relative py-16 sm:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+              {/* Left Column: Sticky Specification Card */}
+              <aside className="lg:col-span-5">
+                <div className="lg:sticky lg:top-28 space-y-6">
+                  <div className="rounded-3xl border border-slate-200 bg-slate-50/70 p-7 sm:p-8 shadow-sm space-y-6">
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                        Package Specification
+                      </span>
+                      <h3 className="mt-2 text-2xl font-bold text-slate-900">
+                        {pkg.technicalName}
+                      </h3>
+                      <p className="mt-2 text-sm text-primary font-semibold">"{pkg.promise}"</p>
+                    </div>
 
-      {/* Everything included */}
-      <section className="bg-surface py-16 sm:py-20">
-        <Section>
-          <div className="grid gap-10 lg:grid-cols-2">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-                <PackageCheck className="h-3.5 w-3.5" /> Everything included
-              </span>
-              <h2 className="mt-4 text-3xl font-bold text-foreground">What you get.</h2>
-              <ul className="mt-6 space-y-3">
-                {pkg.includes.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3"
-                  >
-                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                    <span className="text-sm font-medium text-foreground/90">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-                <Wrench className="h-3.5 w-3.5" /> Individual components
-              </span>
-              <h2 className="mt-4 text-3xl font-bold text-foreground">The technology inside.</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                These are the individual services that make this package work.
-              </p>
-              <div className="mt-6 space-y-3">
-                {pkg.services.map((s) => (
-                  <div key={s.name} className="rounded-xl border border-border bg-card p-5">
-                    <h3 className="text-base font-bold text-foreground">{s.name}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{s.blurb}</p>
+                    <div className="space-y-4 pt-4 border-t border-slate-200 text-xs text-slate-600">
+                      <div>
+                        <span className="font-bold text-slate-900 uppercase tracking-wider block mb-1">
+                          Best For:
+                        </span>
+                        <p className="leading-relaxed">{pkg.bestFor}</p>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-200">
+                      <Link
+                        to="/contact"
+                        className="group inline-flex w-full items-center justify-center gap-3 rounded-full border border-primary bg-primary text-white px-6 py-3.5 text-sm font-bold shadow-md shadow-primary/25 transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
+                      >
+                        Book a Free Consultation
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </Link>
+                    </div>
                   </div>
-                ))}
-              </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-white p-5 text-xs text-slate-600 shadow-sm">
+                    <div className="flex items-center gap-2 text-slate-900 font-semibold mb-1">
+                      <ShieldCheck className="h-4 w-4 text-primary" />
+                      Turnkey Implementation
+                    </div>
+                    No hidden fees or unexpected infrastructure costs. Everything is scoped and
+                    tested before handover.
+                  </div>
+                </div>
+              </aside>
+
+              {/* Right Column: Narrative & Inclusions */}
+              <main className="lg:col-span-7 space-y-16">
+                {/* Everything Included */}
+                <section className="space-y-6">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                      01 // Inclusions
+                    </span>
+                    <h4 className="mt-2 text-2xl sm:text-3xl font-extrabold text-slate-900">
+                      What you get in the system.
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 pt-2">
+                    {pkg.includes.map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-4 text-sm text-slate-800 transition-all hover:border-slate-300 hover:bg-white"
+                      >
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        <span className="font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Technology Inside */}
+                <section className="space-y-6 border-t border-slate-200 pt-14">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                      02 // Components
+                    </span>
+                    <h4 className="mt-2 text-2xl font-bold text-slate-900">
+                      Individual technology components.
+                    </h4>
+                  </div>
+                  <div className="space-y-3 pt-2">
+                    {pkg.services.map((s) => (
+                      <div
+                        key={s.name}
+                        className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                      >
+                        <h5 className="text-base font-bold text-slate-900">{s.name}</h5>
+                        <p className="mt-1.5 text-sm text-slate-600 leading-relaxed font-light">
+                          {s.blurb}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* 4 Steps Timeline */}
+                <section className="space-y-6 border-t border-slate-200 pt-14">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                      03 // Implementation
+                    </span>
+                    <h4 className="mt-2 text-2xl font-bold text-slate-900">
+                      Four steps from blueprint to live launch.
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-2">
+                    {[
+                      {
+                        step: "01",
+                        title: "Discover",
+                        text: "We analyze your business, customers, and current lead flow.",
+                      },
+                      {
+                        step: "02",
+                        title: "Build",
+                        text: "We craft your conversion website and configure core infrastructure.",
+                      },
+                      {
+                        step: "03",
+                        title: "Connect",
+                        text: "We connect CRM pipelines, automation triggers, and AI chatbots.",
+                      },
+                      {
+                        step: "04",
+                        title: "Launch",
+                        text: "We test all workflows end-to-end and hand off a turnkey system.",
+                      },
+                    ].map((s) => (
+                      <div
+                        key={s.step}
+                        className="rounded-2xl border border-slate-200 bg-slate-50/50 p-6"
+                      >
+                        <span className="text-xs font-mono text-primary font-bold">
+                          STEP {s.step}
+                        </span>
+                        <h6 className="mt-2 text-lg font-bold text-slate-900">{s.title}</h6>
+                        <p className="mt-1.5 text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
+                          {s.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Compare Other Tiers */}
+                <section className="space-y-6 border-t border-slate-200 pt-14">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                      04 // Other Packages
+                    </span>
+                    <h4 className="mt-2 text-2xl font-bold text-slate-900">
+                      Explore other growth tiers.
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 pt-2">
+                    {others.map((o) => (
+                      <Link
+                        key={o.slug}
+                        to={PACKAGE_PATHS[o.slug]}
+                        className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:border-primary/50 hover:shadow-md"
+                      >
+                        <span className="text-[0.65rem] font-bold uppercase tracking-wider text-primary">
+                          {o.marketingLabel}
+                        </span>
+                        <h6 className="mt-2 text-sm font-bold text-slate-900 group-hover:text-primary transition-colors">
+                          {o.technicalName}
+                        </h6>
+                        <p className="mt-1.5 text-xs text-slate-500 line-clamp-2">{o.promise}</p>
+                        <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-slate-800 group-hover:text-primary">
+                          View tier <ArrowRight className="h-3 w-3" />
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              </main>
             </div>
           </div>
-        </Section>
-      </section>
+        </section>
 
-      {/* How implementation works */}
-      <Section className="py-16 sm:py-20">
-        <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-          <Sparkles className="h-3.5 w-3.5" /> How it works
-        </span>
-        <h2 className="mt-4 text-3xl font-bold text-foreground">How implementation works.</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              step: "01",
-              title: "Discover",
-              text: "We learn your business, goals, and current setup.",
-            },
-            {
-              step: "02",
-              title: "Build",
-              text: "We design and implement your website and included systems.",
-            },
-            {
-              step: "03",
-              title: "Connect",
-              text: "We wire up automation, AI, or SEO as included in your package.",
-            },
-            {
-              step: "04",
-              title: "Launch",
-              text: "We test, deploy, and hand off a working system.",
-            },
-          ].map((s) => (
-            <div key={s.step} className="rounded-2xl border border-border bg-card p-6">
-              <span className="text-2xl font-extrabold text-primary/20">{s.step}</span>
-              <h3 className="mt-2 text-base font-bold text-foreground">{s.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{s.text}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* What you receive */}
-      <section className="bg-surface py-16 sm:py-20">
-        <Section>
-          <div className="rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/5 via-card to-cyan/5 p-8 sm:p-12">
-            <div className="grid items-center gap-8 lg:grid-cols-2">
-              <div>
-                <h2 className="text-3xl font-bold text-foreground">What the customer receives.</h2>
-                <p className="mt-3 text-base text-muted-foreground">
-                  A complete, launched digital system — not a stack of disconnected tools. Optional
-                  add-ons are available as your business grows.
-                </p>
-                <Link
-                  to="/contact"
-                  className="group mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:brightness-110"
-                >
-                  Get a Quote
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
-              <ul className="space-y-3">
-                {[
-                  "A live, responsive website",
-                  "Connected automation workflows",
-                  "Lead capture and follow-up",
-                  "Ongoing launch support",
-                ].map((r) => (
-                  <li
-                    key={r}
-                    className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm font-medium text-foreground/90"
-                  >
-                    <Check className="h-5 w-5 text-primary" /> {r}
-                  </li>
-                ))}
-              </ul>
+        {/* Bottom Conversion Section */}
+        <section className="bg-slate-900 py-20 sm:py-24 text-white text-center">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan backdrop-blur-md">
+              ✦ Launch With Confidence ✦
+            </span>
+            <h3 className="mt-5 text-3xl sm:text-4xl font-extrabold text-white">
+              Ready to deploy {pkg.marketingLabel}?
+            </h3>
+            <p className="mt-3 max-w-xl mx-auto text-base text-white/70">
+              Book a free consultation and let's configure the exact architecture for your business.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Link
+                to="/contact"
+                className="group inline-flex items-center justify-center gap-3 rounded-full border border-primary bg-primary text-white px-8 py-3.5 text-sm font-bold shadow-lg shadow-primary/30 transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
+              >
+                Book a Free Consultation
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                to="/packages"
+                className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/5 px-8 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-white/10"
+              >
+                Back to All Packages
+              </Link>
             </div>
           </div>
-        </Section>
-      </section>
-
-      {/* Other packages */}
-      <Section className="py-16 sm:py-20">
-        <h2 className="text-2xl font-bold text-foreground">Explore other packages</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {others.map((o) => (
-            <Link
-              key={o.slug}
-              to={PACKAGE_PATHS[o.slug]}
-              className="card-hover group rounded-2xl border border-border bg-card p-6 hover:border-primary/30 hover:shadow-lg"
-            >
-              <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                {o.marketingLabel}
-              </span>
-              <h3 className="mt-2 text-base font-bold text-foreground">{o.technicalName}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{o.promise}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                View package{" "}
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-          ))}
-        </div>
-      </Section>
-
-      {/* Final CTA */}
-      <section className="relative overflow-hidden bg-ink py-20 text-white sm:py-24">
-        <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-30" />
-        <Section className="relative text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Ready to build your system?</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/60">
-            Book a free consultation and we'll help you confirm {pkg.marketingLabel} is the right
-            fit.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <CTAButtons primaryLabel="Book a Free Consultation" />
-          </div>
-        </Section>
-      </section>
-    </>
+        </section>
+      </div>
+    </div>
   );
 }

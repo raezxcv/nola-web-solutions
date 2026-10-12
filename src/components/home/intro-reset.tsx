@@ -37,8 +37,8 @@ export function IntroReset() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.4 }}
+          viewport={{ once: false, margin: "-12%" }}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
           className="mt-16 flex flex-col items-center justify-center gap-10 sm:flex-row sm:gap-0 sm:divide-x sm:divide-border/60"
         >
           {STATS.map((stat, i) => (
@@ -46,8 +46,8 @@ export function IntroReset() {
               key={stat.label}
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.4 + i * 0.15 }}
+              viewport={{ once: false, margin: "-12%" }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.2 + i * 0.15 }}
               className="flex flex-col items-center px-8 sm:px-12 md:px-16 text-center"
             >
               <Counter

@@ -15,10 +15,7 @@ const CREDENTIALS = [
 
 export function About() {
   return (
-    <section
-      className="relative overflow-hidden bg-background pt-20 sm:pt-28"
-      id="about"
-    >
+    <section className="relative overflow-hidden bg-background pt-20 sm:pt-28" id="about">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-12 items-end">
           {/* Left — Text block */}
@@ -31,7 +28,11 @@ export function About() {
               <h2 className="text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.02] tracking-tight text-foreground">
                 <RevealWords text="We build technology" />
                 <br />
-                <RevealWords text="around the way" delay={0.06} wordClassName="text-gradient-soft" />{" "}
+                <RevealWords
+                  text="around the way"
+                  delay={0.06}
+                  wordClassName="text-gradient-soft"
+                />{" "}
                 <RevealWords text="business" delay={0.12} />{" "}
                 <RevealWords text="actually works." delay={0.18} />
               </h2>
@@ -39,14 +40,15 @@ export function About() {
 
             <Reveal delay={0.3}>
               <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Founded by <strong className="font-semibold text-foreground">Norwin Lacson</strong>, NOLA Web Solutions is a technology partner helping businesses implement websites,
+                Founded by <strong className="font-semibold text-foreground">Norwin Lacson</strong>,
+                NOLA Web Solutions is a technology partner helping businesses implement websites,
                 automation, AI, SEO, CRM, and connected digital systems — all designed around real
                 business growth.
               </p>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                Norwin Lacson has spent nearly a decade building custom web architecture, GoHighLevel CRM
-                workflows, funnel systems, and AI chatbot solutions for clients generating tens of
-                millions of dollars online.
+                Norwin Lacson has spent nearly a decade building custom web architecture,
+                GoHighLevel CRM workflows, funnel systems, and AI chatbot solutions for clients
+                generating tens of millions of dollars online.
               </p>
             </Reveal>
 
@@ -67,7 +69,7 @@ export function About() {
               <div className="mt-8">
                 <Link
                   to="/about"
-                  className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-black active:scale-[0.98]"
+                  className="group inline-flex items-center gap-2 rounded-full border border-slate-900 bg-slate-900 px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-transparent hover:text-slate-900 active:scale-[0.98]"
                 >
                   <span>Learn More About NOLA</span>
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -81,7 +83,7 @@ export function About() {
             <motion.img
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, margin: "-12%" }}
               transition={{ duration: 0.9, ease: EASE }}
               src="https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/6ac8988acc7a5a2b734e0fb5.png"
               alt="Norwin Lacson — Founder & Lead Architect of NOLA Web Solutions"

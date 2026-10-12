@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Returns a ref + boolean once the element enters the viewport (once).
+ * Returns a ref + boolean that tracks whether the element is in the viewport.
  * Uses IntersectionObserver; safe during SSR (returns false initially).
+ * @param options  IntersectionObserver options
+ * @param once     If true, stays `true` after the first intersection (default: false — re-animates on re-entry)
  */
 export function useInView<T extends HTMLElement = HTMLDivElement>(
-  options: IntersectionObserverInit = { threshold: 0.01, rootMargin: "0px 0px 80px 0px" },
+  options: IntersectionObserverInit = { threshold: 0.2, rootMargin: "0px 0px -100px 0px" },
+  once = false,
 ) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
@@ -20,7 +23,9 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setInView(true);
-          obs.unobserve(entry.target);
+          if (once) obs.unobserve(entry.target);
+        } else {
+          if (!once) setInView(false);
         }
       });
     }, options);

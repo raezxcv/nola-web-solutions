@@ -151,7 +151,7 @@ export function PackageOverview() {
 
           <Link
             to={PACKAGE_PATHS[pkg.slug]}
-            className="group mt-7 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110"
+            className="group mt-7 inline-flex items-center justify-center gap-2 rounded-lg border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:bg-transparent hover:text-primary active:scale-[0.98]"
           >
             {pkg.cta}
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />

@@ -5,12 +5,12 @@ import { useInView } from "../../lib/motion";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 12, filter: "blur(2px)" },
+  hidden: { opacity: 0, y: 16, filter: "blur(3px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.5, ease: EASE },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
@@ -33,8 +33,15 @@ export function Reveal({
       className={className}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      variants={variants}
-      transition={{ delay }}
+      variants={{
+        hidden: { opacity: 0, y: 18, filter: "blur(3px)", transition: { duration: 0.25 } },
+        visible: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.65, ease: EASE, delay },
+        },
+      }}
     >
       {children}
     </MotionTag>
@@ -101,14 +108,14 @@ export function RevealWords({
     <motion.span
       ref={ref as never}
       className={`inline-block ${fullClass}`}
-      initial={{ opacity: 0, y: 12, filter: "blur(2px)" }}
+      initial={{ opacity: 0, y: 16, filter: "blur(3px)" }}
       animate={
         inView
           ? { opacity: 1, y: 0, filter: "blur(0px)" }
-          : { opacity: 0, y: 12, filter: "blur(2px)" }
+          : { opacity: 0, y: 16, filter: "blur(3px)" }
       }
       transition={{
-        duration: 0.5,
+        duration: 0.6,
         ease: EASE,
         delay,
       }}

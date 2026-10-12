@@ -33,6 +33,7 @@ export interface FlexCarouselProps extends Partial<PresetValues> {
   items?: FlexCarouselItem[];
   preset?: BendPreset;
   intro?: CarouselIntro;
+  introDelay?: number;
   cardHeight?: number;
   gap?: number;
   radius?: number;
@@ -128,58 +129,101 @@ interface Callbacks {
   onSelect?: ((index: number, item: FlexCarouselItem) => void) | undefined;
 }
 
-const photo = (id: string) => `https://images.unsplash.com/${id}?w=1200&q=80&auto=format&fit=max`;
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = a[i]!;
+    a[i] = a[j]!;
+    a[j] = temp;
+  }
+  return a;
+}
 
-const DEFAULT_ITEMS: FlexCarouselItem[] = [
+const WEBSITE_ITEMS: FlexCarouselItem[] = [
   {
-    src: photo("photo-1737071371043-761e02b1ef95"),
-    alt: "An iridescent chrome sculpture",
-    title: "Iridescence",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8e8d74ad59e6cfed1ff34a.png",
+    alt: "Top Choice website",
+    title: "Top Choice",
   },
   {
-    src: photo("photo-1693645325828-62cd35c8da8f"),
-    alt: "A person on a white backdrop",
-    title: "White Room",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8e8d4867bb7ac35133ee3f.png",
+    alt: "Champion website",
+    title: "Champion",
   },
   {
-    src: photo("photo-1739056238917-d89cd05c48d5"),
-    alt: "A twisted chrome form on black",
-    title: "Liquid Metal",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a901579747464c6b3928631.png",
+    alt: "The Feast website",
+    title: "The Feast",
   },
   {
-    src: photo("photo-1747191092806-c7da11881986"),
-    alt: "A clay bust shown in profile",
-    title: "Clay Study",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a90140fef6b5f0786cb9bb7.png",
+    alt: "GrowthX Ignite website",
+    title: "GrowthX | Ignite",
   },
   {
-    src: photo("photo-1605034313761-73ea4a0cfbf3"),
-    alt: "Black and white sneakers",
-    title: "Low Tops",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d7c77e25296bd1baf4d4c.png",
+    alt: "New Asia Golf and Spa Resort website",
+    title: "New Asia Golf & Spa",
   },
   {
-    src: photo("photo-1495462911434-be47104d70fa"),
-    alt: "A woman in a wide black hat",
-    title: "Brim",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d791567ecc8731d06049b.png",
+    alt: "The Coolest Journey website",
+    title: "The Coolest Journey",
   },
   {
-    src: photo("photo-1786835568925-20cd20007ed0"),
-    alt: "Three swirling shapes",
-    title: "Three Forms",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d789367ecc8731d059305.png",
+    alt: "Aesthetic and Implant Dentistry website",
+    title: "Aesthetic & Implant Dentistry",
   },
   {
-    src: photo("photo-1770249196550-ff6c641165cb"),
-    alt: "A chrome humanoid sculpture",
-    title: "Automaton",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d76becdd4b797a3cff2c7.png",
+    alt: "Smile Solutions website",
+    title: "Smile Solutions",
   },
   {
-    src: photo("photo-1787181875088-087d612262a7"),
-    alt: "A black textured sculpture",
-    title: "Obsidian",
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d7757cdd4b797a3d0c586.png",
+    alt: "RGWoods and Carving website",
+    title: "RGWoods & Carving",
   },
-  { src: photo("photo-1770062422885-2dfcbe8fb65b"), alt: "A woman on a dark set", title: "Poise" },
-  { src: photo("photo-1726910133626-9b573eca70ff"), alt: "Black curved shapes", title: "Fins" },
-  { src: photo("photo-1604854574958-59047362c165"), alt: "A white plaster bust", title: "Plaster" },
+  {
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d763867ecc8731d00c101.png",
+    alt: "AIBPH website",
+    title: "AIBPH",
+  },
+  {
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d756467bb7ac351bf9417.png",
+    alt: "Rugg Realty website",
+    title: "Rugg Realty",
+  },
+  {
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d74f367bb7ac351bdc09c.png",
+    alt: "Journey Real Estate website",
+    title: "Journey Real Estate",
+  },
+  {
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d749c67bb7ac351bd3665.png",
+    alt: "SaltWaterFishing.Pro website",
+    title: "SaltWaterFishing.Pro",
+  },
+  {
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d7438ad59e6cfedbd86a1.png",
+    alt: "Body Structure website",
+    title: "Body Structure",
+  },
+  {
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d73c0ad59e6cfedbc3032.png",
+    alt: "TriTech website",
+    title: "TriTech",
+  },
+  {
+    src: "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d72d6ad59e6cfedba6d61.png",
+    alt: "J&K Car Rental website",
+    title: "J&K Car Rental",
+  },
 ];
+
+const DEFAULT_ITEMS: FlexCarouselItem[] = shuffleArray(WEBSITE_ITEMS);
 
 const BEND_PRESETS: Record<BendPreset, PresetValues> = {
   liquid: {
@@ -419,6 +463,7 @@ const FlexCarousel = ({
   items = DEFAULT_ITEMS,
   preset = "liquid",
   intro = "rise",
+  introDelay = 0,
   cardHeight = 0.5,
   gap = 12,
   radius = 0,
@@ -630,7 +675,14 @@ const FlexCarousel = ({
       touch: false,
       samples: [] as { x: number; t: number }[],
     };
-    const introState = { kind: "none", t: 0, running: false, done: false, readyAt: 0 };
+    const introState = {
+      kind: "none",
+      t: 0,
+      running: false,
+      done: false,
+      readyAt: 0,
+      delayUntil: 0,
+    };
     const focus = { index: -1, pending: -1, t: 0, v: 0, target: 0 };
     let instances: Instance[] = [];
 
@@ -712,6 +764,7 @@ const FlexCarousel = ({
       focus.pending = -1;
       setFocusOpen(false);
       introState.readyAt = performance.now();
+      introState.delayUntil = performance.now() + (introDelay || 0) * 1000;
       dirty = true;
       start();
     };
@@ -919,10 +972,13 @@ const FlexCarousel = ({
 
       if (!introState.running && !introState.done) {
         const allSettled = slots.every((slot) => slot.loaded || slot.failed);
-        if (allSettled || now - introState.readyAt > 3500) {
+        const delayPassed = now >= introState.delayUntil;
+        if (delayPassed && (allSettled || now - introState.readyAt > 3500)) {
           goal = snapPoint(m, goal);
           pos = goal;
           beginIntro(s, m);
+        } else {
+          animating = true;
         }
       }
       if (introState.running) {

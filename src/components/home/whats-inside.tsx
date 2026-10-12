@@ -55,7 +55,9 @@ function ServiceMockup({ slug }: { slug: string }) {
         <div className="flex items-center justify-between">
           <div className="h-3 w-16 rounded-full bg-blue-200" />
           <div className="flex gap-1.5">
-            {[1, 2, 3].map((i) => <div key={i} className="h-2 w-10 rounded-full bg-slate-200" />)}
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-2 w-10 rounded-full bg-slate-200" />
+            ))}
             <div className="h-5 w-16 rounded-full bg-gradient-to-r from-blue-400/60 to-cyan-300/60" />
           </div>
         </div>
@@ -85,21 +87,30 @@ function ServiceMockup({ slug }: { slug: string }) {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="h-2.5 w-20 rounded-full bg-slate-200" />
-          <span className="rounded-full bg-blue-50 border border-blue-100 px-2 py-0.5 text-[0.6rem] font-bold text-blue-600">WORKFLOW</span>
+          <span className="rounded-full bg-blue-50 border border-blue-100 px-2 py-0.5 text-[0.6rem] font-bold text-blue-600">
+            WORKFLOW
+          </span>
         </div>
         <div className="flex items-center justify-between gap-2 mt-2">
           {["Form", "CRM", "SMS", "Book"].map((n, i) => (
             <div key={n} className="flex flex-1 items-center gap-1">
               <div className="flex flex-col items-center gap-1">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 border border-blue-100 text-[0.55rem] font-bold text-blue-600">{i + 1}</div>
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 border border-blue-100 text-[0.55rem] font-bold text-blue-600">
+                  {i + 1}
+                </div>
                 <span className="text-[0.55rem] text-slate-400">{n}</span>
               </div>
-              {i < 3 && <div className="flex-1 h-px bg-slate-200 relative"><div className="absolute top-0 left-0 h-full w-1/2 bg-blue-400/40 rounded-full" /></div>}
+              {i < 3 && (
+                <div className="flex-1 h-px bg-slate-200 relative">
+                  <div className="absolute top-0 left-0 h-full w-1/2 bg-blue-400/40 rounded-full" />
+                </div>
+              )}
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-[0.6rem] text-slate-500">
-          <span className="font-semibold text-slate-700">SMS sent:</span> "Hi! Thanks for reaching out — here's your booking link."
+          <span className="font-semibold text-slate-700">SMS sent:</span> "Hi! Thanks for reaching
+          out — here's your booking link."
         </div>
       </div>
     );
@@ -109,22 +120,32 @@ function ServiceMockup({ slug }: { slug: string }) {
     return (
       <div className="space-y-2.5">
         <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2 border border-slate-100">
-          <div className="h-5 w-5 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center"><div className="h-2 w-2 rounded-sm bg-white/80" /></div>
+          <div className="h-5 w-5 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center">
+            <div className="h-2 w-2 rounded-sm bg-white/80" />
+          </div>
           <div className="h-2 w-16 rounded-full bg-slate-300" />
           <div className="ml-auto h-3 w-3 rounded-full bg-emerald-400" />
         </div>
         <div className="flex justify-end">
-          <div className="max-w-[70%] rounded-2xl rounded-br-sm bg-blue-100 px-3 py-2 text-[0.6rem] text-slate-700">Any appointments this week?</div>
+          <div className="max-w-[70%] rounded-2xl rounded-br-sm bg-blue-100 px-3 py-2 text-[0.6rem] text-slate-700">
+            Any appointments this week?
+          </div>
         </div>
         <div className="flex justify-start">
-          <div className="max-w-[78%] rounded-2xl rounded-bl-sm border border-slate-200 bg-white px-3 py-2 text-[0.6rem] text-slate-600 shadow-sm">Yes! Tuesday 2pm works. New consultation?</div>
+          <div className="max-w-[78%] rounded-2xl rounded-bl-sm border border-slate-200 bg-white px-3 py-2 text-[0.6rem] text-slate-600 shadow-sm">
+            Yes! Tuesday 2pm works. New consultation?
+          </div>
         </div>
         <div className="flex justify-end">
-          <div className="max-w-[55%] rounded-2xl rounded-br-sm bg-blue-100 px-3 py-2 text-[0.6rem] text-slate-700">Tuesday ✓</div>
+          <div className="max-w-[55%] rounded-2xl rounded-br-sm bg-blue-100 px-3 py-2 text-[0.6rem] text-slate-700">
+            Tuesday ✓
+          </div>
         </div>
         <div className="flex items-center gap-2 rounded-lg bg-blue-50 border border-blue-100 px-2.5 py-1.5">
           <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-          <span className="text-[0.58rem] font-bold text-blue-600">Lead qualified · routing to team</span>
+          <span className="text-[0.58rem] font-bold text-blue-600">
+            Lead qualified · routing to team
+          </span>
         </div>
       </div>
     );
@@ -140,14 +161,28 @@ function ServiceMockup({ slug }: { slug: string }) {
         <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3 space-y-1.5">
           <div className="flex items-center gap-2">
             <div className="h-6 w-6 rounded-md bg-blue-100 border border-blue-200" />
-            <div className="flex-1"><div className="h-2 w-24 rounded-full bg-blue-300" /><div className="h-1.5 w-16 rounded-full bg-blue-200 mt-0.5" /></div>
+            <div className="flex-1">
+              <div className="h-2 w-24 rounded-full bg-blue-300" />
+              <div className="h-1.5 w-16 rounded-full bg-blue-200 mt-0.5" />
+            </div>
             <span className="text-[0.6rem] font-extrabold text-blue-600">#1</span>
           </div>
-          <div className="flex gap-0.5">{[1,2,3,4,5].map(i => <div key={i} className="h-2.5 w-2.5 rounded-sm bg-amber-400" />)}</div>
+          <div className="flex gap-0.5">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="h-2.5 w-2.5 rounded-sm bg-amber-400" />
+            ))}
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-1.5">
-          {[{ l: "Rank", v: "↑ 12" }, { l: "Views", v: "4.2k" }, { l: "Calls", v: "+38%" }].map(m => (
-            <div key={m.l} className="rounded-lg border border-slate-100 bg-white p-2 text-center shadow-sm">
+          {[
+            { l: "Rank", v: "↑ 12" },
+            { l: "Views", v: "4.2k" },
+            { l: "Calls", v: "+38%" },
+          ].map((m) => (
+            <div
+              key={m.l}
+              className="rounded-lg border border-slate-100 bg-white p-2 text-center shadow-sm"
+            >
               <div className="text-[0.7rem] font-bold text-blue-600">{m.v}</div>
               <div className="text-[0.55rem] text-slate-400">{m.l}</div>
             </div>
@@ -162,13 +197,27 @@ function ServiceMockup({ slug }: { slug: string }) {
       <div className="space-y-3">
         <div className="rounded-xl border border-slate-100 bg-white p-3 shadow-sm space-y-2">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center"><MapPin className="h-4 w-4 text-blue-600" /></div>
-            <div><div className="h-2.5 w-24 rounded-full bg-slate-300" /><div className="h-2 w-16 rounded-full bg-slate-200 mt-0.5" /></div>
+            <div className="h-8 w-8 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center">
+              <MapPin className="h-4 w-4 text-blue-600" />
+            </div>
+            <div>
+              <div className="h-2.5 w-24 rounded-full bg-slate-300" />
+              <div className="h-2 w-16 rounded-full bg-slate-200 mt-0.5" />
+            </div>
           </div>
           <div className="h-16 rounded-lg bg-slate-100 relative overflow-hidden">
-            <div className="absolute inset-0 grid grid-cols-3 gap-0.5 p-1">{[1,2,3,4,5,6].map(i => <div key={i} className="rounded bg-slate-200/60" />)}</div>
+            <div className="absolute inset-0 grid grid-cols-3 gap-0.5 p-1">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="rounded bg-slate-200/60" />
+              ))}
+            </div>
           </div>
-          <div className="flex gap-0.5 items-center">{[1,2,3,4,5].map(i => <div key={i} className="h-3 w-3 rounded-sm bg-amber-400" />)}<span className="ml-1 text-[0.6rem] font-bold text-amber-600">5.0 (124 reviews)</span></div>
+          <div className="flex gap-0.5 items-center">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="h-3 w-3 rounded-sm bg-amber-400" />
+            ))}
+            <span className="ml-1 text-[0.6rem] font-bold text-amber-600">5.0 (124 reviews)</span>
+          </div>
         </div>
       </div>
     );
@@ -177,14 +226,23 @@ function ServiceMockup({ slug }: { slug: string }) {
   if (slug === "crm") {
     return (
       <div className="space-y-3">
-        <div className="flex items-center justify-between"><div className="h-2.5 w-16 rounded-full bg-slate-200" /><span className="text-[0.6rem] font-bold text-blue-600">Pipeline</span></div>
+        <div className="flex items-center justify-between">
+          <div className="h-2.5 w-16 rounded-full bg-slate-200" />
+          <span className="text-[0.6rem] font-bold text-blue-600">Pipeline</span>
+        </div>
         <div className="grid grid-cols-3 gap-1.5">
           {["New", "Working", "Won"].map((col, ci) => (
             <div key={col} className="space-y-1.5">
               <div className="text-[0.55rem] font-bold text-slate-400 uppercase">{col}</div>
-              {[1, 2].map(i => (
-                <div key={i} className={`rounded-lg border p-2 space-y-1 ${ci === 0 && i === 1 ? "border-blue-200 bg-blue-50" : "border-slate-100 bg-slate-50"}`}>
-                  <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-slate-200" /><div className="h-1.5 w-10 rounded-full bg-slate-200" /></div>
+              {[1, 2].map((i) => (
+                <div
+                  key={i}
+                  className={`rounded-lg border p-2 space-y-1 ${ci === 0 && i === 1 ? "border-blue-200 bg-blue-50" : "border-slate-100 bg-slate-50"}`}
+                >
+                  <div className="flex items-center gap-1">
+                    <div className="h-3 w-3 rounded-full bg-slate-200" />
+                    <div className="h-1.5 w-10 rounded-full bg-slate-200" />
+                  </div>
                   <div className="h-1.5 w-full rounded-full bg-slate-100" />
                 </div>
               ))}
@@ -198,11 +256,24 @@ function ServiceMockup({ slug }: { slug: string }) {
   if (slug === "sms") {
     return (
       <div className="space-y-2.5">
-        <div className="flex items-center gap-2 rounded-lg bg-slate-50 border border-slate-100 px-3 py-2"><MessageSquareText className="h-3.5 w-3.5 text-blue-500" /><div className="h-2 w-20 rounded-full bg-slate-200" /></div>
-        {["Hi! Your appointment is confirmed for Tuesday 2pm.", "Reply STOP to opt out."].map((msg, i) => (
-          <div key={i} className={`rounded-2xl px-3 py-2 text-[0.6rem] ${i === 0 ? "bg-gradient-to-r from-blue-500/10 to-cyan-400/10 border border-blue-100 text-slate-700" : "bg-slate-50 border border-slate-100 text-slate-500"}`}>{msg}</div>
-        ))}
-        <div className="rounded-lg border border-blue-100 bg-blue-50 px-3 py-1.5 flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500" /><span className="text-[0.6rem] font-bold text-blue-600">Delivered · Open rate 98%</span></div>
+        <div className="flex items-center gap-2 rounded-lg bg-slate-50 border border-slate-100 px-3 py-2">
+          <MessageSquareText className="h-3.5 w-3.5 text-blue-500" />
+          <div className="h-2 w-20 rounded-full bg-slate-200" />
+        </div>
+        {["Hi! Your appointment is confirmed for Tuesday 2pm.", "Reply STOP to opt out."].map(
+          (msg, i) => (
+            <div
+              key={i}
+              className={`rounded-2xl px-3 py-2 text-[0.6rem] ${i === 0 ? "bg-gradient-to-r from-blue-500/10 to-cyan-400/10 border border-blue-100 text-slate-700" : "bg-slate-50 border border-slate-100 text-slate-500"}`}
+            >
+              {msg}
+            </div>
+          ),
+        )}
+        <div className="rounded-lg border border-blue-100 bg-blue-50 px-3 py-1.5 flex items-center gap-2">
+          <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+          <span className="text-[0.6rem] font-bold text-blue-600">Delivered · Open rate 98%</span>
+        </div>
       </div>
     );
   }
@@ -212,12 +283,16 @@ function ServiceMockup({ slug }: { slug: string }) {
       <div className="space-y-3">
         <div className="rounded-xl border border-slate-100 bg-slate-50 p-4 space-y-3">
           <div className="h-3 w-24 rounded-full bg-slate-300" />
-          <div className="h-10 rounded-lg border-2 border-blue-200 bg-white px-3 flex items-center"><div className="h-2 w-32 rounded-full bg-slate-200" /></div>
+          <div className="h-10 rounded-lg border-2 border-blue-200 bg-white px-3 flex items-center">
+            <div className="h-2 w-32 rounded-full bg-slate-200" />
+          </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="h-9 rounded-lg border border-slate-200 bg-white" />
             <div className="h-9 rounded-lg border border-slate-200 bg-white" />
           </div>
-          <div className="h-10 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-400 shadow-sm flex items-center justify-center"><div className="h-2.5 w-16 rounded-full bg-white/60" /></div>
+          <div className="h-10 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-400 shadow-sm flex items-center justify-center">
+            <div className="h-2.5 w-16 rounded-full bg-white/60" />
+          </div>
         </div>
       </div>
     );
@@ -228,7 +303,9 @@ function ServiceMockup({ slug }: { slug: string }) {
     <div className="space-y-3">
       <div className="h-3 w-1/2 rounded-full bg-slate-200" />
       <div className="grid grid-cols-3 gap-2">
-        {[1, 2, 3].map((i) => <div key={i} className="h-20 rounded-xl bg-slate-100" />)}
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="h-20 rounded-xl bg-slate-100" />
+        ))}
       </div>
       <div className="h-8 w-full rounded-lg bg-gradient-to-r from-blue-500 to-cyan-400" />
     </div>

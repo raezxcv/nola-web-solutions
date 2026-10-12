@@ -34,8 +34,8 @@ export function NolaCrm() {
           </h2>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-white/55">
-              The NOLA CRM is the central hub that connects your website, automation, AI, and SEO into one
-              organized system behind your business.
+              The NOLA CRM is the central hub that connects your website, automation, AI, and SEO
+              into one organized system behind your business.
             </p>
           </Reveal>
         </div>
@@ -203,10 +203,12 @@ export function NolaCrm() {
           <div className="mt-14 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               to="/solutions"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-white text-ink hover:bg-slate-100 px-6 py-3 text-sm font-bold shadow-md transition-all duration-300 active:scale-[0.98]"
+              className="group inline-flex items-center justify-center gap-3 rounded-full border border-white bg-white text-ink px-6 py-3 text-sm font-bold shadow-md transition-all duration-300 hover:bg-transparent hover:text-white active:scale-[0.98]"
             >
               Explore NOLA CRM
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-white transition-colors duration-300 group-hover:bg-white group-hover:text-ink">
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </span>
             </Link>
             <a
               href="https://nolacrm.io/"
@@ -246,7 +248,7 @@ function OrbitCard({
     <motion.div
       initial={{ opacity: 0, scale: 0.85 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-10%" }}
+      viewport={{ once: false, margin: "-12%" }}
       animate={{ y: floatY }}
       transition={{
         y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay },

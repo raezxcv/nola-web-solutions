@@ -24,7 +24,11 @@ export function UpgradeMessage() {
               <h2 className="mt-5 text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.04] tracking-tight text-foreground">
                 <RevealWords text="Start where you are." />
                 <br />
-                <RevealWords text="Grow when you're ready." delay={0.05} wordClassName="text-gradient-soft" />
+                <RevealWords
+                  text="Grow when you're ready."
+                  delay={0.05}
+                  wordClassName="text-gradient-soft"
+                />
               </h2>
               <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
                 Your business doesn't have to implement everything at once. The packages are
@@ -51,7 +55,7 @@ export function UpgradeMessage() {
                   className="group relative flex items-center gap-5 rounded-xl border border-border bg-card px-5 py-4 transition-colors duration-300 hover:border-foreground/20"
                   initial={{ opacity: 0, x: 16 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-8%" }}
+                  viewport={{ once: false, margin: "-12%" }}
                   transition={{ duration: 0.5, ease: EASE, delay: i * 0.08 }}
                   style={{ marginLeft: `${i * 14}px` }}
                 >

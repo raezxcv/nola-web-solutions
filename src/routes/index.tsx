@@ -21,7 +21,7 @@ import { FinalCta } from "../components/home/final-cta";
 import { BirRegistration } from "../components/home/bir-registration";
 import { ContactSection } from "../components/site/contact-section";
 
-export const Route = createFileRoute("/")(({
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "NOLA Web Solutions" },
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/")(({
     ],
   }),
   component: Index,
-}));
+});
 
 /** Subtle hairline divider — light bg between two light sections */
 function Divider({ dark = false }: { dark?: boolean }) {
@@ -92,7 +92,10 @@ function Index() {
         {/* Divider between Build your system and More tools (both dark) */}
         <Divider dark />
         {/* Typographic transition (dark) */}
-        <TypeStatement lines={["More tools isn't the answer.", "The right system is."]} accentLast />
+        <TypeStatement
+          lines={["More tools isn't the answer.", "The right system is."]}
+          accentLast
+        />
         {/* Full-screen package chapters (mixed light/dark with wireframe mockup screens) */}
         <PackageChapters />
 

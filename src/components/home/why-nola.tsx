@@ -17,7 +17,11 @@ export function WhyNola() {
               <h2 className="mt-5 text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.0] tracking-tight text-foreground">
                 <RevealWords text="One partner for" />
                 <br />
-                <RevealWords text="the whole system." delay={0.05} wordClassName="text-gradient-soft" />
+                <RevealWords
+                  text="the whole system."
+                  delay={0.05}
+                  wordClassName="text-gradient-soft"
+                />
               </h2>
               <p className="mt-6 max-w-sm text-base leading-relaxed text-muted-foreground">
                 Not a stack of disconnected vendors — a single team building the website,
@@ -34,7 +38,7 @@ export function WhyNola() {
                 className="group flex items-start gap-5 py-6"
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-8%" }}
+                viewport={{ once: false, margin: "-12%" }}
                 transition={{ duration: 0.5, ease: EASE, delay: i * 0.06 }}
               >
                 <span className="text-sm font-bold tabular-nums text-foreground/25">

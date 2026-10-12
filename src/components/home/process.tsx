@@ -31,7 +31,7 @@ export function Process() {
             className="absolute left-0 top-7 hidden h-1 rounded-full bg-gradient-to-r from-blue-600 via-primary to-cyan shadow-[0_0_16px_rgba(18,200,234,0.6)] lg:block"
             initial={{ width: "0%" }}
             whileInView={{ width: "100%" }}
-            viewport={{ once: true, margin: "-15%" }}
+            viewport={{ once: false, margin: "-15%" }}
             transition={{ duration: 1.8, ease: EASE }}
           />
 
@@ -44,7 +44,7 @@ export function Process() {
                   className="relative"
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-8%" }}
+                  viewport={{ once: false, margin: "-12%" }}
                   transition={{ duration: 0.5, ease: EASE, delay: i * 0.15 }}
                 >
                   {/* Icon Checkpoint Node with Popout & Shine effect when line hits */}
@@ -53,14 +53,18 @@ export function Process() {
                     initial={{ scale: 0.85, boxShadow: "0 0 0px rgba(18,200,234,0)" }}
                     whileInView={{
                       scale: [0.85, 1.2, 1],
-                      borderColor: ["rgba(226,232,240,1)", "rgba(18,200,234,1)", "rgba(18,200,234,0.5)"],
+                      borderColor: [
+                        "rgba(226,232,240,1)",
+                        "rgba(18,200,234,1)",
+                        "rgba(18,200,234,0.5)",
+                      ],
                       boxShadow: [
                         "0 0 0px rgba(18,200,234,0)",
                         "0 0 30px rgba(18,200,234,0.8)",
                         "0 4px 12px rgba(18,200,234,0.25)",
                       ],
                     }}
-                    viewport={{ once: true, margin: "-8%" }}
+                    viewport={{ once: false, margin: "-12%" }}
                     transition={{
                       duration: 0.7,
                       ease: EASE,

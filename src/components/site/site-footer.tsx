@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
-import { ASSETS, NAV_PACKAGES, NAV_SERVICES } from "../../lib/site-data";
+import { ArrowUpRight, Mail, Phone, PhoneCall } from "lucide-react";
+import { ASSETS, CONTACT_INFO, NAV_PACKAGES, NAV_SERVICES } from "../../lib/site-data";
+import { FacebookIcon, WhatsAppIcon } from "./social-links";
 
 export function SiteFooter() {
   return (
@@ -9,10 +10,67 @@ export function SiteFooter() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <img src={ASSETS.logoWhite} alt="NOLA Web Solutions" className="h-14 sm:h-16 md:h-20 w-auto" />
+            <img
+              src={ASSETS.logoWhite}
+              alt="NOLA Web Solutions"
+              className="h-14 sm:h-16 md:h-20 w-auto"
+            />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/45">
               We don't just build websites. We build the digital system around your business.
             </p>
+
+            {/* Simple Contact & Social Channels with Text */}
+            <ul className="mt-7 space-y-2.5 text-xs text-white/55">
+              <li>
+                <a
+                  href={`mailto:${CONTACT_INFO.email}`}
+                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                >
+                  <Mail className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
+                  <span className="truncate">{CONTACT_INFO.email}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${CONTACT_INFO.phonePHTel}`}
+                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                >
+                  <Phone className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
+                  <span>PH: {CONTACT_INFO.phonePH}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${CONTACT_INFO.phoneUKTel}`}
+                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                >
+                  <PhoneCall className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
+                  <span>UK: {CONTACT_INFO.phoneUK}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT_INFO.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                >
+                  <WhatsAppIcon className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
+                  <span>WhatsApp: +63 917 506 2203</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT_INFO.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                >
+                  <FacebookIcon className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
+                  <span>Facebook</span>
+                </a>
+              </li>
+            </ul>
           </div>
 
           <FooterCol title="Packages" items={NAV_PACKAGES} />
@@ -21,7 +79,7 @@ export function SiteFooter() {
             title="Company"
             items={[
               { label: "About", to: "/about" },
-              { label: "Work", to: "/work" },
+              { label: "Our Works", to: "/our-works" },
               { label: "Solutions", to: "/solutions" },
               { label: "Contact", to: "/contact" },
             ]}

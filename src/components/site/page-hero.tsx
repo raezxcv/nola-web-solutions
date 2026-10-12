@@ -24,8 +24,9 @@ export function PageHero({
     >
       {dark && (
         <>
-          <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-30" />
-          <div className="pointer-events-none absolute -top-32 left-1/4 h-96 w-96 rounded-full bg-primary/20 blur-[120px]" />
+          <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-[0.04]" />
+          {/* Ambient darker deep blue glow positioned directly behind the text */}
+          <div className="pointer-events-none absolute -top-12 left-6 sm:left-24 h-96 w-[34rem] sm:w-[44rem] rounded-full bg-primary/20 blur-[140px]" />
         </>
       )}
       <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8 lg:pb-28 lg:pt-36">

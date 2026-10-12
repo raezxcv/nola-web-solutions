@@ -12,8 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as OurWorksRouteImport } from './routes/our-works'
 import { Route as SolutionsRouteImport } from './routes/solutions'
-import { Route as WorkRouteImport } from './routes/work'
 import { Route as PackagesIndexRouteImport } from './routes/packages/index'
 import { Route as PackagesWebsiteRouteImport } from './routes/packages/website'
 import { Route as PackagesWebsiteAutomationRouteImport } from './routes/packages/website-automation'
@@ -44,14 +44,14 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OurWorksRoute = OurWorksRouteImport.update({
+  id: '/our-works',
+  path: '/our-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SolutionsRoute = SolutionsRouteImport.update({
   id: '/solutions',
   path: '/solutions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WorkRoute = WorkRouteImport.update({
-  id: '/work',
-  path: '/work',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PackagesIndexRoute = PackagesIndexRouteImport.update({
@@ -133,8 +133,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/our-works': typeof OurWorksRoute
   '/solutions': typeof SolutionsRoute
-  '/work': typeof WorkRoute
   '/packages/website': typeof PackagesWebsiteRoute
   '/packages/website-automation': typeof PackagesWebsiteAutomationRoute
   '/packages/website-automation-ai': typeof PackagesWebsiteAutomationAiRoute
@@ -154,8 +154,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/our-works': typeof OurWorksRoute
   '/solutions': typeof SolutionsRoute
-  '/work': typeof WorkRoute
   '/packages/website': typeof PackagesWebsiteRoute
   '/packages/website-automation': typeof PackagesWebsiteAutomationRoute
   '/packages/website-automation-ai': typeof PackagesWebsiteAutomationAiRoute
@@ -176,8 +176,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/our-works': typeof OurWorksRoute
   '/solutions': typeof SolutionsRoute
-  '/work': typeof WorkRoute
   '/packages/website': typeof PackagesWebsiteRoute
   '/packages/website-automation': typeof PackagesWebsiteAutomationRoute
   '/packages/website-automation-ai': typeof PackagesWebsiteAutomationAiRoute
@@ -199,8 +199,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/our-works'
     | '/solutions'
-    | '/work'
     | '/packages/website'
     | '/packages/website-automation'
     | '/packages/website-automation-ai'
@@ -220,8 +220,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/our-works'
     | '/solutions'
-    | '/work'
     | '/packages/website'
     | '/packages/website-automation'
     | '/packages/website-automation-ai'
@@ -241,8 +241,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/our-works'
     | '/solutions'
-    | '/work'
     | '/packages/website'
     | '/packages/website-automation'
     | '/packages/website-automation-ai'
@@ -263,8 +263,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  OurWorksRoute: typeof OurWorksRoute
   SolutionsRoute: typeof SolutionsRoute
-  WorkRoute: typeof WorkRoute
   PackagesWebsiteRoute: typeof PackagesWebsiteRoute
   PackagesWebsiteAutomationRoute: typeof PackagesWebsiteAutomationRoute
   PackagesWebsiteAutomationAiRoute: typeof PackagesWebsiteAutomationAiRoute
@@ -304,18 +304,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/our-works': {
+      id: '/our-works'
+      path: '/our-works'
+      fullPath: '/our-works'
+      preLoaderRoute: typeof OurWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/solutions': {
       id: '/solutions'
       path: '/solutions'
       fullPath: '/solutions'
       preLoaderRoute: typeof SolutionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/work': {
-      id: '/work'
-      path: '/work'
-      fullPath: '/work'
-      preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/packages/': {
@@ -423,8 +423,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  OurWorksRoute: OurWorksRoute,
   SolutionsRoute: SolutionsRoute,
-  WorkRoute: WorkRoute,
   PackagesWebsiteRoute: PackagesWebsiteRoute,
   PackagesWebsiteAutomationRoute: PackagesWebsiteAutomationRoute,
   PackagesWebsiteAutomationAiRoute: PackagesWebsiteAutomationAiRoute,

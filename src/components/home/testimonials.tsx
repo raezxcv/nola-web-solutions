@@ -28,7 +28,8 @@ export function Testimonials() {
               Trusted By Entrepreneurs & Agency Founders
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-white/60 sm:text-lg">
-              Read verified feedback from business leaders, digital entrepreneurs, and clients who rely on Norwin and NOLA Web Solutions.
+              Read verified feedback from business leaders, digital entrepreneurs, and clients who
+              rely on Norwin and NOLA Web Solutions.
             </p>
           </div>
         </Reveal>

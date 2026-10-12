@@ -29,7 +29,11 @@ export function BuildYourSystem() {
           <h2 className="mx-auto mt-5 max-w-2xl text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.04] tracking-tight">
             <RevealWords text="Start with the foundation." />
             <br />
-            <RevealWords text="Add what your business needs." delay={0.05} wordClassName="text-gradient-brand" />
+            <RevealWords
+              text="Add what your business needs."
+              delay={0.05}
+              wordClassName="text-gradient-brand"
+            />
           </h2>
         </div>
 
@@ -41,7 +45,7 @@ export function BuildYourSystem() {
               className="group relative flex items-center gap-6 rounded-xl border border-white/[0.08] bg-white/[0.02] px-6 py-5 transition-colors duration-300 hover:border-cyan/30 hover:bg-white/[0.04] sm:px-8"
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
+              viewport={{ once: false, margin: "-12%" }}
               transition={{ duration: 0.6, ease: EASE, delay: i * 0.08 }}
               style={{
                 marginLeft: `${i * 18}px`,

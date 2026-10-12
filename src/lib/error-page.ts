@@ -36,7 +36,7 @@ export function renderErrorPage(): string {
         font-weight: 700;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        color: #12C8EA;
+        color: #cbd5e1;
         margin-bottom: 1.5rem;
       }
       h1 {

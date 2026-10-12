@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { PORTFOLIO } from "../../lib/site-data";
 import { Eyebrow } from "../site/ui";
@@ -42,7 +44,7 @@ export function Portfolio() {
                 }`}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
+                viewport={{ once: false, margin: "-12%" }}
                 transition={{ duration: 0.7, ease: EASE }}
               >
                 {/* Directional subtle side shadow overlay */}
@@ -90,6 +92,21 @@ export function Portfolio() {
             );
           })}
         </div>
+
+        {/* CTA Button to View All Works */}
+        <Reveal delay={0.15}>
+          <div className="mt-16 sm:mt-20 flex flex-col items-center justify-center gap-4 text-center">
+            <Link
+              to="/our-works"
+              className="group inline-flex items-center justify-center gap-3 rounded-full border border-white bg-white text-ink px-8 py-3.5 text-sm font-bold shadow-lg transition-all duration-300 hover:bg-transparent hover:text-white active:scale-[0.98]"
+            >
+              View all works
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-white transition-colors duration-300 group-hover:bg-white group-hover:text-ink">
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

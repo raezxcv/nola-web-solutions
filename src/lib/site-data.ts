@@ -29,10 +29,7 @@ export const ASSETS = {
 } as const;
 
 export type PackageSlug =
-  | "website"
-  | "website-automation"
-  | "website-automation-ai"
-  | "website-automation-seo";
+  "website" | "website-automation" | "website-automation-ai" | "website-automation-seo";
 
 export interface PackageInfo {
   slug: PackageSlug;
@@ -421,32 +418,301 @@ export const PORTFOLIO = [
     components: ["AI Agent", "24/7 Booking", "Lead Capture"],
     image:
       "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f6182b67351309ade29d22.png",
-    description: "Intelligent AI chatbot trained to respond to customer inquiries and qualify leads 24/7.",
+    description:
+      "Intelligent AI chatbot trained to respond to customer inquiries and qualify leads 24/7.",
   },
   {
     industry: "Google Business & Local SEO",
     components: ["GMB Profile", "Local Search", "Review Engine"],
     image:
       "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f618266735131b64e29d1e.png",
-    description: "Local search engine optimization and profile tuning to dominate regional search results.",
+    description:
+      "Local search engine optimization and profile tuning to dominate regional search results.",
   },
   {
     industry: "NOLA Business CRM",
     components: ["Lead Pipeline", "Automated SMS", "Centralized Inbox"],
     image: ASSETS.crm,
-    description: "All-in-one CRM managing leads, customer communications, pipelines, and automated campaigns.",
+    description:
+      "All-in-one CRM managing leads, customer communications, pipelines, and automated campaigns.",
   },
   {
     industry: "Real Estate Platform",
     components: ["Website", "MLS Integration", "NOLA Realty CRM"],
     image: ASSETS.realtyCrm,
-    description: "Comprehensive property listing showcase with automatic lead routing for agent teams.",
+    description:
+      "Comprehensive property listing showcase with automatic lead routing for agent teams.",
   },
   {
     industry: "Healthcare & Weight-Loss Clinic",
     components: ["Website", "HIPAA Automation", "NOLA HealthPro CRM"],
     image: ASSETS.healthproCrm,
-    description: "Patient booking, medical intake forms, and specialized clinic pipeline automation.",
+    description:
+      "Patient booking, medical intake forms, and specialized clinic pipeline automation.",
+  },
+];
+
+export interface ClientWork {
+  id: string;
+  title: string;
+  category:
+    | "All"
+    | "Real Estate"
+    | "Healthcare & Dental"
+    | "Services & Tech"
+    | "Hospitality & Leisure"
+    | "Corporate & Growth";
+  industry: string;
+  image: string;
+  description: string;
+  tags: string[];
+  featured?: boolean;
+}
+
+export const CLIENT_WORKS: ClientWork[] = [
+  {
+    id: "top-choice",
+    title: "Top Choice",
+    category: "Healthcare & Dental",
+    industry: "Weight Loss Clinic",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8e8d74ad59e6cfed1ff34a.png",
+    description:
+      "Results-driven digital presence for a weight loss clinic, built to attract and convert patients with clear program offerings and online consultation booking.",
+    tags: ["Patient Intake", "Online Booking", "Program Pages", "Mobile UX"],
+    featured: true,
+  },
+  {
+    id: "champion",
+    title: "Champion",
+    category: "Healthcare & Dental",
+    industry: "Weight Loss Clinic",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8e8d4867bb7ac35133ee3f.png",
+    description:
+      "Bold, conversion-optimized clinic platform for a weight loss brand — designed to educate patients on transformation programs and drive consultation sign-ups.",
+    tags: ["Consultation Funnel", "Program Showcase", "Patient Intake", "Lead Capture"],
+    featured: true,
+  },
+  {
+    id: "the-feast",
+    title: "The Feast",
+    category: "Corporate & Growth",
+    industry: "Community & Events",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a901579747464c6b3928631.png",
+    description:
+      "Engaging community and event portal featuring live multimedia, event schedules, and updates.",
+    tags: ["Event Portal", "Community", "Media Hub"],
+  },
+  {
+    id: "growthx-ignite",
+    title: "GrowthX | Ignite",
+    category: "Corporate & Growth",
+    industry: "Executive Growth & B2B",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a90140fef6b5f0786cb9bb7.png",
+    description:
+      "Premium dark-mode executive conference portal engineered for high-value workshop registrations.",
+    tags: ["Summit Funnel", "High-Converting UI", "Ticketing"],
+    featured: true,
+  },
+  {
+    id: "new-asia-golf",
+    title: "New Asia Golf and Spa Resort",
+    category: "Hospitality & Leisure",
+    industry: "Resort & Hospitality",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d7c77e25296bd1baf4d4c.png",
+    description:
+      "Luxury destination portal showcasing championship golf facilities, spa bookings, and guest amenities.",
+    tags: ["Resort Booking", "Amenities", "Luxury UX"],
+  },
+  {
+    id: "the-coolest-journey",
+    title: "The Coolest Journey",
+    category: "Hospitality & Leisure",
+    industry: "Travel & Tours",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d791567ecc8731d06049b.png",
+    description:
+      "Immersive expedition platform highlighting curated travel itineraries and online booking flows.",
+    tags: ["Tour Packages", "Booking Funnel", "Photo Showcase"],
+  },
+  {
+    id: "aesthetic-dentistry",
+    title: "Aesthetic and Implant Dentistry",
+    category: "Healthcare & Dental",
+    industry: "Cosmetic & Dental Surgery",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d789367ecc8731d059305.png",
+    description:
+      "Upscale aesthetic dental clinic showcase with smile gallery and online consultation scheduling.",
+    tags: ["Smile Gallery", "Patient Intake", "Online Booking"],
+    featured: true,
+  },
+  {
+    id: "smile-solutions",
+    title: "Smile Solutions",
+    category: "Healthcare & Dental",
+    industry: "Family & Aesthetic Dental",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d76becdd4b797a3cff2c7.png",
+    description:
+      "Modern family dental platform designed for fast appointment booking and service education.",
+    tags: ["Clinic Booking", "Treatment Guides", "Mobile Friendly"],
+  },
+  {
+    id: "rg-woods",
+    title: "RGWoods and Carving",
+    category: "Services & Tech",
+    industry: "Artisan Woodworking",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d7757cdd4b797a3d0c586.png",
+    description:
+      "Artisanal woodworking showcase displaying bespoke handcrafted furniture and custom project requests.",
+    tags: ["Custom Woodwork", "Artisan Portfolio", "Inquiries"],
+  },
+  {
+    id: "aibph",
+    title: "AIBPH",
+    category: "Corporate & Growth",
+    industry: "Corporate & Professional Services",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d763867ecc8731d00c101.png",
+    description:
+      "Comprehensive corporate advisory platform with structured consulting services and client portals.",
+    tags: ["Corporate Portal", "Advisory", "Client Resources"],
+  },
+  {
+    id: "rugg-realty",
+    title: "Rugg Realty",
+    category: "Real Estate",
+    industry: "Real Estate Brokerage",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d756467bb7ac351bf9417.png",
+    description:
+      "Premier real estate brokerage portal featuring neighborhood spotlights and active property search.",
+    tags: ["MLS Listings", "Neighborhoods", "Lead Funnel"],
+    featured: true,
+  },
+  {
+    id: "journey-realty",
+    title: "Journey Real Estate",
+    category: "Real Estate",
+    industry: "Residential Real Estate",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d74f367bb7ac351bdc09c.png",
+    description:
+      "Modern residential property portal offering interactive search and instant home valuation tools.",
+    tags: ["Featured Homes", "Instant Valuation", "Agent CRM"],
+  },
+  {
+    id: "saltwater-fishing",
+    title: "SaltWaterFishing.Pro",
+    category: "Hospitality & Leisure",
+    industry: "Marine & Charter Recreation",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d749c67bb7ac351bd3665.png",
+    description:
+      "Premier sportfishing charter website with calendar availability, seasonal guides, and reservations.",
+    tags: ["Charter Bookings", "Gear Guides", "Tide Info"],
+  },
+  {
+    id: "body-structure",
+    title: "Body Structure",
+    category: "Healthcare & Dental",
+    industry: "Fitness & Physical Therapy",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d7438ad59e6cfedbd86a1.png",
+    description:
+      "Integrated wellness and physical therapy clinic portal with online scheduling and service menus.",
+    tags: ["Therapy Intake", "Class Schedule", "Trainer Profiles"],
+  },
+  {
+    id: "tritech",
+    title: "TriTech",
+    category: "Services & Tech",
+    industry: "Technology & IT Solutions",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d73c0ad59e6cfedbc3032.png",
+    description:
+      "Enterprise IT support and managed services portal featuring service catalog and client ticketing.",
+    tags: ["Enterprise IT", "Support Portal", "Cloud Services"],
+  },
+  {
+    id: "jk-car-rental",
+    title: "J&K Car Rental",
+    category: "Services & Tech",
+    industry: "Vehicle Rental & Fleet",
+    image:
+      "https://assets.cdn.filesafe.space/HWfgmknLlE5JWOJWkVS2/media/6a8d72d6ad59e6cfedba6d61.png",
+    description:
+      "Streamlined vehicle rental portal with fleet showcase, pricing matrix, and automated rental requests.",
+    tags: ["Fleet Catalog", "Daily Rates", "Instant Booking"],
+  },
+  {
+    id: "custom-web-ux",
+    title: "Custom Web Design & UX",
+    category: "Corporate & Growth",
+    industry: "Custom Web Platform",
+    image:
+      "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f6182e0a6217f736d34f54.png",
+    description:
+      "High-converting, responsive website design built for seamless user engagement and sales capture.",
+    tags: ["Website", "Conversion UI", "Responsive"],
+  },
+  {
+    id: "ai-chatbot",
+    title: "AI Chatbot & Qualification",
+    category: "Services & Tech",
+    industry: "AI Automation System",
+    image:
+      "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f6182b67351309ade29d22.png",
+    description:
+      "Intelligent AI chatbot trained to respond to customer inquiries and qualify leads 24/7.",
+    tags: ["AI Agent", "24/7 Booking", "Lead Routing"],
+  },
+  {
+    id: "local-seo",
+    title: "Google Business & Local SEO",
+    category: "Corporate & Growth",
+    industry: "Search Engine Optimization",
+    image:
+      "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67f618266735131b64e29d1e.png",
+    description:
+      "Local search engine optimization and profile tuning to dominate regional search results.",
+    tags: ["GMB Profile", "Local Search", "Review Engine"],
+  },
+  {
+    id: "nola-crm-hub",
+    title: "NOLA Business CRM Hub",
+    category: "Services & Tech",
+    industry: "CRM & Workflow Infrastructure",
+    image: ASSETS.crm,
+    description:
+      "All-in-one CRM managing leads, customer communications, pipelines, and automated campaigns.",
+    tags: ["Pipeline", "SMS & Email", "Unified Inbox"],
+  },
+  {
+    id: "realty-crm-system",
+    title: "NOLA Realty Platform",
+    category: "Real Estate",
+    industry: "Real Estate Infrastructure",
+    image: ASSETS.realtyCrm,
+    description:
+      "Comprehensive property listing showcase with automatic lead routing for agent teams.",
+    tags: ["Realty CRM", "Lead Routing", "MLS Sync"],
+  },
+  {
+    id: "healthpro-clinic",
+    title: "Healthcare & Weight-Loss Clinic",
+    category: "Healthcare & Dental",
+    industry: "Healthcare Infrastructure",
+    image: ASSETS.healthproCrm,
+    description:
+      "Patient booking, medical intake forms, and specialized clinic pipeline automation.",
+    tags: ["HealthPro CRM", "HIPAA Forms", "Intake Flow"],
   },
 ];
 
@@ -568,3 +834,13 @@ export const NAV_SOLUTIONS = [
   { label: "NOLA Realty CRM", to: "/solutions" },
   { label: "NOLA HealthPro CRM", to: "/solutions" },
 ];
+
+export const CONTACT_INFO = {
+  email: "info@nolawebsolutions.com",
+  phonePH: "+63 917 506 2203",
+  phonePHTel: "+639175062203",
+  phoneUK: "+44 7360 49392",
+  phoneUKTel: "+44736049392",
+  facebook: "https://www.facebook.com/nolawebsolutions/",
+  whatsapp: "https://wa.me/639175062203",
+} as const;

@@ -102,7 +102,7 @@ export function FinalCta() {
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               to={recPkg ? PACKAGE_PATHS[recPkg.slug] : "/packages"}
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-white text-ink hover:bg-slate-100 px-6 py-3 text-sm font-bold shadow-md transition-all duration-300 active:scale-[0.98]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full border border-white bg-white text-ink px-6 py-3 text-sm font-bold shadow-md transition-all duration-300 hover:bg-transparent hover:text-white active:scale-[0.98]"
             >
               Let's build it
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />

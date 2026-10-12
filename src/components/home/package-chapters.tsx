@@ -64,13 +64,7 @@ export function PackageChapters() {
   );
 }
 
-function MacWindowChrome({
-  dark,
-  children,
-}: {
-  dark: boolean;
-  children: React.ReactNode;
-}) {
+function MacWindowChrome({ dark, children }: { dark: boolean; children: React.ReactNode }) {
   return (
     <div
       className={`overflow-hidden rounded-2xl border shadow-2xl ${
@@ -228,7 +222,9 @@ function IntelligenceMockup() {
       {/* Lead qualified bar */}
       <div className="flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 py-1.5">
         <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-        <span className="text-[0.6rem] font-bold text-blue-600">Lead Qualified · Routing to team…</span>
+        <span className="text-[0.6rem] font-bold text-blue-600">
+          Lead Qualified · Routing to team…
+        </span>
       </div>
     </div>
   );
@@ -269,7 +265,10 @@ function VisibilityMockup() {
           { label: "Views", val: "4.2k" },
           { label: "Calls", val: "+38%" },
         ].map((m) => (
-          <div key={m.label} className="rounded-lg border border-white/10 bg-white/[0.04] p-2 text-center">
+          <div
+            key={m.label}
+            className="rounded-lg border border-white/10 bg-white/[0.04] p-2 text-center"
+          >
             <div className="text-[0.7rem] font-bold text-cyan">{m.val}</div>
             <div className="text-[0.55rem] text-white/40 mt-0.5">{m.label}</div>
           </div>
@@ -378,9 +377,7 @@ function Chapter({
                 {pkg.includes.slice(0, 6).map((item) => (
                   <li key={item} className="flex items-start gap-2 text-sm font-medium">
                     <Check
-                      className={`mt-0.5 h-4 w-4 shrink-0 ${
-                        dark ? "text-cyan" : "text-blue-600"
-                      }`}
+                      className={`mt-0.5 h-4 w-4 shrink-0 ${dark ? "text-cyan" : "text-blue-600"}`}
                     />
                     <span className={dark ? "text-white/80" : "text-slate-700"}>{item}</span>
                   </li>
@@ -391,12 +388,22 @@ function Chapter({
             <Reveal delay={0.25}>
               <Link
                 to={PACKAGE_PATHS[pkg.slug]}
-                className={`group mt-9 inline-flex items-center gap-2 rounded-full ${
-                  dark ? "bg-white text-ink hover:bg-slate-100" : "bg-slate-900 text-white hover:bg-black"
-                } px-6 py-3.5 text-sm font-bold shadow-md transition-all duration-300 active:scale-[0.98]`}
+                className={`group mt-9 inline-flex items-center gap-3 rounded-full border px-6 py-3.5 text-sm font-bold shadow-md transition-all duration-300 active:scale-[0.98] ${
+                  dark
+                    ? "border-white bg-white text-ink hover:bg-transparent hover:text-white"
+                    : "border-slate-900 bg-slate-900 text-white hover:bg-transparent hover:text-slate-900"
+                }`}
               >
                 {pkg.cta}
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <span
+                  className={`flex h-6 w-6 items-center justify-center rounded-full transition-colors duration-300 ${
+                    dark
+                      ? "bg-ink text-white group-hover:bg-white group-hover:text-ink"
+                      : "bg-white text-slate-900 group-hover:bg-slate-900 group-hover:text-white"
+                  }`}
+                >
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
               </Link>
             </Reveal>
           </div>
@@ -408,7 +415,7 @@ function Chapter({
               <motion.div
                 initial={{ opacity: 0, y: 24, scale: 0.97 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-10%" }}
+                viewport={{ once: false, margin: "-12%" }}
                 transition={{ duration: 0.75, ease: EASE }}
                 className={`relative overflow-hidden rounded-3xl p-5 sm:p-7 shadow-2xl border ${
                   dark
@@ -418,9 +425,7 @@ function Chapter({
               >
                 {/* Badge header row */}
                 <div className="mb-4 flex items-center gap-2">
-                  <span
-                    className={`h-2 w-2 rounded-full ${dark ? "bg-cyan" : "bg-blue-600"}`}
-                  />
+                  <span className={`h-2 w-2 rounded-full ${dark ? "bg-cyan" : "bg-blue-600"}`} />
                   <span
                     className={`text-[0.65rem] font-bold uppercase tracking-widest ${
                       dark ? "text-white/40" : "text-slate-500"
@@ -431,9 +436,7 @@ function Chapter({
                 </div>
 
                 {/* Mac-style browser window */}
-                <MacWindowChrome dark={dark}>
-                  {mockupMap[pkg.slug]}
-                </MacWindowChrome>
+                <MacWindowChrome dark={dark}>{mockupMap[pkg.slug]}</MacWindowChrome>
               </motion.div>
             </div>
           </Reveal>

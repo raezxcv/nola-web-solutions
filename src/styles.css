@@ -166,8 +166,29 @@
     letter-spacing: -0.025em;
   }
   ::selection {
-    background: color-mix(in oklab, var(--brand) 28%, transparent);
-    color: var(--foreground);
+    background: rgba(18, 200, 234, 0.25);
+    color: #0b0f19;
+  }
+  .bg-ink ::selection,
+  footer ::selection,
+  [data-dark="true"] ::selection,
+  .dark ::selection {
+    background: rgba(18, 200, 234, 0.4);
+    color: #ffffff;
+  }
+  .text-gradient-brand::selection,
+  .text-gradient-soft::selection,
+  [class*="text-gradient"]::selection {
+    -webkit-text-fill-color: #0284c7;
+    color: #0284c7;
+    background: rgba(18, 200, 234, 0.25);
+  }
+  .bg-ink .text-gradient-brand::selection,
+  .bg-ink .text-gradient-soft::selection,
+  .bg-ink [class*="text-gradient"]::selection {
+    -webkit-text-fill-color: #38bdf8;
+    color: #38bdf8;
+    background: rgba(18, 200, 234, 0.4);
   }
 }
 

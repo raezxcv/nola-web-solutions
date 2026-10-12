@@ -27,12 +27,18 @@ function NotFoundComponent() {
 
       <div className="relative z-10 max-w-md text-center">
         <div className="mb-6 inline-flex">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan backdrop-blur-md">
+          <span
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-300 backdrop-blur-md"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
             ✦ Page Not Found ✦
           </span>
         </div>
 
-        <h1 className="text-6xl sm:text-7xl font-extrabold tracking-tight text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+        <h1
+          className="text-6xl sm:text-7xl font-extrabold tracking-tight text-white"
+          style={{ fontFamily: "'Syne', sans-serif" }}
+        >
           404
         </h1>
         <h2 className="mt-3 text-xl font-bold text-white/90">Page not found</h2>
@@ -67,12 +73,18 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
       <div className="relative z-10 max-w-lg text-center">
         <div className="mb-6 inline-flex">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan backdrop-blur-md">
+          <span
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-300 backdrop-blur-md"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
             ✦ System Notice ✦
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight" style={{ fontFamily: "'Syne', sans-serif" }}>
+        <h1
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight"
+          style={{ fontFamily: "'Syne', sans-serif" }}
+        >
           This page didn't load
         </h1>
         <p className="mt-4 text-base leading-relaxed text-white/60 max-w-md mx-auto">
