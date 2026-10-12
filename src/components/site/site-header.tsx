@@ -73,7 +73,7 @@ export function SiteHeader() {
             aria-label="NOLA Web Solutions home"
           >
             <img
-              src={mobileOpen || onDark ? ASSETS.logoWhite : ASSETS.logoPrimary}
+              src={ASSETS.logoNavbar}
               alt="NOLA Web Solutions"
               className="h-8 w-auto sm:h-10 transition-transform duration-300 group-hover:scale-[1.02]"
             />

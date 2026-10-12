@@ -6,7 +6,9 @@ export const ASSETS = {
   favicon:
     "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/66160ba8041ea7403d544ed3.png",
   logoPrimary:
-    "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67ea34f01870f4c5df49c20c.png",
+    "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67ea34f01870f4c5df49c20c.png",
+  logoNavbar:
+    "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/67ea34f01870f4c5df49c20c.png",
   logoWhite:
     "https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/4c8aebd0-f70d-4779-a593-c1bd6eb25281.png",
   webDesign:
