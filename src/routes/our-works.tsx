@@ -130,13 +130,13 @@ function WorkPage() {
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                     className={`group inline-flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 ${
                       isActive
-                        ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-900"
-                        : "bg-slate-100/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-900 border border-transparent hover:border-slate-300/60"
+                        ? "bg-primary text-white shadow-sm shadow-primary/25 ring-1 ring-primary"
+                        : "bg-slate-100/80 text-slate-600 hover:bg-primary/8 hover:text-primary border border-transparent hover:border-primary/20"
                     }`}
                   >
                     <Icon
                       className={`h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transition-colors ${
-                        isActive ? "text-white" : "text-slate-500 group-hover:text-slate-900"
+                        isActive ? "text-white" : "text-slate-400 group-hover:text-primary"
                       }`}
                     />
                     <span>{label}</span>
