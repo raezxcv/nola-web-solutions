@@ -98,6 +98,7 @@ export function SiteHeader() {
           </SimpleLink>
           <NavItem
             label="Packages"
+            to="/packages"
             onDark={scrolled || onDark}
             menuKey="packages"
             openMenu={openMenu}
@@ -171,12 +172,7 @@ function SimpleLink({
   children: React.ReactNode;
 }) {
   const handleClick = () => {
-    if (to === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, 50);
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -195,6 +191,7 @@ function SimpleLink({
 
 function NavItem({
   label,
+  to,
   onDark,
   menuKey,
   openMenu,
@@ -202,6 +199,7 @@ function NavItem({
   items,
 }: {
   label: string;
+  to?: string;
   onDark: boolean;
   menuKey: string;
   openMenu: string | null;
@@ -215,17 +213,36 @@ function NavItem({
       onMouseEnter={() => setOpenMenu(menuKey)}
       onMouseLeave={() => setOpenMenu(null)}
     >
-      <button
-        className={`inline-flex items-center gap-1 text-sm font-medium transition-colors ${
-          onDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground"
-        }`}
-        onClick={() => setOpenMenu(open ? null : menuKey)}
-      >
-        {label}
-        <ChevronDown
-          className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-        />
-      </button>
+      <div className="inline-flex items-center gap-0.5">
+        {to ? (
+          <Link
+            to={to}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className={`text-sm font-medium transition-colors ${
+              onDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground"
+            } after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100`}
+          >
+            {label}
+          </Link>
+        ) : (
+          <span
+            className={`text-sm font-medium ${onDark ? "text-white/65" : "text-foreground/65"}`}
+          >
+            {label}
+          </span>
+        )}
+        <button
+          className={`inline-flex items-center transition-colors p-0.5 ${
+            onDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground"
+          }`}
+          onClick={() => setOpenMenu(open ? null : menuKey)}
+          aria-label={`Toggle ${label} menu`}
+        >
+          <ChevronDown
+            className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          />
+        </button>
+      </div>
       {open && (
         <div className="absolute left-0 top-full pt-3">
           <div
@@ -257,8 +274,13 @@ function NavItem({
 
 function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void }) {
   const [section, setSection] = useState<string | null>(null);
-  const sections: { key: string; label: string; items: { label: string; to: string }[] }[] = [
-    { key: "packages", label: "Packages", items: NAV_PACKAGES },
+  const sections: {
+    key: string;
+    label: string;
+    to?: string;
+    items: { label: string; to: string }[];
+  }[] = [
+    { key: "packages", label: "Packages", to: "/packages", items: NAV_PACKAGES },
     { key: "solutions", label: "Solutions", items: NAV_SOLUTIONS },
   ];
 
@@ -282,19 +304,38 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
             key={s.key}
             className={`py-3 border-b ${isDarkMenu ? "border-white/10" : "border-border"}`}
           >
-            <button
-              className={`flex w-full items-center justify-between py-1 text-lg font-semibold tracking-tight ${
-                isDarkMenu ? "text-white" : "text-foreground"
-              }`}
-              onClick={() => setSection(section === s.key ? null : s.key)}
-            >
-              {s.label}
-              <ChevronDown
-                className={`h-5 w-5 transition-transform duration-300 ${
-                  section === s.key ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+            <div className="flex w-full items-center justify-between py-1">
+              {s.to ? (
+                <Link
+                  to={s.to}
+                  onClick={onClose}
+                  className={`text-lg font-semibold tracking-tight flex-1 ${
+                    isDarkMenu ? "text-white" : "text-foreground"
+                  }`}
+                >
+                  {s.label}
+                </Link>
+              ) : (
+                <span
+                  className={`text-lg font-semibold tracking-tight flex-1 ${
+                    isDarkMenu ? "text-white" : "text-foreground"
+                  }`}
+                >
+                  {s.label}
+                </span>
+              )}
+              <button
+                className={`p-1 ${isDarkMenu ? "text-white/60" : "text-foreground/60"}`}
+                onClick={() => setSection(section === s.key ? null : s.key)}
+                aria-label={`Toggle ${s.label} submenu`}
+              >
+                <ChevronDown
+                  className={`h-5 w-5 transition-transform duration-300 ${
+                    section === s.key ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+            </div>
             {section === s.key && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}

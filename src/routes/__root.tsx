@@ -3,6 +3,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -18,6 +19,15 @@ import { ScrollToTop } from "../components/site/scroll-to-top";
 import { SmoothScroll } from "../components/site/smooth-scroll";
 
 import { ASSETS } from "../lib/site-data";
+
+/** Scrolls the window to the top whenever the route pathname changes. */
+function ScrollReset() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+  return null;
+}
 
 function NotFoundComponent() {
   return (
@@ -188,6 +198,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ScrollReset />
       <SmoothScroll />
       <div className="flex min-h-screen flex-col bg-background">
         <SiteHeader />

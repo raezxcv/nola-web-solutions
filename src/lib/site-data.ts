@@ -42,6 +42,7 @@ export interface PackageInfo {
   headline: string;
   description: string;
   bestFor: string;
+  price: string;
   featured?: boolean;
   includes: string[];
   services: { name: string; icon: string; blurb: string }[];
@@ -59,6 +60,7 @@ export const PACKAGES: PackageInfo[] = [
     description:
       "A modern, responsive website designed around your brand, customers, and business goals.",
     bestFor: "Businesses that need a credible, professional online presence.",
+    price: "$2,497",
     includes: [
       "Custom Website Design",
       "Responsive Mobile Design",
@@ -103,6 +105,7 @@ export const PACKAGES: PackageInfo[] = [
     description:
       "Everything in the Website package, plus automation that helps capture, organize, and follow up with leads.",
     bestFor: "Businesses ready to stop losing leads to manual follow-up.",
+    price: "$3,997",
     includes: [
       "Everything in Website",
       "Lead Capture Automation",
@@ -143,7 +146,8 @@ export const PACKAGES: PackageInfo[] = [
     headline: "Add AI to your digital business.",
     description:
       "Everything you need to launch a professional website, automate your workflow, and use AI to handle more customer conversations.",
-    bestFor: "Businesses that want AI to qualify and respond to customers around the clock.",
+    bestFor: "Businesses ready to automate customer conversations with AI.",
+    price: "$5,997",
     featured: true,
     includes: [
       "Everything in Website + Automation",
@@ -186,6 +190,7 @@ export const PACKAGES: PackageInfo[] = [
     description:
       "Everything in Website + Automation, plus SEO and local optimization designed to help your business become more visible online.",
     bestFor: "Local businesses that need to show up when customers search.",
+    price: "$4,997",
     includes: [
       "Everything in Website + Automation",
       "SEO Strategy",
