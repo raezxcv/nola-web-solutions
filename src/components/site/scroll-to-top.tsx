@@ -70,7 +70,7 @@ export function ScrollToTop() {
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className={`group fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-transparent shadow-lg transition-all duration-300 active:scale-95 ${
+          className={`group fixed bottom-6 right-6 z-30 flex h-12 w-12 items-center justify-center rounded-full border border-transparent shadow-lg transition-all duration-300 active:scale-95 ${
             isDarkBg
               ? "bg-white text-ink hover:border-white hover:bg-transparent hover:text-white"
               : "bg-slate-900 text-white hover:border-slate-900 hover:bg-transparent hover:text-slate-900"

@@ -2,7 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ASSETS, NAV_PACKAGES, NAV_SOLUTIONS } from "../../lib/site-data";
+import { ASSETS, NAV_PACKAGES } from "../../lib/site-data";
 
 function AnimatedHamburgerIcon({ isOpen }: { isOpen: boolean }) {
   return (
@@ -44,11 +44,53 @@ export function SiteHeader() {
     setOpenMenu(null);
   }, [location.pathname]);
 
+  // Lock background scroll when mobile navigation menu is open
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
+    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+
+    if (mobileOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overscrollBehavior = "none";
+      document.body.style.overscrollBehavior = "none";
+      lenis?.stop();
+    } else {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
+      document.documentElement.style.overscrollBehavior = "";
+      document.body.style.overscrollBehavior = "";
+      lenis?.start();
+    }
+
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.documentElement.style.overscrollBehavior = "";
+      document.body.style.overscrollBehavior = "";
+      lenis?.start();
     };
+  }, [mobileOpen]);
+
+  // Close menu on screen resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Close menu on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    if (mobileOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
   }, [mobileOpen]);
 
   const onDark = isDarkRoute(location.pathname);
@@ -273,16 +315,10 @@ function NavItem({
 }
 
 function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void }) {
-  const [section, setSection] = useState<string | null>(null);
-  const sections: {
-    key: string;
-    label: string;
-    to?: string;
-    items: { label: string; to: string }[];
-  }[] = [
-    { key: "packages", label: "Packages", to: "/packages", items: NAV_PACKAGES },
-    { key: "solutions", label: "Solutions", items: NAV_SOLUTIONS },
-  ];
+  const location = useLocation();
+  const pathname = location.pathname;
+  const isPackagesActive = pathname.startsWith("/packages");
+  const [packagesOpen, setPackagesOpen] = useState(isPackagesActive);
 
   const isDarkMenu = onDark;
 
@@ -292,135 +328,213 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed inset-0 z-40 lg:hidden flex flex-col justify-between overflow-y-auto px-6 pt-24 pb-10 w-screen h-screen ${
+      className={`fixed inset-0 z-40 lg:hidden flex flex-col h-[100dvh] w-full overflow-hidden ${
         isDarkMenu
           ? "bg-ink/98 text-white backdrop-blur-3xl"
           : "bg-background/98 text-foreground backdrop-blur-3xl"
       }`}
     >
-      <div className="mx-auto w-full max-w-lg space-y-4">
-        {sections.map((s) => (
-          <div
-            key={s.key}
-            className={`py-3 border-b ${isDarkMenu ? "border-white/10" : "border-border"}`}
-          >
-            <div className="flex w-full items-center justify-between py-1">
-              {s.to ? (
-                <Link
-                  to={s.to}
-                  onClick={onClose}
-                  className={`text-lg font-semibold tracking-tight flex-1 ${
-                    isDarkMenu ? "text-white" : "text-foreground"
-                  }`}
-                >
-                  {s.label}
-                </Link>
-              ) : (
-                <span
-                  className={`text-lg font-semibold tracking-tight flex-1 ${
-                    isDarkMenu ? "text-white" : "text-foreground"
-                  }`}
-                >
-                  {s.label}
-                </span>
-              )}
-              <button
-                className={`p-1 ${isDarkMenu ? "text-white/60" : "text-foreground/60"}`}
-                onClick={() => setSection(section === s.key ? null : s.key)}
-                aria-label={`Toggle ${s.label} submenu`}
-              >
-                <ChevronDown
-                  className={`h-5 w-5 transition-transform duration-300 ${
-                    section === s.key ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            </div>
-            {section === s.key && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-2 space-y-1 pb-2 pl-3"
-              >
-                {s.items.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.to}
-                    onClick={onClose}
-                    className={`block rounded-lg px-3 py-2 text-base font-medium transition-colors ${
-                      isDarkMenu
-                        ? "text-white/70 hover:bg-white/10 hover:text-white"
-                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </motion.div>
-            )}
-          </div>
-        ))}
+      {/* Top spacer matching fixed header height (h-20) */}
+      <div className="h-20 shrink-0 w-full" aria-hidden="true" />
 
-        <div className="flex flex-col gap-2 pt-4">
+      {/* Center scrollable navigation list: matches desktop arrangement exactly */}
+      <nav className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-5 sm:px-8 py-4 sm:py-6">
+        <div className="mx-auto w-full max-w-md space-y-1.5">
+          {/* 1. Home */}
           <Link
             to="/"
             onClick={() => {
               onClose();
-              if (window.location.pathname === "/") {
+              if (pathname === "/") {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
-              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
+            className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
+              pathname === "/"
+                ? isDarkMenu
+                  ? "bg-white/10 text-white font-bold"
+                  : "bg-accent text-foreground font-bold"
+                : isDarkMenu
+                  ? "text-white/80 hover:bg-white/[0.06] hover:text-white"
+                  : "text-foreground/80 hover:bg-accent/60 hover:text-foreground"
             }`}
           >
-            Home
+            <span>Home</span>
+            {pathname === "/" && (
+              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+            )}
           </Link>
+
+          {/* 2. Our Works */}
           <Link
             to="/our-works"
             onClick={onClose}
-            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
-              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
+            className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
+              pathname === "/our-works"
+                ? isDarkMenu
+                  ? "bg-white/10 text-white font-bold"
+                  : "bg-accent text-foreground font-bold"
+                : isDarkMenu
+                  ? "text-white/80 hover:bg-white/[0.06] hover:text-white"
+                  : "text-foreground/80 hover:bg-accent/60 hover:text-foreground"
             }`}
           >
-            Our Works
+            <span>Our Works</span>
+            {pathname === "/our-works" && (
+              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+            )}
           </Link>
+
+          {/* 3. Packages with expandable submenu */}
+          <div className="rounded-xl transition-all">
+            <div
+              className={`flex items-center justify-between rounded-xl px-4 py-2.5 transition-all ${
+                isPackagesActive
+                  ? isDarkMenu
+                    ? "bg-white/10 text-white font-bold"
+                    : "bg-accent text-foreground font-bold"
+                  : isDarkMenu
+                    ? "text-white/80 hover:bg-white/[0.06] hover:text-white"
+                    : "text-foreground/80 hover:bg-accent/60 hover:text-foreground"
+              }`}
+            >
+              <Link
+                to="/packages"
+                onClick={onClose}
+                className="text-lg font-semibold flex-1 tracking-tight py-1"
+              >
+                Packages
+              </Link>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPackagesOpen((v) => !v);
+                }}
+                className={`p-2 -mr-1 rounded-lg transition-all active:scale-90 ${
+                  isDarkMenu
+                    ? "text-white/70 hover:text-white hover:bg-white/10"
+                    : "text-foreground/70 hover:text-foreground hover:bg-accent"
+                }`}
+                aria-label="Toggle Packages submenu"
+                aria-expanded={packagesOpen}
+              >
+                <ChevronDown
+                  className={`h-5 w-5 transition-transform duration-300 ${
+                    packagesOpen ? "rotate-180 text-white" : ""
+                  }`}
+                />
+              </button>
+            </div>
+
+            <AnimatePresence initial={false}>
+              {packagesOpen && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div
+                    className={`my-1.5 ml-4 pl-3.5 space-y-1 border-l ${
+                      isDarkMenu ? "border-white/15" : "border-border"
+                    }`}
+                  >
+                    {NAV_PACKAGES.map((pkg) => {
+                      const isActive = pathname === pkg.to;
+                      return (
+                        <Link
+                          key={pkg.label}
+                          to={pkg.to}
+                          onClick={onClose}
+                          className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                            isActive
+                              ? isDarkMenu
+                                ? "bg-white/10 text-white font-semibold"
+                                : "bg-accent text-foreground font-semibold"
+                              : isDarkMenu
+                                ? "text-white/70 hover:bg-white/[0.06] hover:text-white"
+                                : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
+                          }`}
+                        >
+                          <span>{pkg.label}</span>
+                          {isActive && (
+                            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* 4. About */}
           <Link
             to="/about"
             onClick={onClose}
-            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
-              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
+            className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
+              pathname === "/about"
+                ? isDarkMenu
+                  ? "bg-white/10 text-white font-bold"
+                  : "bg-accent text-foreground font-bold"
+                : isDarkMenu
+                  ? "text-white/80 hover:bg-white/[0.06] hover:text-white"
+                  : "text-foreground/80 hover:bg-accent/60 hover:text-foreground"
             }`}
           >
-            About
+            <span>About</span>
+            {pathname === "/about" && (
+              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+            )}
           </Link>
+
+          {/* 5. Contact */}
           <Link
             to="/contact"
             onClick={onClose}
-            className={`rounded-xl px-3 py-2.5 text-lg font-semibold transition-colors ${
-              isDarkMenu ? "text-white hover:bg-white/10" : "text-foreground hover:bg-accent"
+            className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
+              pathname === "/contact"
+                ? isDarkMenu
+                  ? "bg-white/10 text-white font-bold"
+                  : "bg-accent text-foreground font-bold"
+                : isDarkMenu
+                  ? "text-white/80 hover:bg-white/[0.06] hover:text-white"
+                  : "text-foreground/80 hover:bg-accent/60 hover:text-foreground"
             }`}
           >
-            Contact
+            <span>Contact</span>
+            {pathname === "/contact" && (
+              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+            )}
           </Link>
         </div>
-      </div>
+      </nav>
 
-      {/* Bottom Action Area */}
-      <div className="mx-auto w-full max-w-lg pt-6">
-        <Link
-          to="/contact"
-          onClick={onClose}
-          className={`flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-semibold shadow-lg transition-all duration-300 ${
-            isDarkMenu
-              ? "bg-white text-ink hover:bg-white/90"
-              : "bg-primary text-primary-foreground hover:bg-primary/90"
-          }`}
-        >
-          Book a Consultation
-          <ArrowRight className="h-4 w-4" />
-        </Link>
+      {/* Pinned Bottom Action Area: Always visible at bottom of screen */}
+      <div
+        className={`shrink-0 w-full border-t px-5 sm:px-8 pt-3.5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl ${
+          isDarkMenu
+            ? "border-white/10 bg-ink/95 backdrop-blur-2xl"
+            : "border-border bg-background/95 backdrop-blur-2xl"
+        }`}
+      >
+        <div className="mx-auto w-full max-w-md">
+          <Link
+            to="/contact"
+            onClick={onClose}
+            className={`group flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-bold shadow-lg transition-all duration-300 active:scale-[0.98] ${
+              isDarkMenu
+                ? "bg-white text-ink hover:bg-white/90 shadow-black/30"
+                : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-primary/25"
+            }`}
+          >
+            <span>Book a Consultation</span>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </div>
       </div>
     </motion.div>
   );
