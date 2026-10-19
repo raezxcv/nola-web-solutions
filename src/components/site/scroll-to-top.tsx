@@ -7,44 +7,36 @@ export function ScrollToTop() {
   const [isDarkBg, setIsDarkBg] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (scrollY > 300) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-        return;
-      }
+    let ticking = false;
 
-      // Check background luminance at button position
-      const x = window.innerWidth - 48;
-      const y = window.innerHeight - 48;
-      const elements = document.elementsFromPoint(x, y);
-      let detectedDark = false;
-      for (const el of elements) {
-        if (el.closest("button[aria-label='Scroll to top']")) continue;
-        const darkAncestor = el.closest(
-          ".bg-ink, [data-dark='true'], footer, .bg-slate-900, .bg-slate-950, .bg-black",
-        );
-        if (darkAncestor) {
-          detectedDark = true;
-          break;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        if (scrollY <= 300) {
+          setVisible(false);
+          ticking = false;
+          return;
         }
-        const bg = window.getComputedStyle(el).backgroundColor;
-        const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-        if (match) {
-          const alpha = match[4] !== undefined ? parseFloat(match[4]) : 1;
-          if (alpha > 0.4) {
-            const r = parseInt(match[1] ?? "0", 10);
-            const g = parseInt(match[2] ?? "0", 10);
-            const b = parseInt(match[3] ?? "0", 10);
-            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-            detectedDark = luminance < 0.45;
-            break;
-          }
+
+        setVisible(true);
+
+        // Check if button is positioned over a dark section
+        const x = Math.max(10, window.innerWidth - 48);
+        const y = Math.max(10, window.innerHeight - 48);
+        const el = document.elementFromPoint(x, y);
+
+        if (el) {
+          const darkAncestor = el.closest(
+            ".bg-ink, .bg-ink-2, .bg-ink-3, [data-dark='true'], footer, .bg-slate-900, .bg-slate-950, .bg-black",
+          );
+          setIsDarkBg(Boolean(darkAncestor));
         }
-      }
-      setIsDarkBg(detectedDark);
+
+        ticking = false;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

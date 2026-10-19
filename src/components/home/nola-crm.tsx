@@ -120,9 +120,9 @@ export function NolaCrm() {
               <polygon points="415,292 426,298 422,286" fill="rgba(18, 200, 234, 0.9)" />
             </svg>
 
-            {/* Small Ambient Particle Dots */}
+            {/* Small Ambient Particle Dots — pure CSS compositor animation */}
             {PARTICLES.map((p) => (
-              <motion.div
+              <div
                 key={p.id}
                 style={{
                   position: "absolute",
@@ -130,18 +130,10 @@ export function NolaCrm() {
                   top: `${(p.y / 460) * 100}%`,
                   width: `${p.size}px`,
                   height: `${p.size}px`,
+                  animationDuration: `${p.duration}s`,
+                  animationDelay: `${p.delay}s`,
                 }}
-                className="rounded-full bg-cyan/60"
-                animate={{
-                  scale: [1, 1.8, 1],
-                  opacity: [0.3, 0.9, 0.3],
-                }}
-                transition={{
-                  duration: p.duration,
-                  repeat: Infinity,
-                  delay: p.delay,
-                  ease: "easeInOut",
-                }}
+                className="pointer-events-none rounded-full bg-cyan/60 animate-pulse-soft"
               />
             ))}
 

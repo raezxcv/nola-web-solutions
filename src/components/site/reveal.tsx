@@ -4,13 +4,13 @@ import { useInView } from "../../lib/motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+// Pure GPU-accelerated transform & opacity — eliminates expensive CPU/GPU blur re-rasterization
 const variants: Variants = {
-  hidden: { opacity: 0, y: 16, filter: "blur(3px)" },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: EASE },
+    transition: { duration: 0.5, ease: EASE },
   },
 };
 
@@ -34,12 +34,11 @@ export function Reveal({
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       variants={{
-        hidden: { opacity: 0, y: 18, filter: "blur(3px)", transition: { duration: 0.25 } },
+        hidden: { opacity: 0, y: 14, transition: { duration: 0.2 } },
         visible: {
           opacity: 1,
           y: 0,
-          filter: "blur(0px)",
-          transition: { duration: 0.65, ease: EASE, delay },
+          transition: { duration: 0.55, ease: EASE, delay },
         },
       }}
     >
@@ -108,14 +107,10 @@ export function RevealWords({
     <motion.span
       ref={ref as never}
       className={`inline-block ${fullClass}`}
-      initial={{ opacity: 0, y: 16, filter: "blur(3px)" }}
-      animate={
-        inView
-          ? { opacity: 1, y: 0, filter: "blur(0px)" }
-          : { opacity: 0, y: 16, filter: "blur(3px)" }
-      }
+      initial={{ opacity: 0, y: 12 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={{
-        duration: 0.6,
+        duration: 0.5,
         ease: EASE,
         delay,
       }}

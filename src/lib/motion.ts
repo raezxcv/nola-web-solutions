@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from "react";
  * @param once     If true, stays `true` after the first intersection (default: false — re-animates on re-entry)
  */
 export function useInView<T extends HTMLElement = HTMLDivElement>(
-  options: IntersectionObserverInit = { threshold: 0.2, rootMargin: "0px 0px -100px 0px" },
-  once = false,
+  options: IntersectionObserverInit = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+  once = true,
 ) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
@@ -19,6 +19,12 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(
       setInView(true);
       return;
     }
+
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setInView(true);
+      return;
+    }
+
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {

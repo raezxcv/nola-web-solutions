@@ -602,7 +602,7 @@ const FlexCarousel = ({
       width: 2,
       height: 2,
       depth: false,
-      minFilter: gl.LINEAR_MIPMAP_LINEAR,
+      minFilter: gl.LINEAR,
       magFilter: gl.LINEAR,
     });
 
@@ -634,7 +634,13 @@ const FlexCarousel = ({
     });
 
     const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-    const anisotropy = renderer.getExtension("EXT_texture_filter_anisotropic") ? 8 : 0;
+    const isLowTier =
+      typeof navigator !== "undefined" &&
+      ((navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+        window.innerWidth < 768);
+    const anisotropy = renderer.getExtension("EXT_texture_filter_anisotropic")
+      ? (isLowTier ? 2 : 4)
+      : 0;
 
     let slots: Slot[] = [];
     let width = 1;
@@ -928,9 +934,13 @@ const FlexCarousel = ({
     const resize = () => {
       width = Math.max(1, container.clientWidth);
       height = Math.max(1, container.clientHeight);
+      const isLowTierDevice =
+        typeof navigator !== "undefined" &&
+        ((navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+          window.innerWidth < 768);
       renderer.dpr = Math.min(
         window.devicePixelRatio || 1,
-        1.0, // Hard cap at 1.0× DPR for maximum 60fps scrolling performance
+        isLowTierDevice ? 0.75 : 1.0, // Adaptive DPR cap for smooth 60fps on low-end and mobile devices
       );
       renderer.setSize(width, height);
       target.setSize(
@@ -1214,7 +1224,6 @@ const FlexCarousel = ({
         }
         (renderer as unknown as { bindFramebuffer: (t?: unknown) => void }).bindFramebuffer();
         target.texture.bind();
-        gl.generateMipmap(gl.TEXTURE_2D);
 
         lensUniforms["uResolution"]!.value = [width, height];
         lensUniforms["uDpr"]!.value = dpr;

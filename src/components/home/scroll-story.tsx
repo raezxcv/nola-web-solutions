@@ -183,7 +183,6 @@ function BrowserChrome({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Stacked layer whose opacity + scale crossfade with the active stage. */
 function Layer({
   index,
   stageF,
@@ -200,8 +199,21 @@ function Layer({
   );
   const scale = useTransform(stageF, [index - 0.6, index, index + 0.6], [0.96, 1, 1.02]);
   const y = useTransform(stageF, [index - 0.6, index, index + 0.6], [12, 0, -12]);
+  const pointerEvents = useTransform(opacity, (v) => (v > 0.1 ? "auto" : "none"));
+  const visibility = useTransform(opacity, (v) => (v > 0 ? "visible" : "hidden"));
+
   return (
-    <motion.div className="absolute inset-5 sm:inset-7" style={{ opacity, scale, y }}>
+    <motion.div
+      className="absolute inset-5 sm:inset-7"
+      style={{
+        opacity,
+        scale,
+        y,
+        pointerEvents,
+        visibility,
+        willChange: "transform, opacity",
+      }}
+    >
       {children}
     </motion.div>
   );

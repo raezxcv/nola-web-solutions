@@ -38,9 +38,20 @@ const hexToRgb = (hex: string): [number, number, number] => {
 };
 
 const detailToSteps = (detail: GradientWavesDetail): number => {
-  if (detail === "low") return 28.0;
-  if (detail === "high") return 80.0;
-  return 48.0; // medium: was 70, reduced for better GPU perf on all devices
+  const isLowTier =
+    typeof navigator !== "undefined" &&
+    ((navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+      (typeof window !== "undefined" && window.innerWidth < 768));
+
+  if (isLowTier) {
+    if (detail === "low") return 16.0;
+    if (detail === "high") return 36.0;
+    return 24.0;
+  }
+
+  if (detail === "low") return 20.0;
+  if (detail === "high") return 60.0;
+  return 36.0;
 };
 
 const vertex = `#version 300 es
@@ -193,15 +204,17 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
-    // Cap DPR at 1.0 — the wave animation is low-frequency enough that
-    // sub-pixel precision offers no visible benefit and halves GPU work on
-    // HiDPI / retina displays.
+    const isLowTier =
+      typeof navigator !== "undefined" &&
+      ((navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+        (typeof window !== "undefined" && window.innerWidth < 768));
+
     const renderer = new Renderer({
       webgl: 2,
       alpha: true,
       premultipliedAlpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.0),
+      dpr: Math.min(window.devicePixelRatio || 1, isLowTier ? 0.65 : 1.0),
     });
 
     const gl = renderer.gl;
@@ -270,6 +283,15 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
     const currentMouse: [number, number] = [0.5, 0.5];
     const targetMouse: [number, number] = [0.5, 0.5];
 
+    const reducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    const isTouchOnly =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(pointer: coarse)").matches &&
+      !window.matchMedia?.("(hover: hover)").matches;
+
     const onPointerMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       targetMouse[0] = (e.clientX - rect.left) / rect.width;
@@ -279,8 +301,11 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
       targetMouse[0] = 0.5;
       targetMouse[1] = 0.5;
     };
-    canvas.addEventListener("pointermove", onPointerMove);
-    canvas.addEventListener("pointerleave", onPointerLeave);
+
+    if (!isTouchOnly) {
+      canvas.addEventListener("pointermove", onPointerMove);
+      canvas.addEventListener("pointerleave", onPointerLeave);
+    }
 
     let raf = 0;
     let isVisible = true;
@@ -306,6 +331,10 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
     };
 
     const tryStart = () => {
+      if (reducedMotion) {
+        renderer.render({ scene: mesh });
+        return;
+      }
       if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
     };
     const tryStop = () => {
@@ -347,8 +376,10 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      canvas.removeEventListener("pointermove", onPointerMove);
-      canvas.removeEventListener("pointerleave", onPointerLeave);
+      if (!isTouchOnly) {
+        canvas.removeEventListener("pointermove", onPointerMove);
+        canvas.removeEventListener("pointerleave", onPointerLeave);
+      }
       ctxMap.delete(container);
       try {
         container.removeChild(canvas);
