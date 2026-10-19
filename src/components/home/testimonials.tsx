@@ -38,18 +38,18 @@ export function Testimonials() {
         <div className="relative mt-16 mx-auto max-w-4xl">
           <div className="relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:p-14 backdrop-blur-xl min-h-[440px]">
             <div>
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center justify-between gap-3">
                 {/* Star rating */}
                 <div className="flex items-center gap-1">
                   {Array.from({ length: t.rating ?? 5 }).map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 fill-amber-400 text-amber-400" />
                   ))}
-                  <span className="ml-2.5 text-xs font-bold uppercase tracking-wider text-amber-400">
+                  <span className="ml-2.5 hidden sm:inline text-xs font-bold uppercase tracking-wider text-amber-400">
                     5.0 Verified Review
                   </span>
                 </div>
 
-                <span className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1 text-xs font-semibold text-white/60">
+                <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 sm:px-3.5 sm:py-1 text-[0.7rem] sm:text-xs font-semibold text-white/60">
                   {idx + 1} of {total}
                 </span>
               </div>

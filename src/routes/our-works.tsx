@@ -114,7 +114,10 @@ function WorkPage() {
             </div>
 
             {/* Category Filter Tabs with Neutral Editorial Styling & DM Sans */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 border-b border-slate-200/90 pb-6 sm:pb-8">
+            <div
+              className="flex flex-nowrap sm:flex-wrap items-center gap-2 sm:gap-2.5 border-b border-slate-200/90 pb-6 sm:pb-8 overflow-x-auto sm:overflow-x-visible no-scrollbar -mx-4 sm:mx-0 px-4 sm:px-0"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
               {CATEGORIES.map((cat) => {
                 const count =
                   cat === "All"
@@ -128,7 +131,7 @@ function WorkPage() {
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    className={`group inline-flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 ${
+                    className={`shrink-0 group inline-flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 ${
                       isActive
                         ? "bg-primary text-white shadow-sm shadow-primary/25 ring-1 ring-primary"
                         : "bg-slate-100/80 text-slate-600 hover:bg-primary/8 hover:text-primary border border-transparent hover:border-primary/20"

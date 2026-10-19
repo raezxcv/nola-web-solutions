@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useIsMobile } from "../hooks/use-mobile";
 import {
   ArrowRight,
   ShieldCheck,
@@ -93,7 +94,11 @@ const IMPLEMENTATION_PHASES = [
     title: "System Audit & Blueprint",
     description:
       "We conduct an in-depth operational analysis of your customer journey, intake bottlenecks, and technology gaps to architect a tailored digital blueprint.",
-    highlights: ["Customer Intake Flow Audit", "Pipeline Architecture Map", "Custom Scope Definition"],
+    highlights: [
+      "Customer Intake Flow Audit",
+      "Pipeline Architecture Map",
+      "Custom Scope Definition",
+    ],
   },
   {
     phase: "02",
@@ -103,7 +108,11 @@ const IMPLEMENTATION_PHASES = [
     title: "Conversion Web Engineering",
     description:
       "We craft a bespoke, lightning-fast website designed around your brand identity with clear calls-to-action that guide visitors into qualified inquiries.",
-    highlights: ["Custom UX / UI Architecture", "Mobile & Speed Optimization", "Conversion Copy Layout"],
+    highlights: [
+      "Custom UX / UI Architecture",
+      "Mobile & Speed Optimization",
+      "Conversion Copy Layout",
+    ],
   },
   {
     phase: "03",
@@ -113,7 +122,11 @@ const IMPLEMENTATION_PHASES = [
     title: "CRM & Workflow Integration",
     description:
       "We wire NOLA CRM, automated email/SMS sequences, appointment engines, and optional 24/7 AI qualification chatbots into a unified command center.",
-    highlights: ["NOLA CRM Pipeline Wiring", "Multi-Channel Follow-ups", "AI Qualification Chatbot"],
+    highlights: [
+      "NOLA CRM Pipeline Wiring",
+      "Multi-Channel Follow-ups",
+      "AI Qualification Chatbot",
+    ],
   },
   {
     phase: "04",
@@ -123,7 +136,11 @@ const IMPLEMENTATION_PHASES = [
     title: "Live Testing & Team Handoff",
     description:
       "We stress-test every trigger, form, and pipeline, provide thorough 1-on-1 team training, and launch your turnkey system with continuous clarity.",
-    highlights: ["End-to-End Pipeline Stress Test", "1-on-1 Founder Walkthrough", "Complete Handover Documentation"],
+    highlights: [
+      "End-to-End Pipeline Stress Test",
+      "1-on-1 Founder Walkthrough",
+      "Complete Handover Documentation",
+    ],
   },
 ];
 
@@ -150,6 +167,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const isMobile = useIsMobile();
   return (
     <div
       className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white"
@@ -160,8 +178,7 @@ function AboutPage() {
         eyebrow="EDITORIAL FOLIO // ABOUT NOLA"
         title={
           <>
-            Technology should make business{" "}
-            <span className="text-gradient-brand">easier.</span>
+            Technology should make business <span className="text-gradient-brand">easier.</span>
           </>
         }
         subtitle="A digital studio partnering with Agency Owners, Coaches, Health Professionals, and Local Businesses to engineer high-converting websites, smart CRM automation, and turnkey scale."
@@ -226,8 +243,8 @@ function AboutPage() {
                       <ExternalLink className="h-3.5 w-3.5" />
                     </a>
                     , Norwin simplifies marketing and business automation for non-techy
-                    entrepreneurs. He understands the real-world challenges of running a business and
-                    bridges that with digital strategy that actually works.
+                    entrepreneurs. He understands the real-world challenges of running a business
+                    and bridges that with digital strategy that actually works.
                   </p>
                 </div>
 
@@ -298,7 +315,7 @@ function AboutPage() {
                     shine={1.3}
                     glare={0.65}
                     width="100%"
-                    height={520}
+                    height={isMobile ? 540 : 660}
                     radius={32}
                     className="shadow-2xl shadow-blue-600/20"
                   />
@@ -359,8 +376,8 @@ function AboutPage() {
 
                 <p className="mt-4 text-sm sm:text-base text-white/60 font-light leading-relaxed">
                   We eliminate friction by designing cohesive, reliable systems — from modern
-                  websites to smart automation workflows — that free entrepreneurs to focus on high-impact
-                  work while delighting their customers at every touchpoint.
+                  websites to smart automation workflows — that free entrepreneurs to focus on
+                  high-impact work while delighting their customers at every touchpoint.
                 </p>
 
                 <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/10 space-y-2.5 sm:space-y-3">
@@ -369,7 +386,10 @@ function AboutPage() {
                     "Accelerate speed-to-lead and customer intake",
                     "Build predictable, scalable customer journeys",
                   ].map((item) => (
-                    <div key={item} className="flex items-start gap-3 text-xs sm:text-sm text-white/80 font-medium">
+                    <div
+                      key={item}
+                      className="flex items-start gap-3 text-xs sm:text-sm text-white/80 font-medium"
+                    >
                       <Check className="h-4 w-4 text-cyan shrink-0 mt-0.5" />
                       <span>{item}</span>
                     </div>
@@ -411,7 +431,10 @@ function AboutPage() {
                     "Democratizing high-level AI and CRM automation",
                     "Empowering non-techy founders with total clarity",
                   ].map((item) => (
-                    <div key={item} className="flex items-start gap-3 text-xs sm:text-sm text-white/80 font-medium">
+                    <div
+                      key={item}
+                      className="flex items-start gap-3 text-xs sm:text-sm text-white/80 font-medium"
+                    >
                       <Check className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
                       <span>{item}</span>
                     </div>
@@ -437,8 +460,8 @@ function AboutPage() {
                   </span>
                 </h2>
                 <p className="mt-3 sm:mt-4 text-sm sm:text-base lg:text-lg text-slate-500 font-light leading-relaxed">
-                  Every business sector operates under distinct customer dynamics. We tailor our
-                  web design, CRM logic, and automation triggers to fit your real-world workflows.
+                  Every business sector operates under distinct customer dynamics. We tailor our web
+                  design, CRM logic, and automation triggers to fit your real-world workflows.
                 </p>
               </div>
 
@@ -492,7 +515,10 @@ function AboutPage() {
                             KEY ARCHITECTURE
                           </p>
                           {aud.deliverables.map((item) => (
-                            <div key={item} className="flex items-center gap-2 text-[0.72rem] font-medium text-slate-700">
+                            <div
+                              key={item}
+                              className="flex items-center gap-2 text-[0.72rem] font-medium text-slate-700"
+                            >
                               <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0" />
                               <span>{item}</span>
                             </div>
@@ -503,7 +529,9 @@ function AboutPage() {
                       {/* Bottom Impact Metric & Action */}
                       <div className="mt-8 pt-4 border-t border-slate-100">
                         <div className="flex items-center justify-between text-xs font-bold">
-                          <span className="text-[0.68rem] text-slate-400 font-mono">{aud.impact}</span>
+                          <span className="text-[0.68rem] text-slate-400 font-mono">
+                            {aud.impact}
+                          </span>
                           <Link
                             to="/contact"
                             className="inline-flex items-center gap-1 text-primary group-hover:translate-x-0.5 transition-transform"

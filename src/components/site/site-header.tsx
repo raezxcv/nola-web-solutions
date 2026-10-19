@@ -46,7 +46,8 @@ export function SiteHeader() {
 
   // Lock background scroll when mobile navigation menu is open
   useEffect(() => {
-    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } })
+      .__lenis;
 
     if (mobileOpen) {
       document.documentElement.style.overflow = "hidden";
@@ -87,10 +88,8 @@ export function SiteHeader() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMobileOpen(false);
     };
-    if (mobileOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
-    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
   const onDark = isDarkRoute(location.pathname);
@@ -459,9 +458,7 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
                           }`}
                         >
                           <span>{pkg.label}</span>
-                          {isActive && (
-                            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                          )}
+                          {isActive && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
                         </Link>
                       );
                     })}

@@ -8,8 +8,8 @@ export function SiteFooter() {
     <footer className="relative overflow-hidden bg-ink text-white">
       <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-[0.04]" />
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
-          <div className="col-span-2 md:col-span-1">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="sm:col-span-2 lg:col-span-1">
             <img
               src={ASSETS.logoWhite}
               alt="NOLA Web Solutions"

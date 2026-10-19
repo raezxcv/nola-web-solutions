@@ -78,8 +78,27 @@ export function About() {
             </Reveal>
           </div>
 
-          {/* Right — Founder image */}
-          <div className="relative flex justify-center lg:col-span-5 lg:justify-end">
+          {/* Right — Founder image with subtle background name typography */}
+          <div className="relative flex justify-center lg:col-span-5 lg:justify-end overflow-hidden lg:overflow-visible">
+            {/* Subtle all-caps background statement text */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-1 sm:top-3 z-0 flex flex-col items-center justify-start select-none w-full px-4 lg:hidden"
+              aria-hidden="true"
+            >
+              <span
+                className="font-black uppercase tracking-tight leading-[0.82] text-slate-900/[0.05] text-[clamp(2.1rem,11.2vw,3.4rem)] lg:text-[clamp(4.8rem,7.2vw,7.5rem)]"
+                style={{ fontFamily: "'Syne', sans-serif" }}
+              >
+                NORWIN
+              </span>
+              <span
+                className="font-black uppercase tracking-tight leading-[0.82] text-slate-900/[0.05] text-[clamp(2.1rem,11.2vw,3.4rem)] lg:text-[clamp(4.8rem,7.2vw,7.5rem)] pb-0 lg:pb-1"
+                style={{ fontFamily: "'Syne', sans-serif" }}
+              >
+                LACSON
+              </span>
+            </div>
+
             <motion.img
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -87,7 +106,7 @@ export function About() {
               transition={{ duration: 0.9, ease: EASE }}
               src="https://assets.cdn.filesafe.space/SOslPv2WdLbXaOLLux7c/media/6ac8988acc7a5a2b734e0fb5.png"
               alt="Norwin Lacson — Founder & Lead Architect of NOLA Web Solutions"
-              className="max-h-[640px] sm:max-h-[720px] w-auto object-contain object-bottom scale-105 sm:scale-110 origin-bottom drop-shadow-2xl"
+              className="relative z-10 max-h-[340px] sm:max-h-[440px] md:max-h-[520px] lg:max-h-[620px] xl:max-h-[680px] w-auto object-contain object-bottom scale-100 sm:scale-105 lg:scale-115 xl:scale-120 origin-bottom drop-shadow-2xl"
               loading="lazy"
             />
           </div>

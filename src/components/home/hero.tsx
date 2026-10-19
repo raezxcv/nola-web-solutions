@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { RevealWords } from "../site/reveal";
 import GradientWaves from "../site/gradient-waves";
 import FlexCarousel from "../site/flex-carousel";
+import { useIsMobile } from "../../hooks/use-mobile";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -148,22 +149,27 @@ export function Hero() {
 }
 
 export function HeroCarouselSection() {
+  const isMobile = useIsMobile();
+
   return (
     <section className="relative w-full bg-background text-foreground py-0 overflow-hidden">
-      <div className="relative w-full py-0" style={{ height: "460px" }}>
+      <div className="relative w-full py-0 h-[220px] sm:h-[300px] md:h-[460px]">
         <FlexCarousel
           preset="ribbon"
-          intro="rise"
-          introDelay={1.5}
-          cardHeight={0.675}
-          gap={16}
-          radius={16}
-          squeeze={0.12}
+          bend={isMobile ? 0 : 0.34}
+          squeeze={isMobile ? 0 : 0.12}
+          tilt={0}
+          dispersion={isMobile ? 0 : 0.4}
+          intro={isMobile ? "none" : "rise"}
+          introDelay={isMobile ? 0 : 1.5}
+          cardHeight={isMobile ? 0.72 : 0.675}
+          gap={isMobile ? 12 : 16}
+          radius={isMobile ? 12 : 16}
           focusOnClick={false}
           captureWheel={false}
           followCursor={false}
           draggable={false}
-          speed={28}
+          speed={isMobile ? 22 : 28}
           captions={false}
           autoplay
         />

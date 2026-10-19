@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -11,6 +11,8 @@ import {
   UsersRound,
   MessageSquareText,
   CreditCard,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { SERVICES } from "../../lib/site-data";
 import { Eyebrow } from "../site/ui";
@@ -314,7 +316,75 @@ function ServiceMockup({ slug }: { slug: string }) {
 
 export function WhatsInside() {
   const [active, setActive] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const isDown = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftVal = useRef(0);
+  const hasDragged = useRef(false);
+
   const svc = SERVICES[active] ?? SERVICES[0];
+
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 6);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 6);
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    checkScroll();
+    const handleResize = () => checkScroll();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    isDown.current = true;
+    hasDragged.current = false;
+    startX.current = e.pageX - el.offsetLeft;
+    scrollLeftVal.current = el.scrollLeft;
+  };
+
+  const onMouseLeave = () => {
+    isDown.current = false;
+  };
+
+  const onMouseUp = () => {
+    isDown.current = false;
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    const el = scrollRef.current;
+    if (!isDown.current || !el) return;
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    if (Math.abs(walk) > 4) {
+      hasDragged.current = true;
+      e.preventDefault();
+    }
+    el.scrollLeft = scrollLeftVal.current - walk;
+    checkScroll();
+  };
+
+  const scrollByAmount = (amount: number) => {
+    scrollRef.current?.scrollBy({ left: amount, behavior: "smooth" });
+    setTimeout(checkScroll, 320);
+  };
+
+  const onWheel = (e: React.WheelEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 0) {
+      el.scrollLeft += e.deltaY;
+      checkScroll();
+    }
+  };
 
   if (!svc) return null;
 
@@ -337,8 +407,40 @@ export function WhatsInside() {
         </Reveal>
 
         {/* Tab rail with icons */}
-        <Reveal delay={0.1}>
-          <div className="mt-10 -mx-4 overflow-x-auto px-4 no-scrollbar sm:mx-0 sm:px-0">
+        <div className="relative mt-10">
+          {/* Scroll left button on mobile */}
+          {canScrollLeft && (
+            <button
+              onClick={() => scrollByAmount(-180)}
+              className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-slate-800 shadow-md border border-slate-200 transition-all hover:bg-white active:scale-95 sm:hidden"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+          )}
+
+          {/* Scroll right button on mobile */}
+          {canScrollRight && (
+            <button
+              onClick={() => scrollByAmount(180)}
+              className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-slate-800 shadow-md border border-slate-200 transition-all hover:bg-white active:scale-95 sm:hidden"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          )}
+
+          <div
+            ref={scrollRef}
+            data-lenis-prevent
+            onScroll={checkScroll}
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeave}
+            onMouseUp={onMouseUp}
+            onMouseMove={onMouseMove}
+            onWheel={onWheel}
+            className="cursor-grab active:cursor-grabbing -mx-4 overflow-x-auto overscroll-x-contain touch-pan-x px-4 pb-2 pt-1 no-scrollbar select-none sm:mx-0 sm:px-0 sm:pb-0 sm:pt-0 sm:cursor-default"
+          >
             <div className="flex min-w-max gap-2 sm:flex-wrap sm:justify-start">
               {SERVICES.map((s, i) => {
                 const on = i === active;
@@ -347,8 +449,21 @@ export function WhatsInside() {
                   <button
                     key={s.slug}
                     id={`capability-tab-${s.slug}`}
-                    onClick={() => setActive(i)}
-                    className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 ${
+                    onClick={() => {
+                      if (hasDragged.current) {
+                        hasDragged.current = false;
+                        return;
+                      }
+                      setActive(i);
+                      const btn = document.getElementById(`capability-tab-${s.slug}`);
+                      btn?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest",
+                        inline: "center",
+                      });
+                      setTimeout(checkScroll, 320);
+                    }}
+                    className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 ${
                       on
                         ? "border-slate-900 bg-slate-900 text-white shadow-md"
                         : "border-slate-200/90 bg-white/80 text-slate-700 hover:border-slate-400 hover:bg-slate-100 hover:text-slate-900"
@@ -361,7 +476,7 @@ export function WhatsInside() {
               })}
             </div>
           </div>
-        </Reveal>
+        </div>
 
         {/* Detail panel — Mac-style window with content-relevant mockup */}
         <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-10 shadow-xl">
