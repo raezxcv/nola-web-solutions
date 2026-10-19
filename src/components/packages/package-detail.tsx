@@ -458,7 +458,7 @@ export function PackageDetail({ slug }: { slug: PackageSlug }) {
                 {/* Price block */}
                 <div className="mt-7 flex items-end gap-3">
                   <span
-                    className="text-5xl font-black tracking-tight text-primary"
+                    className="inline-block text-5xl font-black tracking-tight text-gradient-brand"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {pkg.price}

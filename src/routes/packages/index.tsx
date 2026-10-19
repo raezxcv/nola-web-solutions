@@ -304,11 +304,11 @@ function PackagesIndex() {
 
                 return (
                   <div key={pkg.slug} className="relative">
-                    {/* "Most Popular" badge — solid primary, centered on the top edge */}
+                    {/* "Most Popular" badge — gradient badge, centered on the top edge */}
                     {pkg.featured && (
                       <div className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
                         <span
-                          className="inline-flex items-center gap-1.5 rounded-full border border-primary bg-primary px-4 py-1.5 text-[0.63rem] font-bold uppercase tracking-widest text-white shadow-md"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-cyan-300/40 bg-gradient-to-r from-blue-600 via-primary to-cyan-400 px-4 py-1.5 text-[0.63rem] font-extrabold uppercase tracking-widest text-white shadow-lg shadow-primary/25"
                           style={{ fontFamily: "'DM Sans', sans-serif" }}
                         >
                           <Star className="h-2.5 w-2.5 fill-current" /> Most Popular
@@ -360,7 +360,7 @@ function PackagesIndex() {
                         {/* Price */}
                         <div className="mt-5 mb-1">
                           <span
-                            className={`text-4xl font-black tracking-tight ${cfg.eyebrowClass}`}
+                            className="inline-block text-4xl font-black tracking-tight text-gradient-brand"
                             style={{ fontFamily: "'DM Sans', sans-serif" }}
                           >
                             {pkg.price}

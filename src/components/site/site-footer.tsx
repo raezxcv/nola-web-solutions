@@ -1,51 +1,66 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Mail, Phone, PhoneCall } from "lucide-react";
-import { ASSETS, CONTACT_INFO, NAV_PACKAGES, NAV_SERVICES } from "../../lib/site-data";
-import { FacebookIcon, WhatsAppIcon } from "./social-links";
+import { ArrowUpRight } from "lucide-react";
+import { ASSETS, CONTACT_INFO, NAV_PACKAGES } from "../../lib/site-data";
+import { SocialIconsRow } from "./social-links";
+
+const FOOTER_COMPANY = [
+  { label: "Home", to: "/" },
+  { label: "Our Works", to: "/our-works" },
+  { label: "About", to: "/about" },
+];
 
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-ink text-white">
       <div className="pointer-events-none absolute inset-0 bg-grid-dark opacity-[0.04]" />
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="sm:col-span-2 lg:col-span-1">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 w-full">
+          <div className="w-full">
             <img
               src={ASSETS.logoWhite}
               alt="NOLA Web Solutions"
-              className="h-14 sm:h-16 md:h-20 w-auto"
+              className="h-14 sm:h-16 md:h-20 w-auto max-w-full"
             />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/45">
+            <p className="mt-5 text-sm leading-relaxed text-white/45">
               We don't just build websites. We build the digital system around your business.
             </p>
 
-            {/* Simple Contact & Social Channels with Text */}
-            <ul className="mt-7 space-y-2.5 text-xs text-white/55">
+            <div className="mt-6">
+              <SocialIconsRow dark />
+            </div>
+          </div>
+
+          <FooterCol title="Company" items={FOOTER_COMPANY} />
+
+          <FooterCol title="Packages" items={NAV_PACKAGES} />
+
+          <div className="w-full">
+            <h4 className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/35">
+              Contact
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-sm text-white/55">
               <li>
                 <a
                   href={`mailto:${CONTACT_INFO.email}`}
-                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                  className="block truncate transition-colors hover:text-white"
                 >
-                  <Mail className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
-                  <span className="truncate">{CONTACT_INFO.email}</span>
+                  {CONTACT_INFO.email}
                 </a>
               </li>
               <li>
                 <a
                   href={`tel:${CONTACT_INFO.phonePHTel}`}
-                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                  className="block transition-colors hover:text-white"
                 >
-                  <Phone className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
-                  <span>PH: {CONTACT_INFO.phonePH}</span>
+                  PH: {CONTACT_INFO.phonePH}
                 </a>
               </li>
               <li>
                 <a
                   href={`tel:${CONTACT_INFO.phoneUKTel}`}
-                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                  className="block transition-colors hover:text-white"
                 >
-                  <PhoneCall className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
-                  <span>UK: {CONTACT_INFO.phoneUK}</span>
+                  UK: {CONTACT_INFO.phoneUK}
                 </a>
               </li>
               <li>
@@ -53,10 +68,9 @@ export function SiteFooter() {
                   href={CONTACT_INFO.whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                  className="block transition-colors hover:text-white"
                 >
-                  <WhatsAppIcon className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
-                  <span>WhatsApp: +63 917 506 2203</span>
+                  WhatsApp: {CONTACT_INFO.phonePH}
                 </a>
               </li>
               <li>
@@ -64,26 +78,13 @@ export function SiteFooter() {
                   href={CONTACT_INFO.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center gap-2.5 transition-colors hover:text-white"
+                  className="block transition-colors hover:text-white"
                 >
-                  <FacebookIcon className="h-3.5 w-3.5 text-white/40 transition-colors group-hover:text-white shrink-0" />
-                  <span>Facebook</span>
+                  Facebook
                 </a>
               </li>
             </ul>
           </div>
-
-          <FooterCol title="Packages" items={NAV_PACKAGES} />
-          <FooterCol title="Capabilities" items={NAV_SERVICES.slice(0, 6)} />
-          <FooterCol
-            title="Company"
-            items={[
-              { label: "About", to: "/about" },
-              { label: "Our Works", to: "/our-works" },
-              { label: "Solutions", to: "/solutions" },
-              { label: "Contact", to: "/contact" },
-            ]}
-          />
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-white/[0.08] pt-8 text-sm text-white/40 sm:flex-row sm:items-center">
@@ -122,7 +123,7 @@ export function SiteFooter() {
 
 function FooterCol({ title, items }: { title: string; items: { label: string; to: string }[] }) {
   return (
-    <div>
+    <div className="w-full">
       <h4 className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white/35">
         {title}
       </h4>
