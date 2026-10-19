@@ -238,8 +238,7 @@ function SimpleLink({
   children: React.ReactNode;
 }) {
   const location = useLocation();
-  const isActive =
-    to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
+  const isActive = to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
 
   const handleClick = () => {
     if (isActive) {
@@ -576,7 +575,9 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
                           }`}
                         >
                           <span>{pkg.label}</span>
-                          {isActive && <span className="h-1.5 w-1.5 rounded-full bg-white shadow-sm shadow-white/30" />}
+                          {isActive && (
+                            <span className="h-1.5 w-1.5 rounded-full bg-white shadow-sm shadow-white/30" />
+                          )}
                         </Link>
                       );
                     })}
