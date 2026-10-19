@@ -20,12 +20,45 @@ import { SmoothScroll } from "../components/site/smooth-scroll";
 
 import { ASSETS } from "../lib/site-data";
 
-/** Scrolls the window to the top whenever the route pathname changes. */
+/** Scrolls the window to the top whenever the route pathname changes or redirects. */
 function ScrollReset() {
   const { pathname } = useLocation();
+
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+    }
+
+    const resetToTop = () => {
+      const lenis = (
+        window as unknown as {
+          __lenis?: {
+            scrollTo: (target: number | string, opts?: { immediate?: boolean }) => void;
+          };
+        }
+      ).__lenis;
+
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    resetToTop();
+    const rafId = requestAnimationFrame(resetToTop);
+    const timeoutId = setTimeout(resetToTop, 30);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timeoutId);
+    };
   }, [pathname]);
+
   return null;
 }
 

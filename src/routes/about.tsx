@@ -268,17 +268,17 @@ function AboutPage() {
                 <div className="mt-7 flex flex-wrap items-center gap-3 sm:gap-4">
                   <Link
                     to="/contact"
-                    className="group inline-flex items-center gap-2 sm:gap-3 rounded-full border border-primary bg-primary px-5 sm:px-7 py-3 sm:py-3.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all duration-300 hover:bg-white hover:text-primary active:scale-[0.98]"
+                    className="group inline-flex items-center gap-2 sm:gap-3 rounded-full border border-slate-900 bg-slate-900 px-5 sm:px-7 py-3 sm:py-3.5 text-sm font-bold text-white shadow-md shadow-slate-900/10 transition-all duration-300 hover:bg-white hover:text-slate-900 hover:border-slate-900 active:scale-[0.98]"
                   >
                     <span>Book a Free Consultation</span>
-                    <span className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                    <span className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-white text-slate-900 transition-colors duration-300 group-hover:bg-slate-900 group-hover:text-white">
                       <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                     </span>
                   </Link>
 
                   <Link
                     to="/packages"
-                    className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 sm:px-7 py-3 sm:py-3.5 text-sm font-bold text-slate-700 transition-all duration-300 hover:border-primary hover:text-primary active:scale-[0.98]"
+                    className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 sm:px-7 py-3 sm:py-3.5 text-sm font-bold text-slate-700 transition-all duration-300 hover:border-slate-900 hover:text-slate-900 active:scale-[0.98]"
                   >
                     Explore Packages
                   </Link>

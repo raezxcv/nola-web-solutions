@@ -108,7 +108,10 @@ export function SiteHeader() {
             to="/"
             onClick={() => {
               setMobileOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              scrollToPageTop(true);
+            }}
+            onDoubleClick={() => {
+              scrollToPageTop(true);
             }}
             className="flex items-center group py-1"
             aria-label="NOLA Web Solutions home"
@@ -203,6 +206,28 @@ function isDarkRoute(_pathname: string) {
   return true;
 }
 
+export function scrollToPageTop(smooth: boolean = true) {
+  const lenis = (
+    window as unknown as {
+      __lenis?: {
+        scrollTo: (target: number | string, opts?: { immediate?: boolean }) => void;
+      };
+    }
+  ).__lenis;
+
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: !smooth });
+  }
+
+  if (!smooth) {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  } else {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }
+}
+
 function SimpleLink({
   to,
   onDark,
@@ -212,20 +237,46 @@ function SimpleLink({
   onDark: boolean;
   children: React.ReactNode;
 }) {
+  const location = useLocation();
+  const isActive =
+    to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
+
   const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (isActive) {
+      scrollToPageTop(true);
+    }
+  };
+
+  const handleDoubleClick = () => {
+    scrollToPageTop(true);
   };
 
   return (
     <Link
       to={to}
       onClick={handleClick}
-      activeProps={{ className: onDark ? "text-white" : "text-foreground" }}
-      className={`relative text-sm font-medium transition-colors ${
-        onDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground"
-      } after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100`}
+      onDoubleClick={handleDoubleClick}
+      className={`relative inline-flex flex-col items-center justify-center py-1 text-sm font-semibold transition-colors duration-200 ${
+        isActive
+          ? onDark
+            ? "text-white"
+            : "text-foreground"
+          : onDark
+            ? "text-white/60 hover:text-white"
+            : "text-foreground/60 hover:text-foreground"
+      }`}
     >
-      {children}
+      <span>{children}</span>
+      {/* Active underline indicator */}
+      <span
+        className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full transition-all duration-300 origin-center ${
+          isActive
+            ? onDark
+              ? "bg-white opacity-100 scale-x-100"
+              : "bg-foreground opacity-100 scale-x-100"
+            : "opacity-0 scale-x-0"
+        }`}
+      />
     </Link>
   );
 }
@@ -247,7 +298,24 @@ function NavItem({
   setOpenMenu: (v: string | null) => void;
   items: { label: string; to: string }[];
 }) {
+  const location = useLocation();
+  const isActive = to
+    ? to === "/"
+      ? location.pathname === "/"
+      : location.pathname.startsWith(to)
+    : false;
   const open = openMenu === menuKey;
+
+  const handleClick = () => {
+    if (isActive) {
+      scrollToPageTop(true);
+    }
+  };
+
+  const handleDoubleClick = () => {
+    scrollToPageTop(true);
+  };
+
   return (
     <div
       className="relative"
@@ -258,18 +326,53 @@ function NavItem({
         {to ? (
           <Link
             to={to}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`text-sm font-medium transition-colors ${
-              onDark ? "text-white/65 hover:text-white" : "text-foreground/65 hover:text-foreground"
-            } after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100`}
+            onClick={handleClick}
+            onDoubleClick={handleDoubleClick}
+            className={`relative inline-flex flex-col items-center justify-center py-1 text-sm font-semibold transition-colors duration-200 ${
+              isActive
+                ? onDark
+                  ? "text-white"
+                  : "text-foreground"
+                : onDark
+                  ? "text-white/60 hover:text-white"
+                  : "text-foreground/60 hover:text-foreground"
+            }`}
           >
-            {label}
+            <span>{label}</span>
+            {/* Active underline */}
+            <span
+              className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full transition-all duration-300 origin-center ${
+                isActive
+                  ? onDark
+                    ? "bg-white opacity-100 scale-x-100"
+                    : "bg-foreground opacity-100 scale-x-100"
+                  : "opacity-0 scale-x-0"
+              }`}
+            />
           </Link>
         ) : (
           <span
-            className={`text-sm font-medium ${onDark ? "text-white/65" : "text-foreground/65"}`}
+            onDoubleClick={handleDoubleClick}
+            className={`relative inline-flex flex-col items-center justify-center py-1 text-sm font-semibold cursor-pointer ${
+              isActive
+                ? onDark
+                  ? "text-white"
+                  : "text-foreground"
+                : onDark
+                  ? "text-white/60"
+                  : "text-foreground/60"
+            }`}
           >
-            {label}
+            <span>{label}</span>
+            <span
+              className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full transition-all duration-300 origin-center ${
+                isActive
+                  ? onDark
+                    ? "bg-white opacity-100 scale-x-100"
+                    : "bg-foreground opacity-100 scale-x-100"
+                  : "opacity-0 scale-x-0"
+              }`}
+            />
           </span>
         )}
         <button
@@ -345,7 +448,7 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
             onClick={() => {
               onClose();
               if (pathname === "/") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                scrollToPageTop(true);
               }
             }}
             className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
@@ -360,14 +463,19 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
           >
             <span>Home</span>
             {pathname === "/" && (
-              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+              <span className="h-2 w-2 rounded-full bg-white ring-2 ring-white/25 shadow-sm shadow-white/30" />
             )}
           </Link>
 
           {/* 2. Our Works */}
           <Link
             to="/our-works"
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              if (pathname === "/our-works") {
+                scrollToPageTop(true);
+              }
+            }}
             className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
               pathname === "/our-works"
                 ? isDarkMenu
@@ -380,7 +488,7 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
           >
             <span>Our Works</span>
             {pathname === "/our-works" && (
-              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+              <span className="h-2 w-2 rounded-full bg-white ring-2 ring-white/25 shadow-sm shadow-white/30" />
             )}
           </Link>
 
@@ -399,7 +507,12 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
             >
               <Link
                 to="/packages"
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+                  if (pathname === "/packages") {
+                    scrollToPageTop(true);
+                  }
+                }}
                 className="text-lg font-semibold flex-1 tracking-tight py-1"
               >
                 Packages
@@ -446,7 +559,12 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
                         <Link
                           key={pkg.label}
                           to={pkg.to}
-                          onClick={onClose}
+                          onClick={() => {
+                            onClose();
+                            if (pathname === pkg.to) {
+                              scrollToPageTop(true);
+                            }
+                          }}
                           className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                             isActive
                               ? isDarkMenu
@@ -458,7 +576,7 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
                           }`}
                         >
                           <span>{pkg.label}</span>
-                          {isActive && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
+                          {isActive && <span className="h-1.5 w-1.5 rounded-full bg-white shadow-sm shadow-white/30" />}
                         </Link>
                       );
                     })}
@@ -471,7 +589,12 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
           {/* 4. About */}
           <Link
             to="/about"
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              if (pathname === "/about") {
+                scrollToPageTop(true);
+              }
+            }}
             className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
               pathname === "/about"
                 ? isDarkMenu
@@ -484,14 +607,19 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
           >
             <span>About</span>
             {pathname === "/about" && (
-              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+              <span className="h-2 w-2 rounded-full bg-white ring-2 ring-white/25 shadow-sm shadow-white/30" />
             )}
           </Link>
 
           {/* 5. Contact */}
           <Link
             to="/contact"
-            onClick={onClose}
+            onClick={() => {
+              onClose();
+              if (pathname === "/contact") {
+                scrollToPageTop(true);
+              }
+            }}
             className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-all ${
               pathname === "/contact"
                 ? isDarkMenu
@@ -504,7 +632,7 @@ function MobileMenu({ onDark, onClose }: { onDark: boolean; onClose: () => void 
           >
             <span>Contact</span>
             {pathname === "/contact" && (
-              <span className="h-2 w-2 rounded-full bg-primary ring-2 ring-primary/20" />
+              <span className="h-2 w-2 rounded-full bg-white ring-2 ring-white/25 shadow-sm shadow-white/30" />
             )}
           </Link>
         </div>

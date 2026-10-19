@@ -505,10 +505,10 @@ export function PackageDetail({ slug }: { slug: PackageSlug }) {
                 <div className="mt-9 flex flex-wrap gap-3">
                   <Link
                     to="/contact"
-                    className="group inline-flex items-center gap-3 rounded-full border border-primary bg-primary px-7 py-3.5 text-sm font-bold text-white shadow-md shadow-primary/20 transition-all duration-300 hover:bg-white hover:text-primary active:scale-[0.98]"
+                    className="group inline-flex items-center gap-3 rounded-full border border-slate-900 bg-slate-900 px-7 py-3.5 text-sm font-bold text-white shadow-md shadow-slate-900/10 transition-all duration-300 hover:bg-white hover:text-slate-900 hover:border-slate-900 active:scale-[0.98]"
                   >
                     <span>Book a Free Consultation</span>
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-slate-900 transition-colors duration-300 group-hover:bg-slate-900 group-hover:text-white">
                       <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </Link>
@@ -707,7 +707,7 @@ export function PackageDetail({ slug }: { slug: PackageSlug }) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-12">
               <span
-                className="text-[0.65rem] font-extrabold uppercase tracking-[0.22em] text-primary"
+                className="text-[0.65rem] font-extrabold uppercase tracking-[0.22em] text-slate-500"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
                 04 // Other Packages
@@ -766,10 +766,10 @@ export function PackageDetail({ slug }: { slug: PackageSlug }) {
                       {/* Pill CTA button */}
                       <Link
                         to={PACKAGE_PATHS[o.slug]}
-                        className="group/btn mt-5 inline-flex w-full items-center justify-between rounded-full border border-primary bg-transparent px-5 py-2.5 text-xs font-bold text-primary transition-all duration-300 hover:bg-primary hover:text-white active:scale-[0.98]"
+                        className="group/btn mt-5 inline-flex w-full items-center justify-between rounded-full border border-slate-900 bg-transparent px-5 py-2.5 text-xs font-bold text-slate-900 transition-all duration-300 hover:bg-slate-900 hover:text-white active:scale-[0.98]"
                       >
                         <span>View {o.marketingLabel}</span>
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white transition-colors duration-300 group-hover/btn:bg-white group-hover/btn:text-primary">
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-900 text-white transition-colors duration-300 group-hover/btn:bg-white group-hover/btn:text-slate-900">
                           <ArrowRight className="h-3 w-3" />
                         </span>
                       </Link>

@@ -233,10 +233,10 @@ function CapabilitiesModal({ pkg, onClose }: { pkg: (typeof PACKAGES)[0]; onClos
           <Link
             to={PACKAGE_PATHS[pkg.slug as PackageSlug]}
             onClick={onClose}
-            className="group inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-primary bg-primary px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-white hover:text-primary active:scale-[0.98]"
+            className="group inline-flex flex-1 items-center justify-center gap-3 rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-white hover:text-slate-900 active:scale-[0.98]"
           >
             <span>{pkg.cta}</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-slate-900 transition-colors duration-300 group-hover:bg-slate-900 group-hover:text-white">
               <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </span>
           </Link>
@@ -426,10 +426,10 @@ function PackagesIndex() {
                       <div className="px-7 sm:px-9 pb-7 sm:pb-9 pt-0">
                         <Link
                           to={PACKAGE_PATHS[pkg.slug as PackageSlug]}
-                          className="group/btn inline-flex w-full items-center justify-between rounded-full border border-primary bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-white hover:text-primary active:scale-[0.98]"
+                          className="group/btn inline-flex w-full items-center justify-between rounded-full border border-slate-900 bg-slate-900 px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-white hover:text-slate-900 active:scale-[0.98]"
                         >
                           <span>{pkg.cta}</span>
-                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-primary transition-colors duration-300 group-hover/btn:bg-primary group-hover/btn:text-white">
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-slate-900 transition-colors duration-300 group-hover/btn:bg-slate-900 group-hover/btn:text-white">
                             <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
                           </span>
                         </Link>

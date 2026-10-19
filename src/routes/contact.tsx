@@ -328,10 +328,10 @@ function ContactPage() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="group mt-7 inline-flex w-full items-center justify-center gap-3 rounded-full border border-primary bg-primary text-white py-3.5 px-6 text-sm font-bold shadow-lg shadow-primary/25 transition-all duration-300 hover:bg-transparent hover:text-primary active:scale-[0.98]"
+                      className="group mt-7 inline-flex w-full items-center justify-center gap-3 rounded-full border border-slate-900 bg-slate-900 text-white py-3.5 px-6 text-sm font-bold shadow-lg shadow-slate-900/10 transition-all duration-300 hover:bg-white hover:text-slate-900 active:scale-[0.98]"
                     >
                       <span>Send Message & Request Quote</span>
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-slate-900 transition-colors duration-300 group-hover:bg-slate-900 group-hover:text-white">
                         <Send className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                       </span>
                     </button>

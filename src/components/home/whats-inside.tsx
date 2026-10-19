@@ -406,30 +406,8 @@ export function WhatsInside() {
           </div>
         </Reveal>
 
-        {/* Tab rail with icons */}
+        {/* Tab rail with icons matching clean mobile horizontal scroll */}
         <div className="relative mt-10">
-          {/* Scroll left button on mobile */}
-          {canScrollLeft && (
-            <button
-              onClick={() => scrollByAmount(-180)}
-              className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-slate-800 shadow-md border border-slate-200 transition-all hover:bg-white active:scale-95 sm:hidden"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-          )}
-
-          {/* Scroll right button on mobile */}
-          {canScrollRight && (
-            <button
-              onClick={() => scrollByAmount(180)}
-              className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-slate-800 shadow-md border border-slate-200 transition-all hover:bg-white active:scale-95 sm:hidden"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          )}
-
           <div
             ref={scrollRef}
             data-lenis-prevent
@@ -439,9 +417,10 @@ export function WhatsInside() {
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
             onWheel={onWheel}
-            className="cursor-grab active:cursor-grabbing -mx-4 overflow-x-auto overscroll-x-contain touch-pan-x px-4 pb-2 pt-1 no-scrollbar select-none sm:mx-0 sm:px-0 sm:pb-0 sm:pt-0 sm:cursor-default"
+            className="cursor-grab active:cursor-grabbing -mx-4 sm:mx-0 overflow-x-auto overscroll-x-contain touch-pan-x px-4 sm:px-0 pb-2 pt-1 no-scrollbar select-none"
+            style={{ WebkitOverflowScrolling: "touch" }}
           >
-            <div className="flex min-w-max gap-2 sm:flex-wrap sm:justify-start">
+            <div className="flex flex-nowrap min-w-max gap-2 sm:gap-2.5">
               {SERVICES.map((s, i) => {
                 const on = i === active;
                 const Icon = SERVICE_ICONS[s.slug] || Monitor;

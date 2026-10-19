@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   ArrowRight,
   ExternalLink,
@@ -11,6 +11,8 @@ import {
   Cpu,
   Palmtree,
   TrendingUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CLIENT_WORKS, type ClientWork } from "../lib/site-data";
@@ -61,6 +63,86 @@ export const Route = createFileRoute("/our-works")({
 function WorkPage() {
   const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [selectedWork, setSelectedWork] = useState<ClientWork | null>(null);
+
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const hasMovedRef = useRef(false);
+
+  const checkScroll = useCallback(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 6);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 6);
+  }, []);
+
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    checkScroll();
+
+    // Translate vertical mouse wheel into horizontal scroll on desktop
+    const onWheel = (e: WheelEvent) => {
+      if (el.scrollWidth > el.clientWidth) {
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (delta !== 0) {
+          e.preventDefault();
+          el.scrollLeft += delta;
+          checkScroll();
+        }
+      }
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const el = tabsRef.current;
+    if (!el) return;
+    isDraggingRef.current = true;
+    hasMovedRef.current = false;
+    setIsDragging(true);
+    startXRef.current = e.pageX - el.offsetLeft;
+    scrollLeftRef.current = el.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current) return;
+    const el = tabsRef.current;
+    if (!el) return;
+    e.preventDefault();
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    if (Math.abs(walk) > 4) {
+      hasMovedRef.current = true;
+    }
+    el.scrollLeft = scrollLeftRef.current - walk;
+    checkScroll();
+  };
+
+  const handleMouseUpOrLeave = () => {
+    isDraggingRef.current = false;
+    setIsDragging(false);
+  };
+
+  const scrollByAmount = (amount: number) => {
+    const el = tabsRef.current;
+    if (!el) return;
+    el.scrollBy({ left: amount, behavior: "smooth" });
+    setTimeout(checkScroll, 350);
+  };
 
   // Close modal on Escape
   useEffect(() => {
@@ -114,47 +196,61 @@ function WorkPage() {
             </div>
 
             {/* Category Filter Tabs with Neutral Editorial Styling & DM Sans */}
-            <div
-              className="flex flex-nowrap sm:flex-wrap items-center gap-2 sm:gap-2.5 border-b border-slate-200/90 pb-6 sm:pb-8 overflow-x-auto sm:overflow-x-visible no-scrollbar -mx-4 sm:mx-0 px-4 sm:px-0"
-              style={{ WebkitOverflowScrolling: "touch" }}
-            >
-              {CATEGORIES.map((cat) => {
-                const count =
-                  cat === "All"
-                    ? CLIENT_WORKS.length
-                    : CLIENT_WORKS.filter((w) => w.category === cat).length;
-                const isActive = activeCategory === cat;
-                const { label, icon: Icon } = CATEGORY_CONFIG[cat];
+            <div className="border-b border-slate-200/90 pb-6 sm:pb-8">
+              {/* Scrollable Tabs row matching mobile view */}
+              <div
+                ref={tabsRef}
+                data-lenis-prevent
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUpOrLeave}
+                onMouseLeave={handleMouseUpOrLeave}
+                className={`flex flex-nowrap items-center gap-2 sm:gap-2.5 overflow-x-auto overscroll-x-contain touch-pan-x no-scrollbar -mx-4 sm:mx-0 px-4 sm:px-0 select-none ${
+                  isDragging ? "cursor-grabbing" : "cursor-grab"
+                }`}
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                {CATEGORIES.map((cat) => {
+                  const count =
+                    cat === "All"
+                      ? CLIENT_WORKS.length
+                      : CLIENT_WORKS.filter((w) => w.category === cat).length;
+                  const isActive = activeCategory === cat;
+                  const { label, icon: Icon } = CATEGORY_CONFIG[cat];
 
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    className={`shrink-0 group inline-flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                      isActive
-                        ? "bg-primary text-white shadow-sm shadow-primary/25 ring-1 ring-primary"
-                        : "bg-slate-100/80 text-slate-600 hover:bg-primary/8 hover:text-primary border border-transparent hover:border-primary/20"
-                    }`}
-                  >
-                    <Icon
-                      className={`h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transition-colors ${
-                        isActive ? "text-white" : "text-slate-400 group-hover:text-primary"
-                      }`}
-                    />
-                    <span>{label}</span>
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-[0.68rem] font-bold transition-colors ${
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => {
+                        if (!hasMovedRef.current) setActiveCategory(cat);
+                      }}
+                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      className={`shrink-0 group inline-flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-200 ${
                         isActive
-                          ? "bg-white/20 text-white"
-                          : "bg-white text-slate-700 border border-slate-200/80 shadow-2xs"
+                          ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-900"
+                          : "bg-slate-100/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-900 border border-transparent hover:border-slate-300/60"
                       }`}
                     >
-                      {count}
-                    </span>
-                  </button>
-                );
-              })}
+                      <Icon
+                        className={`h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transition-colors ${
+                          isActive ? "text-white" : "text-slate-500 group-hover:text-slate-900"
+                        }`}
+                      />
+                      <span className="whitespace-nowrap">{label}</span>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[0.68rem] font-bold transition-colors ${
+                          isActive
+                            ? "bg-white/20 text-white"
+                            : "bg-white text-slate-700 border border-slate-200/80 shadow-2xs"
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* 3-Column Grid with Simple, Butter-Smooth Tab Animation */}
